@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace JobLeet.WebApi.JobLeet.Core.Entities.Users
+namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.Users
 {
     public class Login : BaseEntity
     {
@@ -8,9 +8,9 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Users
         public int UserId { get; set; }
         public AccountStatus AccountStatus { get; set; }
         public bool AccountCreated { get; set; } = false;
-        public DateTime LoginTime {  get; set; } = DateTime.UtcNow;
-        public DateTime? LogoutTime { get; set; } 
-        public string IPAddress { get; set; } 
+        public DateTime LoginTime { get; set; } = DateTime.UtcNow;
+        public DateTime? LogoutTime { get; set; }
+        public string IPAddress { get; set; }
 
 
     }

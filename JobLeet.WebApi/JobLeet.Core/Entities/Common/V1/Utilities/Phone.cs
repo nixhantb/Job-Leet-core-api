@@ -1,4 +1,4 @@
-﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Common
+﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Shared
 {
     public class Phone : BaseEntity
     {
