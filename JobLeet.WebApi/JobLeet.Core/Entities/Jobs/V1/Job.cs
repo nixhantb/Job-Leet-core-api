@@ -1,7 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Proficiencies;
-using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Qualifications;
-using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Shared;
-using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.IndustryTypes;
+﻿using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
 using System.ComponentModel.DataAnnotations.Schema;
 

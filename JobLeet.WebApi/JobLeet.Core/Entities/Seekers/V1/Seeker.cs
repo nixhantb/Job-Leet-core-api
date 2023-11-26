@@ -1,7 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.Users;
-using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Proficiencies;
-using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Qualifications;
-using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Shared;
+﻿using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1

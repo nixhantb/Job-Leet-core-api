@@ -1,6 +1,6 @@
-﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Qualifications
+﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
 {
-   
+
     /// <summary>
     /// new Skill { Title = "Programming", Description = "Software development skills" },
     /// </summary>

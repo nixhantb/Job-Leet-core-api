@@ -1,4 +1,4 @@
-﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Statuses
+﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1
 {
     public class Status : BaseEntity
     {
@@ -6,7 +6,7 @@
     }
     public enum StatusName
     {
-        Active, 
+        Active,
         Inactive,
         Pending,
         Completed,
