@@ -1,7 +1,6 @@
-﻿using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.Users;
-using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Shared;
-using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.IndustryTypes;
-using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Profiles;
+﻿using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1

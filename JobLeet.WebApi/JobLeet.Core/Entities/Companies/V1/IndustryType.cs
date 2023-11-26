@@ -1,8 +1,8 @@
-﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.IndustryTypes
+﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1
 {
     public class IndustryType : BaseEntity
     {
-        public IndustryCategory IndustryCategory {  get; set; }
+        public IndustryCategory IndustryCategory { get; set; }
     }
     public enum IndustryCategory
     {

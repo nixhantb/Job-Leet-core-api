@@ -1,4 +1,4 @@
-﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Proficiencies
+﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
 {
     public class Experience : BaseEntity
     {
