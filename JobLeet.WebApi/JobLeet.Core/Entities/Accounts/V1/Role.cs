@@ -1,4 +1,4 @@
-﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.Roles
+﻿namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
 {
     public class Role : BaseEntity
     {
