@@ -3,6 +3,7 @@
 Welcome to Job Leet, your go-to job portal powered by the Job Leet Job Portal API. This project is built using .NET 7 and MySQL, providing a robust REST API for job-related functionalities.
 
 Find the Frontend Development repository of this project [Here](https://github.com/Nix-code/Job-Leet-core-UI)
+
 ## Table of Contents
 
 - [Introduction](#job-leet---job-portal-api)
@@ -42,7 +43,7 @@ Build the application:
 
 
 ### Configuration
-Update the appsettings.json file with your MySQL database connection details. But we will be using `appsettings.Development.json` for our work.
+Update the `appsettings.json` file with your MySQL database connection details. But we will be using `appsettings.Development.json` for our work.
 
 ### Database
 Job Leet uses a MySQL database to store job-related data. You can configure the database connection settings in the appsettings.json file.
