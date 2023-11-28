@@ -54,5 +54,7 @@ If you encounter any issues or have suggestions, feel free to open an issue [her
 ### Contribution
 We welcome contributions to make Job Leet even better! If you'd like to contribute, please follow the steps [here](CONTRIBUTION.md)
 
+Supported with CICD GitHub Actions 
+
 ### License
 This project is licensed under the [MIT License](LICENSE). Feel free to explore, contribute, and use Job Leet according to the terms of the license.
