@@ -42,3 +42,4 @@ artifacts/
 *.msm
 *.msp
 *appsettings.Development.json
+*published
