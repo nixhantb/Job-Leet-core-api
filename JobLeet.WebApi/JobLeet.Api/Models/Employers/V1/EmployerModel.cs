@@ -1,7 +1,5 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Companies.V1;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace JobLeet.WebApi.JobLeet.Api.Models.Employers.V1
 {
     public class EmployerModel : BaseModel
