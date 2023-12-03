@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace JobLeet.WebApi.JobLeet.Api.Models.Companies.V1
+﻿namespace JobLeet.WebApi.JobLeet.Api.Models.Companies.V1
 {
     public class CompanyModel : BaseModel
     {
