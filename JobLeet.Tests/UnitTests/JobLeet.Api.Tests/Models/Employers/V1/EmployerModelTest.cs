@@ -2,8 +2,6 @@
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Companies.V1;
-
-using Xunit;
 namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
 {
     public class EmployerModelTest
