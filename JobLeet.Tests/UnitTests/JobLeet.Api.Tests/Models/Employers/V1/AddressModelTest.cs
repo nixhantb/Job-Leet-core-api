@@ -1,12 +1,4 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
-using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
 {
     public class AddressModelTest
@@ -24,8 +16,8 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
             Assert.True(validationResults.Any(v => v.MemberNames.Contains("Country") && v.ErrorMessage.Contains("required")), "Country property should be marked as required");
 
 
-            Assert.False(validationResults.Any(v => v.MemberNames.Contains("Street") && v.ErrorMessage.Contains("required")), "Country property should be marked as required");
-            Assert.False(validationResults.Any(v => v.MemberNames.Contains("City") && v.ErrorMessage.Contains("required")), "Country property should be marked as required");
+            Assert.False(validationResults.Any(v => v.MemberNames.Contains("Street") && v.ErrorMessage.Contains("required")), "Street property should be marked as required");
+            Assert.False(validationResults.Any(v => v.MemberNames.Contains("City") && v.ErrorMessage.Contains("required")), "City property should be marked as required");
         }
 
         [Fact]
@@ -40,6 +32,34 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
             Assert.Equal(Addressmodel.Country, "UAE");
         }
 
+        [Fact]
+        public void PostalCode_ShouldNotAllowInvalidFormat()
+        {
+            // Arrange
+            var AddressModel = new AddressModel { PostalCode = "Invalid-Format" };
+            // Act
+            var validateResults = ValidateAnnotationHelper.ValidateModel(AddressModel);
+            // Assert
+            Assert.NotEmpty(validateResults);
+            
+            Assert.Equal("Invalid Postal Code format", validateResults[0].ErrorMessage);
+        }
+
+        [Fact]
+        public void PostalCode_ShouldPassExtendedValidFormat()
+        {
+            var AddressModel = new AddressModel { PostalCode = "12345-6789" };
+            var validateResults = ValidateAnnotationHelper.ValidateModel(AddressModel);
+            Assert.NotEqual("Invalid Postal Code format", validateResults[0].ErrorMessage);
+        }
+
+        [Fact]
+        public void PostalCode_ShouldPassValidFormat()
+        {
+            var AddressModel = new AddressModel { PostalCode = "12345" };
+            var validateResults = ValidateAnnotationHelper.ValidateModel(AddressModel);
+            Assert.NotEqual("Invalid Postal Code format", validateResults[0].ErrorMessage);
+        }
 
        
     }
