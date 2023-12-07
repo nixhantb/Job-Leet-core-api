@@ -2,35 +2,48 @@
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Companies.V1;
-using Xunit;
 
+using Xunit;
 namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
 {
     public class EmployerModelTest
     {
         [Fact]
-        public void EmployerModelTest_ShouldInstantiateSuccessfully()
+        public void EmployerModel_ShouldValidateRequiredAnnotations()
         {
-            EmployerModel employerModel = new EmployerModel
-            {
-                // Arrange
-                Name = new PersonNameModel { FirstName = "Nishant", MiddleName = null, LastName = "Banjade" },
-                Address = new AddressModel { Street = "ST", City = "BLR", State = "KA", PostalCode = "560068", Country = "IND" },
-                Phone = new PhoneModel { CountryCode = 91, PhoneNumber = "921212" },
-                Profile = new  CompanyProfileModel{ 
-                    
-                    ProfileInfo = "AYZ company is the service based company",
-                    CompanyAddress = new AddressModel { Street = "ST", City = "BLR", State = "KA", PostalCode = "560068", Country = "IND" },
-                    ContactPhone = new PhoneModel { CountryCode = 91, PhoneNumber = "921212" },
-                    ContactEmail = new EmailModel { EmailType = EmailType.Work, EmailAddress = "ayz.official@xyz.com"},
-                    Website = "www.ayz.com",
-                    IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology}
-                },
-                EmployerType = EmployerTypeModel.MediumBusiness,
-                IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology},
+            // Arrange
+            EmployerModel employerModelRequiredValidation = new EmployerModel
+            {  
+                Name = null,
+                Address = null,
+                Phone = null,
+                Profile = null,
+                IndustryType = null,
             };
             // Assert
+           
+            Assert.Null(employerModelRequiredValidation.Name);
+            Assert.Null(employerModelRequiredValidation.Address);
+            Assert.Null(employerModelRequiredValidation.Phone);
+            Assert.Null(employerModelRequiredValidation.Profile);
+            Assert.Null(employerModelRequiredValidation.IndustryType);
+           
+           
+            var validationResults = ValidateAnnotationHelper.ValidateModel(employerModelRequiredValidation);
 
+            Assert.True(validationResults.Any(v => v.MemberNames.Contains("Name") && v.ErrorMessage.Contains("required")), "Name should be marked as required");
+            Assert.True(validationResults.Any(v => v.MemberNames.Contains("Address") && v.ErrorMessage.Contains("required")), "Address should be marked as required");
+            Assert.True(validationResults.Any(v => v.MemberNames.Contains("Phone") && v.ErrorMessage.Contains("required")), "Phone should be marked as required");
+            Assert.True(validationResults.Any(v => v.MemberNames.Contains("Profile") && v.ErrorMessage.Contains("required")), "Profile should be marked as required");
+            Assert.True(validationResults.Any(v => v.MemberNames.Contains("IndustryType") && v.ErrorMessage.Contains("required")), "IndustryType should be marked as required");
+        }
+        [Fact]
+        public void EmployerModelTest_ShouldInstantiateSuccessfully()
+        {
+            // Arrange
+            EmployerModel employerModel = CreateValidEmployerModel();
+   
+            // Assert
             Assert.Equal(null, employerModel.Name.MiddleName);
             Assert.NotNull(employerModel.Name);
             Assert.NotNull(employerModel.Address);
@@ -38,15 +51,37 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
             Assert.NotNull(employerModel.Profile);
             Assert.Equal(EmployerTypeModel.MediumBusiness, employerModel.EmployerType);
             Assert.NotEqual(employerModel.EmployerType, EmployerTypeModel.LargeCorporation);
+        
+            var validationResults = ValidateAnnotationHelper.ValidateModel(employerModel);
 
-            Assert.Equal(employerModel.Profile.ContactEmail.EmailAddress, "ayz.official@xyz.com");
-            Assert.NotEqual(employerModel.Profile.Website, "hello@acv.com");
-            Assert.Equal(employerModel.IndustryType.IndustryCategory, IndustryCategory.Technology);
-
-            Assert.IsType<int>(employerModel.Phone.CountryCode);
-            Assert.IsType<string>(employerModel.Phone.PhoneNumber);
-
-
+            Assert.False(validationResults.Any(v => v.MemberNames.Contains("Name") && v.ErrorMessage.Contains("required")), "Name should be marked as required");
+            Assert.False(validationResults.Any(v => v.MemberNames.Contains("Address") && v.ErrorMessage.Contains("required")), "Address should be marked as required");
+            Assert.False(validationResults.Any(v => v.MemberNames.Contains("Phone") && v.ErrorMessage.Contains("required")), "Phone should be marked as required");
+            Assert.False(validationResults.Any(v => v.MemberNames.Contains("Profile") && v.ErrorMessage.Contains("required")), "Profile should be marked as required");
+            Assert.False(validationResults.Any(v => v.MemberNames.Contains("EmployerType") && v.ErrorMessage.Contains("required")), "EmployerType should be marked as required");
+            Assert.False(validationResults.Any(v => v.MemberNames.Contains("IndustryType") && v.ErrorMessage.Contains("required")), "IndustryType should be marked as required");
         }
+        private EmployerModel CreateValidEmployerModel()
+        {
+            return new EmployerModel
+            {
+                // Arrange
+                Name = new PersonNameModel { FirstName = "Nishant", MiddleName = null, LastName = "Banjade" },
+                Address = new AddressModel { Street = "ST", City = "BLR", State = "KA", PostalCode = "560068", Country = "HI" },
+                Phone = new PhoneModel { CountryCode = 91, PhoneNumber = "921212" },
+                Profile = new CompanyProfileModel
+                {
+                    ProfileInfo = "AYZ company is the service-based company",
+                    CompanyAddress = new AddressModel { Street = "ST", City = "BLR", State = "KA", PostalCode = null, Country = null },
+                    ContactPhone = new PhoneModel { CountryCode = 91, PhoneNumber = "921212" },
+                    ContactEmail = new EmailModel { EmailType = EmailType.Work, EmailAddress = "ayz.official@xyz.com" },
+                    Website = "www.ayz.com",
+                    IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology }
+                },
+                EmployerType = EmployerTypeModel.MediumBusiness,
+                IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology },
+            };
+        }
+        
     }
 }
