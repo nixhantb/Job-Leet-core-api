@@ -1,5 +1,5 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
-namespace UnitTests.JobLeet.Api.Tests.Common.V1
+namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
 {
     public class AddressModelTest
     {
