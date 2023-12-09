@@ -1,5 +1,5 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
-namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
+namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
 {
     public class AddressModelTest
     {
@@ -10,7 +10,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
 
             Assert.NotNull(Addressmodel);
             var validationResults = ValidateAnnotationHelper.ValidateModel(Addressmodel);
-           
+
             // Assert
             Assert.True(validationResults.Any(v => v.MemberNames.Contains("PostalCode") && v.ErrorMessage.Contains("required")), "PostalCode property should be marked as required");
             Assert.True(validationResults.Any(v => v.MemberNames.Contains("Country") && v.ErrorMessage.Contains("required")), "Country property should be marked as required");
@@ -21,7 +21,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
         }
 
         [Fact]
-        public void AddressModel_ShouldInstantiateSuccessfully ()
+        public void AddressModel_ShouldInstantiateSuccessfully()
         {
             var Addressmodel = new AddressModel { Street = "KL", City = "Ktm", State = "KA", PostalCode = "32345", Country = "UAE" };
 
@@ -41,7 +41,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
             var validateResults = ValidateAnnotationHelper.ValidateModel(AddressModel);
             // Assert
             Assert.NotEmpty(validateResults);
-            
+
             Assert.Equal("Invalid Postal Code format", validateResults[0].ErrorMessage);
         }
 
@@ -61,7 +61,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
             Assert.NotEqual("Invalid Postal Code format", validateResults[0].ErrorMessage);
         }
 
-       
+
     }
 
 }
