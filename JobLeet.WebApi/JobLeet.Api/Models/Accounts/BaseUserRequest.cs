@@ -6,7 +6,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts
     public class BaseUserRequest : BaseModel
     {
         [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address Format")]
         public EmailModel Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
