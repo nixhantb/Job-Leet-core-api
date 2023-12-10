@@ -1,10 +1,10 @@
-﻿namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
-{
-    public class UserLoginRequest : BaseModel
-    {
+﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using System.ComponentModel.DataAnnotations;
 
-        public string UserName { get; set; }
-        public string Password { get; set; }
+namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
+{
+    public class UserLoginRequest : BaseUserRequest
+    {
 
     }
 }
