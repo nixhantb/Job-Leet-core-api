@@ -8,11 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <Compile Remove="JobLeet.Core\Constants\**" />
+    <Content Remove="JobLeet.Core\Constants\**" />
+    <EmbeddedResource Remove="JobLeet.Core\Constants\**" />
+    <None Remove="JobLeet.Core\Constants\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="JobLeet.Core\Constants\" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 </Project>
