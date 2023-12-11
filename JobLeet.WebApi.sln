@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobLeet.WebApi", "JobLeet.W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JobLeet.Tests", "JobLeet.Tests", "{422F5CC5-9ABB-49E5-8082-775BE8529EBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "JobLeet.Tests\UnitTests\UnitTests.csproj", "{84438933-7005-47AC-92C1-CCC2594538BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "JobLeet.Tests\UnitTests\UnitTests.csproj", "{84438933-7005-47AC-92C1-CCC2594538BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,10 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CA7C7B4A-8E57-4FE4-A89E-F7B10C99E452}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{84438933-7005-47AC-92C1-CCC2594538BE} = {422F5CC5-9ABB-49E5-8082-775BE8529EBE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA7C7B4A-8E57-4FE4-A89E-F7B10C99E452}
 	EndGlobalSection
 EndGlobal
