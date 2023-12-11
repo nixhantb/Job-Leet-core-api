@@ -16,10 +16,6 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1
         [ForeignKey("Qualification")]
         public int QualificationId { get; set; }
         public Qualification RequiredQualification { get; set; }
-        [ForeignKey("Date")]
-        public int DateId { get; set; }
-        public Date JobDate { get; set; }
-
         public string JobTitle { get; set; }
         public string JobDescription { get; set; }
         public int Vacancies { get; set; }
