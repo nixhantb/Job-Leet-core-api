@@ -18,7 +18,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Companies.V1
         {
             CompanyProfileModel comapanies = CreateCompanyModel();
 
-            Assert.Equal(comapanies.ContactEmail.EmailType, EmailType.Work);
+            Assert.Equal(comapanies.ContactEmail.EmailType, EmailCategory.Work);
         }
 
         private CompanyProfileModel CreateCompanyModel () 
@@ -35,7 +35,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Companies.V1
                     Country = "JPN"
                 },
                 ContactPhone = new PhoneModel { CountryCode = 91, PhoneNumber = "92177212" },
-                ContactEmail = new EmailModel { EmailType = EmailType.Work,EmailAddress  = "company@em.com"},
+                ContactEmail = new EmailModel { EmailType = EmailCategory.Work,EmailAddress  = "company@em.com"},
                 Website = "www.website.com",
                 IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology },
             };

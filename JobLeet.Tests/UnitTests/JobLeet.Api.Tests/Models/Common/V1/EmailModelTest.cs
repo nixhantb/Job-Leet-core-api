@@ -10,12 +10,12 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
             // Arrange
             EmailModel emailModel = new EmailModel
             {
-                EmailType = EmailType.Personal,
+                EmailType = EmailCategory.Personal,
                 EmailAddress = "helloworld@email.com"
             };
 
             // Assert
-            Assert.Equal(emailModel.EmailType, EmailType.Personal);
+            Assert.Equal(emailModel.EmailType, EmailCategory.Personal);
             Assert.Equal(emailModel.EmailAddress, "helloworld@email.com");
 
         }
@@ -42,7 +42,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
         {
             EmailModel emailModel = new EmailModel
             {
-                EmailType = EmailType.Personal,
+                EmailType = EmailCategory.Personal,
                 // Invalid email address format
                 EmailAddress = "invalid-email-format"
             };
