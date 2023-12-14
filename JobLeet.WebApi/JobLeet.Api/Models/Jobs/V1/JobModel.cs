@@ -6,7 +6,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Jobs.V1
 {
     public class JobModel : BaseModel
     {
-        public EmployerModel Employer { get; set; }
         public AddressModel JobAddress { get; set; }
         public QualificationModel RequiredQualification { get; set; }
         public string JobTitle { get; set; }

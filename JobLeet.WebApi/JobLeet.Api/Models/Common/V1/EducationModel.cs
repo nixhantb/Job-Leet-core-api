@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
 {
     public class EducationModel : BaseModel
