@@ -47,9 +47,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
             Assert.NotNull(employerModel.Address);
             Assert.NotNull(employerModel.Phone);
             Assert.NotNull(employerModel.Profile);
-            Assert.Equal(EmployerTypeModel.MediumBusiness, employerModel.EmployerType);
-            Assert.NotEqual(employerModel.EmployerType, EmployerTypeModel.LargeCorporation);
-        
+            
             var validationResults = ValidateAnnotationHelper.ValidateModel(employerModel);
 
             Assert.False(validationResults.Any(v => v.MemberNames.Contains("Name") && v.ErrorMessage.Contains("required")), "Name should be marked as required");
@@ -76,7 +74,6 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
                     Website = "www.ayz.com",
                     IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology }
                 },
-                EmployerType = EmployerTypeModel.MediumBusiness,
                 IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology },
             };
         }

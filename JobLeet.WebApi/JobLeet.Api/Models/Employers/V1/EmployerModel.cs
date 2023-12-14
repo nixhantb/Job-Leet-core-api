@@ -18,10 +18,5 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Employers.V1
         [Required(ErrorMessage = "Industry Type is required")]
         public IndustryTypeModel IndustryType { get; set; }
     }
-    public enum EmployerTypeModel
-    {
-        SmallBusiness,
-        MediumBusiness,
-        LargeCorporation
-    }
+    
 }
