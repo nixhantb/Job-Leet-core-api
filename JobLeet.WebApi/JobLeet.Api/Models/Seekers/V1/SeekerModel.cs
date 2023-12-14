@@ -1,10 +1,10 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 
-namespace JobLeet.WebApi.JobLeet.Api.Models.Seekers
+namespace JobLeet.WebApi.JobLeet.Api.Models.Seekers.V1
 {
     public class SeekerModel : BaseModel
     {
-        public PersonNameModel PersonName {  get; set; }
+        public PersonNameModel PersonName { get; set; }
         public PhoneModel Phone { get; set; }
         public AddressModel Address { get; set; }
         public SkillModel Skills { get; set; }
