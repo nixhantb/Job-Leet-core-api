@@ -5,10 +5,5 @@
         public List<QualificationType> QualificationTypes { get; set; }
         public string QualificationInformation { get; set; }
     }
-    public enum QualificationType
-    {
-        Education,
-        Skill,
-        Certification
-    }
+    
 }
