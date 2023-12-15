@@ -5,12 +5,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1
 {
     public class Application : BaseEntity
     {
-        [ForeignKey("Employer")]
-        public Employer Employer { get; set; }
-
-        [ForeignKey("Job")]
-        public Job Job { get; set; }
-
+        [ForeignKey("ApplicationDate")]
+        public ApplicationDate ApplicationDate { get; set; }
         [ForeignKey("Status")]
         public Status Status { get; set; }
 

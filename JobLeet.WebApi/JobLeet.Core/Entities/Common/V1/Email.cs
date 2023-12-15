@@ -2,13 +2,8 @@
 {
     public class Email : BaseEntity
     {
-        public EmailType EmailType { get; set; }
+        public EmailCategory? EmailType { get; set; }
         public string EmailAddress { get; set; }
     }
-    public enum EmailType
-    {
-        Personal,
-        Work,
-        Other
-    }
+    
 }
