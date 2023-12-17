@@ -27,16 +27,13 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                     {
                         Id = e.Id,
                         EmailType = (EmailCategory)e.EmailType,
-                        EmailAddress = null
                     }).ToListAsync();
 
                 return result;
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                
-                Console.WriteLine(ex);
-                throw; 
+                throw new Exception("Error while updating the database. Please try again later.");
             }
         }
 
