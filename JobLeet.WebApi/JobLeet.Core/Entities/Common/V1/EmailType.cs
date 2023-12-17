@@ -2,18 +2,18 @@
 using System.Text.Json.Serialization;
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
 {
-    public class EmailType : BaseEntity
+    public class EmailType 
     {
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public EmailCategory EmailCategory { get; set; }
     }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum EmailCategory
     {
         [Display(Name = "Personal")]
-        Personal,
+        Personal = 1,
         [Display(Name = "Work")]
-        Work,
+        Work = 2,
         [Display(Name = "Other")]
-        Other
+        Other = 3
     }
 }
