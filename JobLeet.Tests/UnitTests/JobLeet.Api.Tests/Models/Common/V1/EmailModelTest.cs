@@ -25,7 +25,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
         {
             EmailModel emailModel = new EmailModel
             {
-                EmailType = null,
+                EmailType = EmailCategory.Personal,
                 EmailAddress = null
             };
 

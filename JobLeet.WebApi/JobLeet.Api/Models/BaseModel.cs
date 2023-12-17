@@ -1,10 +1,12 @@
-﻿namespace JobLeet.WebApi.JobLeet.Api.Models
+﻿
+
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+
+namespace JobLeet.WebApi.JobLeet.Api.Models
 {
     public class BaseModel
     {
         public int Id { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public DateTime? DeletedAt { get; set; }
+        public MetaDataModel MetaData { get; set; } = new MetaDataModel();
     }
 }

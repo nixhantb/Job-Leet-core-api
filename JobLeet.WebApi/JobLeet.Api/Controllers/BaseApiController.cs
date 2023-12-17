@@ -15,7 +15,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<EmailModel>>> GetAllAsync()
+        public virtual async Task<ActionResult<List<EmailModel>>> GetAllAsync()
         {
             var entities = await Repository.GetAllAsync();
             return Ok(entities);

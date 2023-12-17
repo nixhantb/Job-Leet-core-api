@@ -13,11 +13,6 @@ builder.Configuration
 builder.Services.AddControllers();
 builder.Services.AddScoped<DbContext, BaseDBContext>();
 builder.Services.AddScoped<IEmaiTypeRepository, EmailTypeRepository>();
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-});
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

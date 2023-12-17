@@ -27,7 +27,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                     {
                         Id = e.Id,
                         EmailType = (EmailCategory)e.EmailType,
-                        EmailAddress = e.EmailAddress,
+                        EmailAddress = null
                     }).ToListAsync();
 
                 return result;
@@ -36,7 +36,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             {
                 
                 Console.WriteLine(ex);
-                throw; // Rethrow the exception
+                throw; 
             }
         }
 

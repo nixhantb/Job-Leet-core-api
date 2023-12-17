@@ -9,7 +9,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
         public EmailCategory EmailType { get; set; }
         [Required(ErrorMessage = "Email Address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address format")]
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? EmailAddress { get; set; }
     }
     
