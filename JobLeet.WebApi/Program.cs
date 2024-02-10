@@ -3,6 +3,7 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using Microsoft.EntityFrameworkCore;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using System.Text.Json.Serialization;
+using JobLeet.WebApi.JobLeet.Api.Logging;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,7 +14,7 @@ builder.Configuration
 builder.Services.AddControllers();
 builder.Services.AddScoped<DbContext, BaseDBContext>();
 builder.Services.AddScoped<IEmaiTypeRepository, EmailTypeRepository>();
-
+builder.Services.AddSingleton<ILoggerManagerV1, LoggerManagerV1>(); 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
