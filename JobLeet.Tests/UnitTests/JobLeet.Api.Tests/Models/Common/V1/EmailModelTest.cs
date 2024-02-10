@@ -25,15 +25,15 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
         {
             EmailModel emailModel = new EmailModel
             {
-                EmailType = null,
+                EmailType = EmailCategory.Personal,
                 EmailAddress = null
             };
 
             var ValidateResults = ValidateAnnotationHelper.ValidateModel(emailModel);
 
-            Assert.Null(emailModel.EmailType);
+            Assert.NotNull(emailModel.EmailType);
             Assert.Null(emailModel.EmailAddress);
-            Assert.True(ValidateResults.Any(v => v.MemberNames.Contains("EmailType") && v.ErrorMessage.Contains("Email Type is required")), "Email Type should be marked as required");
+            Assert.False(ValidateResults.Any(v => v.MemberNames.Contains("EmailType") && v.ErrorMessage.Contains("Email Type is required")), "Email Type should be marked as required");
             Assert.True(ValidateResults.Any(v => v.MemberNames.Contains("EmailAddress") && v.ErrorMessage.Contains("Email Address is required")), "Email Address should be marked as required");
         }
 

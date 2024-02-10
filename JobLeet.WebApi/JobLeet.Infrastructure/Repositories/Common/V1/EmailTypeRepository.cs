@@ -1,36 +1,48 @@
-﻿using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
+using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
     public class EmailTypeRepository : IEmaiTypeRepository 
     {
-        private readonly List<EmailType> _emailTypes;
-
-        public EmailTypeRepository()
+        private readonly BaseDBContext _dbContext;
+        
+        public EmailTypeRepository(BaseDBContext dbContext)
         {
-            _emailTypes = new List<EmailType>
-            {
-                new EmailType { Id = 1, EmailCategory = EmailCategory.Work }
-            };
+            _dbContext = dbContext;
         }
-
-        public Task<EmailType> GetByIdAsync(int id)
-        {
-            return Task.FromResult(_emailTypes.FirstOrDefault(e => e.Id == id));
-        }
-
-        public Task<IEnumerable<EmailType>> GetAllAsync()
-        {
-            return Task.FromResult<IEnumerable<EmailType>>(_emailTypes);
-        }
-
-        public Task AddAsync(EmailType emailType)
+        public async Task<EmailModel> GetByIdAsync(int id)
         {
             throw new NotSupportedException();
         }
 
-        public Task UpdateAsync(EmailType emailType)
+        public async Task<List<EmailModel>> GetAllAsync()
+        {
+            try
+            {
+                var result = await _dbContext.Emails
+                    .Select(e => new EmailModel
+                    {
+                        Id = e.Id,
+                        EmailType = (EmailCategory)e.EmailType,
+                    }).ToListAsync();
+
+                return result;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception("Error while updating the database. Please try again later.");
+            }
+        }
+
+        public Task AddAsync(EmailModel emailType)
+        {
+            throw new NotSupportedException();
+        }
+
+        public Task UpdateAsync(EmailModel emailType)
         {
             throw new NotSupportedException();
         }

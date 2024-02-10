@@ -1,4 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Core.Interfaces;
+﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers
@@ -14,11 +15,19 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         }
 
         [HttpGet]
-        public virtual async Task<IActionResult> GetAllAsync()
+        public virtual async Task<ActionResult<List<EmailModel>>> GetAllAsync()
         {
+            try
+            { 
             var entities = await Repository.GetAllAsync();
             return Ok(entities);
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message, statusCode: 500);
+            }
         }
+
 
         [HttpGet("{id}")]
         public virtual async Task<IActionResult> GetByIdAsync(int id)
