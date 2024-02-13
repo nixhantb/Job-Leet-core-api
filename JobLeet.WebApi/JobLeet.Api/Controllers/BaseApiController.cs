@@ -1,5 +1,4 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Logging;
-using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
