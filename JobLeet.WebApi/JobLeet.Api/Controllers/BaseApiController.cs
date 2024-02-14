@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public abstract class BaseApiController<T, TRepository> : ControllerBase where T : class where TRepository : IRepository<T>
     {
         protected readonly TRepository Repository;
