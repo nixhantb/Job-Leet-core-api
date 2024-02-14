@@ -5,30 +5,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
-    public class EmailTypeRepository : IEmaiTypeRepository 
+    public class SkillRepository : ISkillRepository
     {
         private readonly BaseDBContext _dbContext;
-        
-        public EmailTypeRepository(BaseDBContext dbContext)
+
+        public SkillRepository(BaseDBContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<EmailModel> GetByIdAsync(int id)
-        {
-            throw new NotSupportedException();
-        }
-
-        public async Task<List<EmailModel>> GetAllAsync()
+        public async Task<List<SkillModel>> GetAllAsync()
         {
             try
             {
-                var result = await _dbContext.Emails
-                    .Select(e => new EmailModel
+                var result = await _dbContext.Skills.
+                    Select(e => new SkillModel
                     {
                         Id = e.Id,
-                        EmailType = (EmailCategory)e.EmailType,
+                        Title = e.Title,
+                        Description = e.Description
                     }).ToListAsync();
-
                 return result;
             }
             catch (DbUpdateException ex)
@@ -37,19 +32,23 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             }
         }
 
-        public Task AddAsync(EmailModel emailType)
+        public Task<SkillModel> GetByIdAsync(int id)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
-
-        public Task UpdateAsync(EmailModel emailType)
+        public Task AddAsync(SkillModel entity)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
         public Task DeleteAsync(int id)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(SkillModel entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
