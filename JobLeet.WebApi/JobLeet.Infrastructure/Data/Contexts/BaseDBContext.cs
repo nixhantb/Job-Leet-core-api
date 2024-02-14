@@ -9,6 +9,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         {
         }
         public virtual DbSet<Email> Emails { get; set; }
+        public virtual DbSet<Skill> Skills { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EmailConfiguration());
