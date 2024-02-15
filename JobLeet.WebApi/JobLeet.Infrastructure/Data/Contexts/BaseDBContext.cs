@@ -13,6 +13,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EmailConfiguration());
+            modelBuilder.ApplyConfiguration(new SkillConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
