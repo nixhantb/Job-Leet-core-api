@@ -14,6 +14,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
             builder.Property(e => e.FirstName).HasColumnName("first_name");
             builder.Property(e => e.MiddleName).HasColumnName("middle_name");
             builder.Property(e => e.LastName).HasColumnName("last_name");
+            builder.OwnsOne(e => e.MetaData);
         }
     }
 }
