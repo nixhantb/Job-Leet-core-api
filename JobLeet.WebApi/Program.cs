@@ -16,6 +16,7 @@ builder.Services.AddScoped<DbContext, BaseDBContext>();
 builder.Services.AddScoped<IEmaiTypeRepository, EmailTypeRepository>();
 builder.Services.AddSingleton<ILoggerManagerV1, LoggerManagerV1>(); 
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+builder.Services.AddScoped<IPersonNameRepository, PersonNameRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
