@@ -8,6 +8,10 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
     public class ExperienceRepository : IExperienceRepository
     {
         private readonly BaseDBContext _dbContext;
+        public ExperienceRepository(BaseDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public Task AddAsync(ExperienceModel entity)
         {
             throw new NotImplementedException();
@@ -15,6 +19,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 
         public Task DeleteAsync(int id)
         {
+
             throw new NotImplementedException();
         }
 

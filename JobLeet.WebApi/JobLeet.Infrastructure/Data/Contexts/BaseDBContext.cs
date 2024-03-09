@@ -12,13 +12,14 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<PersonName> PersonNames { get; set; }
-        public virtual DbSet<Qualification> Qualifications { get; set; }
+       // public virtual DbSet<Qualification> Qualifications { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EmailConfiguration());
             modelBuilder.ApplyConfiguration(new SkillConfiguration());
             modelBuilder.ApplyConfiguration(new PersonNameConfiguration());
+            modelBuilder.ApplyConfiguration(new ExperienceConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

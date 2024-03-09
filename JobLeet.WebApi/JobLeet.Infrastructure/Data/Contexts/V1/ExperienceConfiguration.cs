@@ -7,6 +7,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     public class ExperienceConfiguration : IEntityTypeConfiguration<Experience>
     {
         public void Configure(EntityTypeBuilder<Experience> builder)
+        
         {
             builder.ToTable("Experience");
             builder.HasKey(e => e.Id);

@@ -20,6 +20,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 
         public async Task<List<QualificationModel>> GetAllAsync()
         {
+            /*
             try
             {
                 var result = await _dbContext.Qualifications
@@ -33,6 +34,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             {
                 throw new Exception("Error while fetching the database. Please try again later"+ ex.Message);
             }
+            */
+            throw new NotImplementedException();
         }
 
         public Task<QualificationModel> GetByIdAsync(int id)
