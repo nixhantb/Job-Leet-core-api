@@ -8,9 +8,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public BaseDBContext(DbContextOptions<BaseDBContext> options) : base(options)
         {
         }
+        // Entities must be passed into the DbSet for mapping purposes in Repository classes
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<PersonName> PersonNames { get; set; }
+        public virtual DbSet<Qualification> Qualifications { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EmailConfiguration());

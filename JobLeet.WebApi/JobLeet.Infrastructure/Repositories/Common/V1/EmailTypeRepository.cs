@@ -33,7 +33,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             }
             catch (DbUpdateException ex)
             {
-                throw new Exception("Error while updating the database. Please try again later."+ex.Message);
+                throw new Exception("Error while fetching the database. Please try again later."+ex.Message);
             }
         }
 
