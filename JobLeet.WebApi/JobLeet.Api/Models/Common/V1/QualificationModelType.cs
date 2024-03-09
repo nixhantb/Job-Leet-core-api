@@ -1,13 +1,21 @@
-﻿namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
 {
     public class QualificationModelType
     {
-        public QualificationType QualificationType { get; set; }
+        public QualificationCategory QualificationCategory { get; set; }
     }
-    public enum QualificationType
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum QualificationCategory
     {
-        Education,
-        Skill,
-        Certification
+        [Display(Name = "Education")]
+        Education = 1,
+        [Display(Name = "Skill")]
+        Skill = 2,
+        [Display(Name = "Certification")]
+        Certification = 3
     }
 }
