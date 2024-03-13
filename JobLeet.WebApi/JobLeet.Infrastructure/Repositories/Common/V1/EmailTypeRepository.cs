@@ -14,28 +14,25 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             _dbContext = dbContext;
         }
         public async Task<EmailModel> GetByIdAsync(int id)
+       {
+           try
+                {
+            var email = await _dbContext.Emails
+                .Where(e => e.Id == id)
+                .Select(e => new EmailModel
+                {
+                    Id = e.Id,
+                    EmailType = (EmailCategory)e.EmailType
+                })
+                .FirstOrDefaultAsync();
+
+                return email == null ? throw new KeyNotFoundException($"Email with id {id} not found") : email;
+            }
+            catch (Exception ex)
         {
-             try
-    {
-        var email = await _dbContext.Emails
-            .Where(e => e.Id == id)
-            .Select(e => new EmailModel
-            {
-                Id = e.Id,
-                EmailType = (EmailCategory)e.EmailType
-            })
-            .FirstOrDefaultAsync();
-
-        if (email == null)
-            throw new KeyNotFoundException($"Email with id {id} not found");
-
-        return email;
-    }
-    catch (Exception ex)
-    {
-        throw new Exception($"Error occurred while fetching email with id {id}: {ex.Message}");
-    }
+            throw new Exception($"Error occurred while fetching email with id {id}: {ex.Message}");
         }
+    }
 
         public async Task<List<EmailModel>> GetAllAsync()
         {

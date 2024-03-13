@@ -1,5 +1,6 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.Data.SqlClient;
@@ -41,11 +42,31 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         }
         #endregion
 
-        public Task<PersonNameModel> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
 
+        #region Retrieve Person ID Asynchronously
+        /// <returns>The list of person names by ID.</returns>
+        /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
+        /// <remarks>This method fetches all person names from the database using Entity Framework Core.</remarks>
+        public async Task<PersonNameModel> GetByIdAsync(int id)
+        {
+            try
+            {
+                var person = await _dbContext.PersonNames
+                     .Where(e => e.Id == id).Select(e => new PersonNameModel
+                     {
+                         Id = e.Id,
+                         FirstName = e.FirstName,
+                         MiddleName = e.MiddleName,
+                         LastName = e.LastName
+                     }).FirstOrDefaultAsync();
+                return person == null ? throw new KeyNotFoundException($"PersonName with id {id} not found") : person;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"An Error occured while fetching a person with id: {id}: {ex.Message}");
+            }
+        }
+        #endregion
         public Task AddAsync(PersonNameModel entity)
         {
             throw new NotImplementedException();
