@@ -1,4 +1,5 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
+using JobLeet.WebApi.JobLeet.Api.Exceptions.CustomExceptionWrappers.V1;
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                 var entities = await Repository.GetAllAsync();
                 return Ok(entities);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError($"An error occurred while fetching all entities: {ex.Message}");
                 var errorResponse = new GlobalErrorResponse
@@ -43,12 +44,27 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         [HttpGet("{id}")]
         public virtual async Task<IActionResult> GetByIdAsync(int id)
         {
-            var entity = await Repository.GetByIdAsync(id);
+           try
+            {
+                var entity = await Repository.GetByIdAsync(id);
 
-            if (entity == null)
-                return NotFound();
+                if (entity == null)
+                    return NotFound();
 
-            return Ok(entity);
+                return Ok(entity);
+            }
+
+            catch(Exception ex)
+            {
+                _logger.LogError($"An error occurred while fetching the data: {ex.Message}");
+                var errorResponse = new GlobalErrorResponse
+                {
+                    Error = "System Exception ",
+                    Message = ex.Message
+                };
+                return StatusCode(400, errorResponse);
+            }
+           
         }
 
         [HttpPost]
