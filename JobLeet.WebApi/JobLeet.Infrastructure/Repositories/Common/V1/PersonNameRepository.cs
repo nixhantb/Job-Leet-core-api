@@ -1,7 +1,10 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
@@ -12,6 +15,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             _dbContext = dbContext;
         }
+
+        #region Retrieve Person Asynchronously
+        /// <returns>The list of person names.</returns>
+        /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
+        /// <remarks>This method fetches all person names from the database using Entity Framework Core.</remarks>
         public async Task<List<PersonNameModel>> GetAllAsync()
         {
             try
@@ -26,11 +34,12 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                      }).ToListAsync();
                 return result;
             }
-            catch(DbUpdateException ex)
+            catch (Exception ex) when (ex is DbUpdateException || ex is DbException || ex is SqlException)
             {
-                throw new Exception("Error while updating the database. Please try again later." + ex.Message);
+                throw new Exception("Error while fetching data from the database. Please try again later.");
             }
         }
+        #endregion
 
         public Task<PersonNameModel> GetByIdAsync(int id)
         {

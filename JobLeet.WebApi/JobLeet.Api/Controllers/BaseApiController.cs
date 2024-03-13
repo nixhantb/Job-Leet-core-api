@@ -1,4 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Logging;
+﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
+using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +21,23 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         [HttpGet]
         public virtual async Task<IActionResult> GetAllAsync()
         {
-            _logger.LogInfo("Triggering HTTP GET request");
-            var entities = await Repository.GetAllAsync();
-            return Ok(entities);
+            try
+            {
+                _logger.LogInfo("Triggering HTTP GET request");
+                var entities = await Repository.GetAllAsync();
+                return Ok(entities);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"An error occurred while fetching all entities: {ex.Message}");
+                var errorResponse = new GlobalErrorResponse
+                {
+                    Error = "Internal Server Error",
+                    Message = ex.Message
+                };
+                return StatusCode(500, errorResponse);
+            }
+           
         }
 
         [HttpGet("{id}")]
