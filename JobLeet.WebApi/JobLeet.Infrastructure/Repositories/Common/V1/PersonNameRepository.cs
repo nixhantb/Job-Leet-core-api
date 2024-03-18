@@ -1,6 +1,4 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
-using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
-using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.Data.SqlClient;
