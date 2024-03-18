@@ -11,11 +11,14 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
     public class PersonNameRepository : IPersonNameRepository
     {
+        #region Initialization
+        // <returns>The list of initializations</returns>
         private readonly BaseDBContext _dbContext;
         public PersonNameRepository(BaseDBContext dbContext)
         {
             _dbContext = dbContext;
         }
+        #endregion
 
         #region Retrieve Person Asynchronously
         /// <returns>The list of person names.</returns>
@@ -41,7 +44,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             }
         }
         #endregion
-
 
         #region Retrieve Person ID Asynchronously
         /// <returns>The list of person names by ID.</returns>
