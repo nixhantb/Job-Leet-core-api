@@ -8,6 +8,10 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
     public class QualificationTypeRepository : IQualificationTypeRepository
     {
         private readonly BaseDBContext _dbContext;
+        public QualificationTypeRepository(BaseDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public Task AddAsync(QualificationModel entity)
         {
             throw new NotImplementedException();
@@ -20,22 +24,23 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 
         public async Task<List<QualificationModel>> GetAllAsync()
         {
-            /*
             try
             {
                 var result = await _dbContext.Qualifications
-                    .Select(e => new QualificationModel
-                    
-                    { Id = e.Id,
-                    QualificationType = (QualificationCategory)e.QualificationType,
-                    }).ToListAsync();
+                   .Select(e => new QualificationModel
+                   {
+                       Id = e.Id,
+                       QualificationType = e.QualificationType.Select(x => (QualificationCategory)x).ToList(),
+                       QualificationInformation = e.QualificationInformation
+                   })
+                   .ToListAsync();
+
+                return result;
             }
-            catch(DbUpdateException ex)
+            catch (DbUpdateException ex)
             {
-                throw new Exception("Error while fetching the database. Please try again later"+ ex.Message);
+                throw new Exception("Error while fetching the database. Please try again later" + ex.Message);
             }
-            */
-            throw new NotImplementedException();
         }
 
         public Task<QualificationModel> GetByIdAsync(int id)
