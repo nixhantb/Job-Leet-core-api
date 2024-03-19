@@ -30,7 +30,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                    .Select(e => new QualificationModel
                    {
                        Id = e.Id,
-                       QualificationType = e.QualificationType.Select(x => (QualificationCategory)x).ToList(),
+                       QualificationType = (QualificationCategory)e.QualificationType,
                        QualificationInformation = e.QualificationInformation
                    })
                    .ToListAsync();
