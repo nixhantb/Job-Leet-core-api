@@ -1,9 +1,6 @@
 ﻿using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Text.Json;
-
-
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
 {
     public class QualificationConfiguration : IEntityTypeConfiguration<Qualification>
