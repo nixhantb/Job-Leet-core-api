@@ -3,7 +3,6 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Data.Common;
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
