@@ -2,7 +2,7 @@
 
 namespace JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1
 {
-    public interface IPhoneType : IRepository<PhoneModel>
+    public interface IPhoneRepository : IRepository<PhoneModel>
     {
     }
 }
