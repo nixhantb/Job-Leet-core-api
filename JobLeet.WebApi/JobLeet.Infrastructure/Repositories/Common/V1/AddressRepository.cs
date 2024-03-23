@@ -9,34 +9,34 @@ using System.Data.Common;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
-    public class ExperienceRepository : IExperienceRepository
+    public class AddressRepository : IAddressRepository
     {
         #region Initialization
         // <returns>The list of initializations</returns>
         private readonly BaseDBContext _dbContext;
-        private readonly BaseCacheHelper<List<ExperienceModel>> _cacheHelper;
-        public ExperienceRepository(BaseDBContext dbContext, IMemoryCache memoryCache)
+        private readonly BaseCacheHelper<List<AddressModel>> _cacheHelper;
+
+        public AddressRepository(BaseDBContext dbContext, IMemoryCache memoryCache)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            _cacheHelper = new BaseCacheHelper<List<ExperienceModel>>(memoryCache);
+            _cacheHelper = new BaseCacheHelper<List<AddressModel>>(memoryCache);
         }
         #endregion
-        public Task AddAsync(ExperienceModel entity)
+        public Task AddAsync(AddressModel entity)
         {
             throw new NotImplementedException();
         }
 
         public Task DeleteAsync(int id)
         {
-
             throw new NotImplementedException();
         }
 
-        #region Retrieve Experience Asynchronously
-        /// <returns>The list of experiences.</returns>
+        #region Retrieve Address Asynchronously
+        /// <returns>The list of Addresses.</returns>
         /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
-        /// <remarks>This method fetches all experiences from the database using Entity Framework Core.</remarks>
-        public async Task<List<ExperienceModel>> GetAllAsync()
+        /// <remarks>This method fetches all Addresses from the database using Entity Framework Core.</remarks>
+        public async Task<List<AddressModel>> GetAllAsync()
         {
             var cacheKey = CacheHelper.CacheKey("RandomKey");
             MemoryCacheEntryOptions cacheOptions = CacheHelper.GetCacheOptions(TimeSpan.FromMinutes(1));
@@ -44,34 +44,35 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             {
                 try
                 {
-                    var results = await _dbContext.Experiences
-                        .Select(e => new ExperienceModel
-                        {
-                            Id = e.Id,
-                            ExperienceLevel = (ExperienceLevel)e.ExperienceLevel
-                        }).ToListAsync();
+                    var results = await _dbContext.Addresses
+                    .Select(e => new AddressModel
+                    {
+                        Id = e.Id,
+                        Street = e.Street,
+                        City = e.City,
+                        State = e.State,
+                        PostalCode = e.PostalCode,
+                        Country = e.Country
+                        
+                    }).ToListAsync();
 
                     return results;
+
                 }
                 catch (Exception ex) when (ex is DbUpdateException || ex is DbException || ex is SqlException)
                 {
                     throw new Exception("Error while fetching data from the database. Please try again later.");
                 }
-            }, cacheOptions);
 
+            }, cacheOptions);
         }
         #endregion
-
-        #region Retrieve Experience ID Asynchronously
-        /// <returns>The list of experience Id's.</returns>
-        /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
-        /// <remarks>This method fetches all experience Id's from the database using Entity Framework Core.</remarks>
-        public Task<ExperienceModel> GetByIdAsync(int id)
+        public Task<AddressModel> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
-        #endregion
-        public Task UpdateAsync(ExperienceModel entity)
+
+        public Task UpdateAsync(AddressModel entity)
         {
             throw new NotImplementedException();
         }
