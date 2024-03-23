@@ -2,8 +2,10 @@
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using System.Data.Common;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
@@ -55,9 +57,9 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                     return results;
                     
                 }
-                catch (DbUpdateException ex)
+                catch (Exception ex) when (ex is DbUpdateException || ex is DbException || ex is SqlException)
                 {
-                    throw new Exception("Error while fetching data from the database. " + ex.Message);
+                    throw new Exception("Error while fetching data from the database. Please try again later.");
                 }
 
             }, cacheOptions);
