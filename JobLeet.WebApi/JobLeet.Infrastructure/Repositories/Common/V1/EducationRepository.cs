@@ -29,7 +29,10 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             throw new NotImplementedException();
         }
-
+        #region Retrieve Education Asynchronously
+        /// <returns>The list of educations.</returns>
+        /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
+        /// <remarks>This method fetches all educations from the database using Entity Framework Core.</remarks>
         public async Task<List<EducationModel>> GetAllAsync()
         {
             var cacheKey = CacheHelper.CacheKey("RandomKey");
@@ -60,6 +63,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             }, cacheOptions);
            
         }
+        #endregion
 
         public Task<EducationModel> GetByIdAsync(int id)
         {
