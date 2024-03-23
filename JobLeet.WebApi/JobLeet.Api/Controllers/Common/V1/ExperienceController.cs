@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
-    [Route("api/v1/experiences")]
+    [Route("api/v1/leet-experiences")]
     public class ExperienceController : BaseApiController<ExperienceModel, IExperienceRepository>
     {
         public ExperienceController(IExperienceRepository experienceRepository, ILoggerManagerV1 logger)
