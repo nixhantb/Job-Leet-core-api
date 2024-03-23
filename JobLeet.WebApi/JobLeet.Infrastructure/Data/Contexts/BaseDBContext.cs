@@ -15,6 +15,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<Qualification> Qualifications { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
+        public virtual DbSet<Education> Educations { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EmailConfiguration());
@@ -23,6 +24,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
             modelBuilder.ApplyConfiguration(new ExperienceConfiguration());
             modelBuilder.ApplyConfiguration(new QualificationConfiguration());
             modelBuilder.ApplyConfiguration(new PhoneConfiguration());
+            modelBuilder.ApplyConfiguration(new EducationConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
