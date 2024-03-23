@@ -4,7 +4,7 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
-    [Route("api/v1/skills")]
+    [Route("api/v1/leet-skills")]
     public class SkillController : BaseApiController<SkillModel, ISkillRepository>
     {
         public SkillController(ISkillRepository skillRepository, ILoggerManagerV1 logger):
