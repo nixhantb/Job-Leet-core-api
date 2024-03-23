@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Api.Exceptions.CustomExceptionWrappers.V1;
+using JobLeet.WebApi.JobLeet.Api.Caching;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,6 +27,11 @@ builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache(); // Register IMemoryCache
+
+// Register BaseCacheHelper<T> for caching
+builder.Services.AddScoped(typeof(BaseCacheHelper<>));
+
 #endregion
 
 
