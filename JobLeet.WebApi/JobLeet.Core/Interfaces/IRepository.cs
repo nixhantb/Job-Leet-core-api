@@ -3,7 +3,7 @@
     /// <summary>
     /// Generic repository interface for basic CRUD operations.
     /// </summary>
-    /// <typeparam name="T">The entity type.</typeparam>
+    /// <typeparam name="T">The Model class representation.</typeparam>
     public interface IRepository<T> where T : class
     {
         Task<T> GetByIdAsync(int id);
