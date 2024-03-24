@@ -6,6 +6,7 @@ using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Api.Exceptions.CustomExceptionWrappers.V1;
 using JobLeet.WebApi.JobLeet.Api.Caching;
 using JobLeet.WebApi.JobLeet.Api.Security.Headers;
+using JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -66,6 +67,7 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseMiddleware<ResourceNotFoundException>();
 app.UseMiddleware<SecurityHeaders>();
+app.UseMiddleware<TotalResponseHeaderCount>();
 #endregion
 
 app.Run();
