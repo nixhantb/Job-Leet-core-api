@@ -2,6 +2,7 @@
 
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
 {
+    // education
     public class Education : BaseEntity
     {
         [Required(ErrorMessage = "Degree is required")]
