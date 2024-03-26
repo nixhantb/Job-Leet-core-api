@@ -2,9 +2,9 @@
 
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
 {
-    // education
     public class Education : BaseEntity
     {
+        // test changes to check if it reverts back
         [Required(ErrorMessage = "Degree is required")]
         public string Degree { get; set; }
         [Required(ErrorMessage = "Major is required")]
