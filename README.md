@@ -11,8 +11,8 @@ Find the Frontend Development repository of this project [Here](https://github.c
   - [Prerequisites](#prerequisites)
   - [Clone and Build](#clone-and-build)
   - [Configuration](#configuration)
-- [API Endpoints](#api-endpoints)
 - [Database](#database)
+- [Features](#features)
 - [Issues](#issues)
 - [Contribution](#contribution)
 - [License](#license)
@@ -48,13 +48,31 @@ Update the `appsettings.json` file with your MySQL database connection details. 
 ### Database
 Job Leet uses a MySQL database to store job-related data. You can configure the database connection settings in the appsettings.json file.
 
+### Features
+ - BaseAPIController
+ - BaseDBContext
+ - Input Validation
+ - Data Validation
+ - Database Migrations
+ - Endpoints
+ - Caching
+ - Loggers
+ - Authentication
+ - Exceptions
+ - SecurityHeaders
+ - RateLimiter
+ - Versioning
+ - Jwt Tokens
+ - Message Broker (RabbitMQ)
+ - Documentations
+ - CICD
+ - Unit tests
+
 ### Issues
 If you encounter any issues or have suggestions, feel free to open an issue [here](https://github.com/Nix-code/Job-Leet-core-api/issues)
 
 ### Contribution
-We welcome contributions to make Job Leet even better! If you'd like to contribute, please follow the steps [here](CONTRIBUTION.md)
-
-Supported with CICD GitHub Actions 
+We welcome contributions to make Job Leet even better! If you'd like to contribute, please follow the steps [here](CONTRIBUTION.md) 
 
 ### License
 This project is licensed under the [MIT License](LICENSE). Feel free to explore, contribute, and use Job Leet according to the terms of the license.
