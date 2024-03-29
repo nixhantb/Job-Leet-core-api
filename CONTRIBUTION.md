@@ -38,6 +38,4 @@ Follow this steps before pushing the changes:
 - Proper .Net Naming convention
 - Write tests 
 
-Happy coding! 🚀
-
-Comment your any concerns on the issue itself. Will try to resolve as soon as possible.
+Happy coding! 
