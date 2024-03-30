@@ -6,20 +6,35 @@
 
         public ResourceNotFoundException(RequestDelegate next)
         {
-            _next = next;
+            _next = next ?? throw new ArgumentNullException(nameof(next));
         }
 
-        public async Task Invoke (HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
-            await _next(context);
+            // Save the original response stream and create a new one
+            var originalResponseBody = context.Response.Body;
+            var responseBody = new MemoryStream();
+            context.Response.Body = responseBody;
 
-            if(context.Response.StatusCode == StatusCodes.Status404NotFound  && !context.Response.HasStarted)
+            try
             {
-                var requestPath = context.Request.Path;
-                var requestUri = $"{context.Request.Scheme}://{context.Request.Host}{requestPath}";
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = StatusCodes.Status404NotFound;
-                await context.Response.WriteAsync($"{{\"Message\": \"No HTTP resource was found that matches the request URI '{requestUri}'\"}}");
+                await _next(context);
+
+                if (context.Response.StatusCode == StatusCodes.Status404NotFound && !context.Response.HasStarted)
+                {
+                    var requestPath = context.Request.Path;
+                    var requestUri = $"{context.Request.Scheme}://{context.Request.Host}{requestPath}";
+                    context.Response.ContentType = "application/json";
+                    context.Response.StatusCode = StatusCodes.Status404NotFound;
+                    await context.Response.WriteAsync($"{{\"Message\": \"No HTTP resource was found that matches the request URI '{requestUri}'\"}}");
+                }
+            }
+            finally
+            {
+                // Restore the original response stream
+                responseBody.Seek(0, SeekOrigin.Begin);
+                await responseBody.CopyToAsync(originalResponseBody);
+                context.Response.Body = originalResponseBody;
             }
         }
     }
