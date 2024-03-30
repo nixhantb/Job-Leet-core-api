@@ -12,7 +12,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             _dbContext = dbContext;
         }
-        public Task AddAsync(QualificationModel entity)
+        public Task<QualificationModel> AddAsync(QualificationModel entity)
         {
             throw new NotImplementedException();
         }

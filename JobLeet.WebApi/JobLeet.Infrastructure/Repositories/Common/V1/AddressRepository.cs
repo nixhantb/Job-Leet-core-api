@@ -22,7 +22,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             _cacheHelper = new BaseCacheHelper<List<AddressModel>>(memoryCache);
         }
         #endregion
-        public Task AddAsync(AddressModel entity)
+        public Task<AddressModel> AddAsync(AddressModel entity)
         {
             throw new NotImplementedException();
         }

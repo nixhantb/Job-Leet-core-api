@@ -49,7 +49,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             throw new NotImplementedException();
         }
         #endregion
-        public Task AddAsync(SkillModel entity)
+        public Task<SkillModel> AddAsync(SkillModel entity)
         {
             throw new NotImplementedException();
         }

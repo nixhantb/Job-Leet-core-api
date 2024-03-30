@@ -22,7 +22,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             _cacheHelper = new BaseCacheHelper<List<EducationModel>>(memoryCache);
         }
         #endregion
-        public Task AddAsync(EducationModel entity)
+        public Task <EducationModel> AddAsync(EducationModel entity)
         {
             throw new NotImplementedException();
         }

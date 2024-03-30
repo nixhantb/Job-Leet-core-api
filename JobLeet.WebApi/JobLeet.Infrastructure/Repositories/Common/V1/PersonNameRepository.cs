@@ -67,7 +67,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             }
         }
         #endregion
-        public Task AddAsync(PersonNameModel entity)
+        public Task<PersonNameModel> AddAsync(PersonNameModel entity)
         {
             throw new NotImplementedException();
         }
