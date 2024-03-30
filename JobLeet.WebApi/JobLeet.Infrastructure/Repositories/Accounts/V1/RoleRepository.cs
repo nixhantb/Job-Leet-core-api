@@ -22,7 +22,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             _cacheHelper = new BaseCacheHelper<List<RoleModel>>(memoryCache);
         }
         #endregion
-        public Task AddAsync(RoleModel entity)
+        public Task<RoleModel> AddAsync(RoleModel entity)
         {
             throw new NotImplementedException();
         }
