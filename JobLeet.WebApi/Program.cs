@@ -7,6 +7,8 @@ using JobLeet.WebApi.JobLeet.Api.Exceptions.CustomExceptionWrappers.V1;
 using JobLeet.WebApi.JobLeet.Api.Caching;
 using JobLeet.WebApi.JobLeet.Api.Security.Headers;
 using JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount;
+using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -28,6 +30,7 @@ builder.Services.AddScoped<IQualificationTypeRepository, QualificationTypeReposi
 builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
 builder.Services.AddScoped<IEducationRepository, EducationRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

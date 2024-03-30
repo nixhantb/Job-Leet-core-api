@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Migrations
+namespace JobLeet.WebApi.JobLeetDBMigrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -141,6 +141,20 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    roleid = table.Column<int>(name: "role_id", type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    rolename = table.Column<int>(name: "role_name", type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.roleid);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "SkillModel",
                 columns: table => new
                 {
@@ -181,6 +195,9 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Qualification");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "SkillModel");

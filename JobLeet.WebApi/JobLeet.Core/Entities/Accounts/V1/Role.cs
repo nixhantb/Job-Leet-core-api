@@ -5,11 +5,11 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
 {
     public class Role : BaseEntity
     {
-        public RoleName RoleName { get; set; }
+        public RoleCategory RoleName { get; set; }
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum RoleName
+    public enum RoleCategory
     {
         [Display(Name ="Admin")]
         Admin = 1,

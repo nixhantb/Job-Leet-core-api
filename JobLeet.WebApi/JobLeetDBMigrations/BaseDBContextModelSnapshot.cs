@@ -3,24 +3,37 @@ using System;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Migrations
+namespace JobLeet.WebApi.JobLeetDBMigrations
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20240328170644_InitialCreate")]
-    partial class InitialCreate
+    partial class BaseDBContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("role_id");
+
+                    b.Property<int>("RoleName")
+                        .HasColumnType("int")
+                        .HasColumnName("role_name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role", (string)null);
+                });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", b =>
                 {
@@ -218,6 +231,25 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SkillModel", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.Role", b =>
+                {
+                    b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
+                        {
+                            b1.Property<int>("RoleId")
+                                .HasColumnType("int");
+
+                            b1.HasKey("RoleId");
+
+                            b1.ToTable("Role");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoleId");
+                        });
+
+                    b.Navigation("MetaData")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", b =>
