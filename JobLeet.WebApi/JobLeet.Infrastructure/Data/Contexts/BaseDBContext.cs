@@ -22,6 +22,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<RegisterUser> RegisterUsers { get; set; }
 
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
