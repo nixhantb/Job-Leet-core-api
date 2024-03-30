@@ -1,28 +1,28 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Caching;
-using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
-using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
+using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using System.Data.Common;
 
-namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
+namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 {
-    public class EducationRepository : IEducationRepository
+    public class RoleRepository : IRoleRepository
     {
         #region Initialization
         // <returns>The list of initializations</returns>
         private readonly BaseDBContext _dbContext;
-        private readonly BaseCacheHelper<List<EducationModel>> _cacheHelper;
+        private readonly BaseCacheHelper<List<RoleModel>> _cacheHelper;
 
-        public EducationRepository(BaseDBContext dbContext, IMemoryCache memoryCache)
+        public RoleRepository(BaseDBContext dbContext, IMemoryCache memoryCache)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            _cacheHelper = new BaseCacheHelper<List<EducationModel>>(memoryCache);
+            _cacheHelper = new BaseCacheHelper<List<RoleModel>>(memoryCache);
         }
         #endregion
-        public Task <EducationModel> AddAsync(EducationModel entity)
+        public Task<RoleModel> AddAsync(RoleModel entity)
         {
             throw new NotImplementedException();
         }
@@ -31,11 +31,12 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             throw new NotImplementedException();
         }
-        #region Retrieve Education Asynchronously
-        /// <returns>The list of educations.</returns>
+
+        #region Retrieve Roles Asynchronously
+        /// <returns>The list of Roles.</returns>
         /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
-        /// <remarks>This method fetches all educations from the database using Entity Framework Core.</remarks>
-        public async Task<List<EducationModel>> GetAllAsync()
+        /// <remarks>This method fetches all Roles from the database using Entity Framework Core.</remarks>
+        public async Task<List<RoleModel>> GetAllAsync()
         {
             var cacheKey = CacheHelper.CacheKey("RandomKey");
             MemoryCacheEntryOptions cacheOptions = CacheHelper.GetCacheOptions(TimeSpan.FromMinutes(1));
@@ -43,19 +44,13 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             {
                 try
                 {
-                    var results = await _dbContext.Educations
-                    .Select(e => new EducationModel
+                    var results = await _dbContext.Roles
+                    .Select(e => new RoleModel
                     {
                         Id = e.Id, 
-                        Degree = e.Degree,
-                        Major = e.Major, 
-                        Institution = e.Institution, 
-                        GraduationDate = e.GraduationDate, 
-                        Cgpa = e.Cgpa
+                        RoleName = (RoleCategory)e.RoleName
                     }).ToListAsync();
-
                     return results;
-                    
                 }
                 catch (Exception ex) when (ex is DbUpdateException || ex is DbException || ex is SqlException)
                 {
@@ -63,16 +58,14 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                 }
 
             }, cacheOptions);
-           
         }
         #endregion
-
-        public Task<EducationModel> GetByIdAsync(int id)
+        public Task<RoleModel> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(EducationModel entity)
+        public Task UpdateAsync(RoleModel entity)
         {
             throw new NotImplementedException();
         }

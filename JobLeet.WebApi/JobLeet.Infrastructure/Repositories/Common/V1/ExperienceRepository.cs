@@ -21,7 +21,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             _cacheHelper = new BaseCacheHelper<List<ExperienceModel>>(memoryCache);
         }
         #endregion
-        public Task AddAsync(ExperienceModel entity)
+        public Task<ExperienceModel> AddAsync(ExperienceModel entity)
         {
             throw new NotImplementedException();
         }

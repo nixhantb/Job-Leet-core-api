@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-
-namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
+namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
 {
-    public class Role : BaseEntity
+    public class RoleModel : BaseModel
     {
         public RoleCategory RoleName { get; set; }
     }
@@ -11,9 +10,11 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum RoleCategory
     {
-        [Display(Name ="Admin")]
+        [Display(Name = "Admin")]
         Admin = 1,
-        [Display(Name ="Users")]
+        [Display(Name = "Users")]
         Users = 2
     }
+
 }
+

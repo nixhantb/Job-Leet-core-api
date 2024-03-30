@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="JobLeet.Api\Middlewares\NewFolder\**" />
     <Compile Remove="JobLeet.Core\Constants\**" />
+    <Content Remove="JobLeet.Api\Middlewares\NewFolder\**" />
     <Content Remove="JobLeet.Core\Constants\**" />
+    <EmbeddedResource Remove="JobLeet.Api\Middlewares\NewFolder\**" />
     <EmbeddedResource Remove="JobLeet.Core\Constants\**" />
+    <None Remove="JobLeet.Api\Middlewares\NewFolder\**" />
     <None Remove="JobLeet.Core\Constants\**" />
   </ItemGroup>
 
@@ -26,9 +30,5 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="NLog" Version="5.2.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="JobLeet.Api\Middlewares\NewFolder\" />
   </ItemGroup>
 </Project>

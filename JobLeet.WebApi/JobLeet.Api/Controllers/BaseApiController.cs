@@ -1,15 +1,17 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
-using JobLeet.WebApi.JobLeet.Api.Exceptions.CustomExceptionWrappers.V1;
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers
 {
-    [ApiController]
+   
     [Route("api/v1/[controller]")]
+    [ApiController]
     public abstract class BaseApiController<T, TRepository> : ControllerBase where T : class where TRepository : IRepository<T>
     {
+        #region Initialization
+        // <returns>The list of initializations</returns>
         protected readonly TRepository Repository;
         private readonly ILoggerManagerV1 _logger;
 
@@ -18,7 +20,12 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
             Repository = repository;
             _logger = logger;
         }
+        #endregion
 
+        #region Retrieve record GET request
+        /// <returns>The list of records.</returns>
+        /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
+        /// <remarks>This method fetches all the records from the database using Entity Framework Core.</remarks>
         [HttpGet]
         public virtual async Task<IActionResult> GetAllAsync()
         {
@@ -40,7 +47,12 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
             }
            
         }
+        #endregion
 
+        #region Retrieve record GET By ID request
+        /// <returns>The list of records By ID.</returns>
+        /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
+        /// <remarks>This method fetches all the records by ID from the database using Entity Framework Core.</remarks>
         [HttpGet("{id}")]
         public virtual async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -66,14 +78,39 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
             }
            
         }
+        #endregion
 
+        #region POST Request
+        /// <returns>The newly created POST Request</returns>
+        /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
+        /// <remarks>This method posts the records to the database using Entity Framework Core.</remarks>
         [HttpPost]
         public virtual async Task<IActionResult> CreateAsync([FromBody] T entity)
         {
-            await Repository.AddAsync(entity);
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = 1 }, entity); 
+           try
+            {
+                if(entity == null)
+                {
+                    return BadRequest();
+                }
+                var result = await Repository.AddAsync(entity);
+                return Ok(result);
+
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Error occured while creating the entity: {ex.Message}");
+                var errorResponse = new GlobalErrorResponse
+                {
+                    Error = "System Exception ",
+                    Message = ex.Message
+                };
+                return StatusCode(400, errorResponse);
+            }
         }
+        #endregion
     }
 
-   
+
 }

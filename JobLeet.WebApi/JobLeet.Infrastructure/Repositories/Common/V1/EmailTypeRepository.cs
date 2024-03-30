@@ -66,7 +66,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         }
         #endregion
 
-        public Task AddAsync(EmailModel emailType)
+        public Task<EmailModel> AddAsync(EmailModel emailType)
         {
             throw new NotSupportedException();
         }

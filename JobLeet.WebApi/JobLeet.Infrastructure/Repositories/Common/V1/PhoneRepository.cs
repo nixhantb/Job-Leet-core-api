@@ -16,7 +16,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             _dbContext = dbContext;
         }
         #endregion
-        public Task AddAsync(PhoneModel entity)
+        public Task<PhoneModel> AddAsync(PhoneModel entity)
         {
             throw new NotImplementedException();
         }
