@@ -65,9 +65,10 @@ app.MapControllers();
 #region Middleware Configurations
 app.UseHsts();
 app.UseHttpsRedirection();
-app.UseMiddleware<ResourceNotFoundException>();
+
 app.UseMiddleware<SecurityHeaders>();
 app.UseMiddleware<TotalResponseHeaderCount>();
+app.UseMiddleware<ResourceNotFoundException>();
 #endregion
 
 app.Run();
