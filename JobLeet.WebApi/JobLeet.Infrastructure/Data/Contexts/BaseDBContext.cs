@@ -23,6 +23,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RegisterUser> RegisterUsers { get; set; }
+        public virtual DbSet<LoginUser> LoginUsers { get; set; }
 
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,6 +37,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
             modelBuilder.ApplyConfiguration(new EducationConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new  RegisterUserConfiguration());
+            modelBuilder.ApplyConfiguration(new LoginUserConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
