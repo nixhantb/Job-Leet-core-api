@@ -59,11 +59,23 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 _dbContext.LoginUsers.Add(loginUser);
                 await _dbContext.SaveChangesAsync();
 
-                entity.Id = loginUser.Id;
-                entity.AccountCreated = true;
+                var loginUserResponse = new LoginUserModel
+                {
+                    EmailAddress = loginUser.EmailAddress,
+                    Password = hashedPassword,
+                    // opportunity to add local date time conversion
+                    LoginTime = loginUser.LoginTime = DateTime.UtcNow,
+                    IPAddress = loginUser.IPAddress,
+                    Role = Api.Models.Accounts.V1.RoleCategory.Users,
+                    Id = loginUser.Id,
+                    AccountCreated = true,
+                    AccountStatus = Api.Models.Accounts.V1.AccountCategory.Active
+
+                };
 
 
-                return entity;
+
+                return loginUserResponse;
 
             }
             catch (Exception ex)
