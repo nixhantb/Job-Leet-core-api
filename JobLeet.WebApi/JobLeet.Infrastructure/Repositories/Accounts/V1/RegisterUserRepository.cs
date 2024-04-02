@@ -1,5 +1,7 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities;
@@ -25,7 +27,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             try
             {
                 // Check if the email address is already registered
-                bool emailExists = await _dbContext.RegisterUsers.AnyAsync(u => u.Email == entity.Email);
+                bool emailExists = await _dbContext.RegisterUsers.AnyAsync(u => u.UserEmail.EmailAddress == entity.UserEmail.EmailAddress);
                 if (emailExists)
                 {
                     throw new Exception("This email address is already registered.");
@@ -44,7 +46,12 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 var newUser = new RegisterUser
                 {
                     UserName = entity.UserName,
-                    Email = entity.Email,
+                    UserEmail = new Email
+                    {
+                        Id = entity.UserEmail.Id,
+                        EmailAddress = entity.UserEmail.EmailAddress,
+                        EmailType = Core.Entities.Common.V1.EmailCategory.Personal
+                    },
                     Password = hashedPasscode,
                     ConfirmPassword = hashedPasscode,
                     Salt = saltString 
@@ -55,7 +62,13 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 var responseEntity = new RegisterUserModel
                 {
                     UserName = newUser.UserName,
-                    Email = newUser.Email,
+                    UserEmail = new EmailModel
+                    {
+                        Id = newUser.UserEmail.Id,
+                        EmailAddress = newUser.UserEmail.EmailAddress,
+                        EmailType = Api.Models.Common.V1.EmailCategory.Personal
+                       
+                    },
                     Password = hashedPasscode,
                     ConfirmPassword = hashedPasscode,
                     Id = newUser.Id,

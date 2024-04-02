@@ -14,7 +14,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
             builder.Property(e => e.UserName).HasColumnName("username");
             builder.Property(e => e.Password).HasColumnName("password");
             builder.Property(e => e.ConfirmPassword).HasColumnName("confirm_password");
-            builder.Property(e => e.Salt).HasColumnName("salt");
             builder.OwnsOne(register => register.MetaData);
         }
     }

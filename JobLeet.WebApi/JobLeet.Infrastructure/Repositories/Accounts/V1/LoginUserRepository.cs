@@ -33,7 +33,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     throw new ArgumentException("Password must be between 8 and 100 characters and should match the regular expression pattern");
                 }
 
-                var registrationUser = await _dbContext.RegisterUsers.FirstOrDefaultAsync(u => u.Email == entity.EmailAddress);
+                var registrationUser = await _dbContext.RegisterUsers.FirstOrDefaultAsync(u => u.UserEmail.EmailAddress == entity.EmailAddress);
                 if (registrationUser == null)
                 {
                     throw new Exception("Unregistered user found. Please try registering the User before Logging in");
@@ -46,7 +46,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 {
                     throw new Exception("Invalid credentials. Please check your email or password.");
                 }
-                
+
                 var loginUser = new LoginUser
                 {
                     EmailAddress = entity.EmailAddress,
@@ -54,16 +54,30 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     // opportunity to add local date time conversion
                     LoginTime = entity.LoginTime = DateTime.UtcNow,
                     IPAddress = entity.IPAddress,
-                    Role = Core.Entities.Accounts.V1.RoleCategory.Users
+                    Role = Core.Entities.Accounts.V1.RoleCategory.Users,
+                    AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active,
+                    AccountCreated = true
                 };
                 _dbContext.LoginUsers.Add(loginUser);
                 await _dbContext.SaveChangesAsync();
 
-                entity.Id = loginUser.Id;
-                entity.AccountCreated = true;
+                var loginUserResponse = new LoginUserModel
+                {
+                    EmailAddress = entity.EmailAddress,
+                    Password = hashedPassword,
+                    // opportunity to add local date time conversion
+                    LoginTime = loginUser.LoginTime = DateTime.UtcNow,
+                    IPAddress = loginUser.IPAddress,
+                    Role = Api.Models.Accounts.V1.RoleCategory.Users,
+                    Id = loginUser.Id,
+                    AccountCreated = true,
+                    AccountStatus = Api.Models.Accounts.V1.AccountCategory.Active
+
+                };
 
 
-                return entity;
+
+                return loginUserResponse;
 
             }
             catch (Exception ex)

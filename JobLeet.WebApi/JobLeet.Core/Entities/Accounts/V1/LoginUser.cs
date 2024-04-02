@@ -3,7 +3,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
 {
     public class LoginUser : BaseEntity
     {
-        [Required(ErrorMessage = "Email address is required")]
+        [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string EmailAddress { get; set; }
 
