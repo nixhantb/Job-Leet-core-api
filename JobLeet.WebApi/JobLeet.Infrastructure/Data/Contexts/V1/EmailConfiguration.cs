@@ -13,7 +13,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
                 builder.Property(e => e.Id).HasColumnName("email_id");
                 builder.Property(e => e.EmailType).HasColumnName("email_type");
                 builder.Property(e => e.EmailAddress).HasColumnName("email_address");
-                builder.OwnsOne(email => email.MetaData);
          }
     
         }
