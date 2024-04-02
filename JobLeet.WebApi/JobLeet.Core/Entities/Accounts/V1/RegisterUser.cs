@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+using System.ComponentModel.DataAnnotations;
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
 {
     public class RegisterUser : BaseEntity
@@ -9,9 +8,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
         [Required(ErrorMessage = "Username is required")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Email address is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string Email { get; set; }
+        public Email UserEmail { get; set; }
         [Required(ErrorMessage = "Password is required")]
         [StringLength(101, ErrorMessage = "Password must be between 8 and 100 characters", MinimumLength = 8)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$",
