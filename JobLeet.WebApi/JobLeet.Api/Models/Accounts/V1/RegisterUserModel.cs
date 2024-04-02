@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using System.ComponentModel.DataAnnotations;
 namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
 {
     public class RegisterUserModel : BaseModel
@@ -7,9 +8,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
         [Required(ErrorMessage = "Username is required")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Email address is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string Email { get; set; }
+        public EmailModel UserEmail { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [StringLength(101, ErrorMessage = "Password must be between 8 and 100 characters", MinimumLength = 8)]
