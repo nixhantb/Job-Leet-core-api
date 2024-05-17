@@ -1,22 +1,39 @@
-# Stage 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /source
 
-# Copy solution and project files and restore dependencies
+# Define the base image with ASP.NET runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
+WORKDIR /app
+# Expose port 8080 to allow external access
+EXPOSE 8080
+
+# Define the build image with .NET Core SDK
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+
 COPY *.sln .
 COPY JobLeet.WebApi/*.csproj ./JobLeet.WebApi/
+COPY JobLeet.Tests/UnitTests/*.csproj ./JobLeet.Tests/UnitTests/
+
+# Restore NuGet packages
 RUN dotnet restore
 
-# Copy the source code, build, and publish the application
 COPY . .
-RUN dotnet publish -c Release -o /publish
+WORKDIR "/src/JobLeet.WebApi"
+RUN dotnet build -c $BUILD_CONFIGURATION -o /app/build
 
-# Stage 2: Create the final image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
+# Define a stage for publishing the application
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
 WORKDIR /app
+# Copy the published application from the 'publish' stage to the current directory
+COPY --from=publish /app/publish .
 
-# Copy the compiled and published application from the build stage
-COPY --from=build /publish ./
+# Set the ASP.NET Core URLs environment variable
+ENV ASPNETCORE_URLS="http://+:8080"
 
-# Set the entry point for the container
-ENTRYPOINT ["dotnet", "JobLeet.WebApi.dll"]
+# Run the application
+CMD ["dotnet", "JobLeet.WebApi.dll"]
