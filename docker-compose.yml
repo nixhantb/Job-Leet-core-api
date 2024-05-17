@@ -1,0 +1,33 @@
+# Database container (Mysql-server: 8.0.3)
+services:
+  jobleet-database:
+    image: mysql/mysql-server:8.0.3
+    container_name: sql_server
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: leetadmin
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        timeout: 20s
+        retries: 10    
+    
+  jobleet-api:
+    build: .
+    depends_on:
+      jobleet-database:
+        condition: service_healthy
+    ports: 
+      - "8080:8080"
+    restart: always
+    environment:
+      - DBHOST=jobleet-database
+      - ASPNETCORE_ENVIRONMENT=Development
+
+volumes:
+  db_data:
