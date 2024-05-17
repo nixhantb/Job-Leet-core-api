@@ -9,6 +9,7 @@ using JobLeet.WebApi.JobLeet.Api.Security.Headers;
 using JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,7 +23,7 @@ builder.Configuration
 builder.Services.AddControllers();
 builder.Services.AddScoped<DbContext, BaseDBContext>();
 builder.Services.AddScoped<IEmaiTypeRepository, EmailTypeRepository>();
-builder.Services.AddSingleton<ILoggerManagerV1, LoggerManagerV1>(); 
+builder.Services.AddSingleton<ILoggerManagerV1, LoggerManagerV1>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 builder.Services.AddScoped<IPersonNameRepository, PersonNameRepository>();
 builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
@@ -47,7 +48,8 @@ builder.Services.AddScoped(typeof(BaseCacheHelper<>));
 
 #region Database configuration Services
 
-builder.Services.AddDbContext<BaseDBContext>(options => {
+builder.Services.AddDbContext<BaseDBContext>(options =>
+{
     options.UseMySql(builder.Configuration.GetConnectionString("jobleetconnect"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("jobleetconnect")));
 });
 #endregion
@@ -61,9 +63,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseRouting();
 
 app.MapControllers();
 
@@ -71,9 +71,9 @@ app.MapControllers();
 app.UseHsts();
 app.UseHttpsRedirection();
 
-app.UseMiddleware<SecurityHeaders>();
-app.UseMiddleware<TotalResponseHeaderCount>();
-app.UseMiddleware<ResourceNotFoundException>();
+// app.UseMiddleware<SecurityHeaders>();
+// app.UseMiddleware<TotalResponseHeaderCount>();
+// app.UseMiddleware<ResourceNotFoundException>();
 #endregion
-
+app.CreateDataBaseTableIfNotPresent();
 app.Run();
