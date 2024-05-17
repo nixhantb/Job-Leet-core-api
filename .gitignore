@@ -45,3 +45,6 @@ artifacts/
 *published
 
 *temp
+
+# Ignore the .env file
+.env
