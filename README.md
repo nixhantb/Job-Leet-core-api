@@ -4,6 +4,24 @@ Welcome to Job Leet, your go-to job portal powered by the Job Leet Job Portal AP
 
 Find the Frontend Development repository of this project [Here](https://github.com/Nix-code/Job-Leet-core-UI)
 
+### Easy Access 
+
+Install 
+[Docker](https://www.docker.com/get-started/)
+
+```bash
+docker-compose build && docker-compose up
+```
+and Access the service using 
+```bash
+http://localhost:8080/api/v1/<endpoint>
+```
+
+Or 
+
+```bash
+http://localhost:8080/swagger/index.html
+```
 ## Table of Contents
 
 - [Introduction](#job-leet---job-portal-api)
