@@ -4,11 +4,37 @@ Welcome to Job Leet, your go-to job portal powered by the Job Leet Job Portal AP
 
 Find the Frontend Development repository of this project [Here](https://github.com/Nix-code/Job-Leet-core-UI)
 
-### Easy Access 
+### Getting Started with Docker environment
 
 Install 
 [Docker](https://www.docker.com/get-started/)
 
+1. Create `.env` file in the root directory 
+   Fill the following information 
+
+  ```bash
+  MYSQL_DATABASE= DBName
+  MYSQL_PASSWORD= StrongPassword
+
+  ```
+2. Rename `appsettings.json` to `appsettings.Development.json` 
+  Replace the following informatoin
+
+  ```bash
+  "ConnectionStrings": {
+      "jobleetconnect": "Server=sql_server;Database=<DBName>;User=<Username>;Password=<password>;Port=3306;AllowPublicKeyRetrieval=True;SslMode=None"
+    },
+  ```
+3. Navigate to the `docker-compose.yml` and check the credentials; It should match the credentials of `jobleetconnect` 
+Note: The credentials in `docker-compose.yml`, `.env` and `jobleetconnect` must match.
+
+```bash
+ environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: leetadmin
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}`
+   ```
+4. Final step 
 ```bash
 docker-compose build && docker-compose up
 ```
@@ -34,7 +60,7 @@ http://localhost:8080/swagger/index.html
 - [Issues](#issues)
 - [Contribution](#contribution)
 - [License](#license)
-## Getting Started
+## Getting Started In local environment
 
 ### Prerequisites
 
@@ -89,6 +115,7 @@ Job Leet uses a MySQL database to store job-related data. You can configure the 
  - Jwt Tokens
  - Message Broker (RabbitMQ)
  - Documentations
+ - Docker Container
  - CICD
  - Unit tests
 
