@@ -54,6 +54,15 @@ builder.Services.AddDbContext<BaseDBContext>(options =>
 });
 #endregion
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -70,7 +79,8 @@ app.MapControllers();
 #region Middleware Configurations
 app.UseHsts();
 app.UseHttpsRedirection();
-
+// Enable CORS
+app.UseCors("AllowAll");
 // app.UseMiddleware<SecurityHeaders>();
 // app.UseMiddleware<TotalResponseHeaderCount>();
 // app.UseMiddleware<ResourceNotFoundException>();
