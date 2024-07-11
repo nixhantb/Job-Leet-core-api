@@ -10,6 +10,9 @@ using JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Extensions;
+using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Publisher;
+using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Helpers;
+using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Consumer;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -40,9 +43,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache(); // Register IMemoryCache
 // Register BaseCacheHelper<T> for caching
 builder.Services.AddScoped(typeof(BaseCacheHelper<>));
-
-
-
 #endregion
 
 
@@ -63,6 +63,9 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
+builder.Services.AddSingleton<RabbitMQServiceSetup>();
+builder.Services.AddSingleton<RabbitMQService>();
+builder.Services.AddHostedService<RabbitMQConsumerService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -72,6 +75,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseRouting();
 
 app.MapControllers();
@@ -79,6 +84,7 @@ app.MapControllers();
 #region Middleware Configurations
 app.UseHsts();
 app.UseHttpsRedirection();
+
 // Enable CORS
 app.UseCors("AllowAll");
 // app.UseMiddleware<SecurityHeaders>();
