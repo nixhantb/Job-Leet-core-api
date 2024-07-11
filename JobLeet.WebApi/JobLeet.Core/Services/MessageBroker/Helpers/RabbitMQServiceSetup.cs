@@ -7,10 +7,12 @@ namespace JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Helpers
         private readonly IConfiguration _configuration;
         private IConnection _connection;
         private IModel _channel;
+        private ILogger<RabbitMQServiceSetup> _logger;
 
-        public RabbitMQServiceSetup(IConfiguration configuration)
+        public RabbitMQServiceSetup(IConfiguration configuration, ILogger<RabbitMQServiceSetup> logger)
         {
             _configuration = configuration;
+            _logger = logger;
             SetupRabbitMQ();
         }
 
@@ -35,7 +37,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Helpers
 
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-
+            _logger.LogInformation("Connection to rabbitMQ is successful"+_channel);
             // Declare exchange (optional if it doesn't exist)
             _channel.ExchangeDeclare(exchange: "messages", type: ExchangeType.Fanout);
 
