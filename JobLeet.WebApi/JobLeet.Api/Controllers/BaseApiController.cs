@@ -1,6 +1,7 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Core.Interfaces;
+using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Publisher;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers
@@ -14,11 +15,13 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         // <returns>The list of initializations</returns>
         protected readonly TRepository Repository;
         private readonly ILoggerManagerV1 _logger;
+        private readonly RabbitMQService _rabbitMQService;
 
-        protected BaseApiController(TRepository repository, ILoggerManagerV1 logger)
+        protected BaseApiController(TRepository repository, ILoggerManagerV1 logger, RabbitMQService rabbitMQService)
         {
             Repository = repository;
             _logger = logger;
+            _rabbitMQService = rabbitMQService;
         }
         #endregion
 
@@ -94,6 +97,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                     return BadRequest();
                 }
                 var result = await Repository.AddAsync(entity);
+                _rabbitMQService.PublishMessage($"New entity created: {entity}");
                 return Ok(result);
 
 

@@ -2,6 +2,7 @@
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using Microsoft.AspNetCore.Mvc;
+using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Publisher;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
@@ -9,8 +10,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
     
     public class EmailController : BaseApiController<EmailModel, IEmaiTypeRepository>
     {
-        public EmailController(IEmaiTypeRepository emailTypeRepository, ILoggerManagerV1 logger)
-            : base(emailTypeRepository, logger)
+        public EmailController(IEmaiTypeRepository emailTypeRepository, ILoggerManagerV1 logger, RabbitMQService rabbitMQService)
+            : base(emailTypeRepository, logger, rabbitMQService)
         {
 
         }
