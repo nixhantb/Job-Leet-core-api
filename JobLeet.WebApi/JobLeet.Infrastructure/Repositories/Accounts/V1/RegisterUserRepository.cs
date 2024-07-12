@@ -32,6 +32,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 {
                     throw new Exception("This email address is already registered.");
                 }
+                bool emailValidator = EmailValidator.IsValidEmail(entity.UserEmail.EmailAddress);
+                
+                if(!emailValidator){
+                    throw new Exception("Invalid Email Format");
+                }
 
                 if (!PasswordValidation.ValidatePassword(entity.Password))
                 {
@@ -45,7 +50,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 string hashedPasscode = GenerateHashedPassword.HashedPassword(entity.Password, saltString);
                 var newUser = new RegisterUser
                 {
-                    UserName = entity.UserName,
+                    UserName = entity.UserName.Trim().ToLower(),
                     UserEmail = new Email
                     {
                         Id = entity.UserEmail.Id,
@@ -71,7 +76,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     },
                     Password = hashedPasscode,
                     ConfirmPassword = hashedPasscode,
-                    Id = newUser.Id,
+                    Id = newUser.Id
                 };
 
                 return responseEntity;
