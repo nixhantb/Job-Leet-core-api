@@ -5,6 +5,7 @@ using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities;
+using JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -26,26 +27,18 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
         {
             try
             {
-                // Check if the email address is already registered
-                bool emailExists = await _dbContext.RegisterUsers.AnyAsync(u => u.UserEmail.EmailAddress == entity.UserEmail.EmailAddress);
-                if (emailExists)
-                {
-                    throw new Exception("This email address is already registered.");
-                }
+                #region ToJobLeetDB
 
-                if (!PasswordValidation.ValidatePassword(entity.Password))
-                {
-                    throw new ArgumentException("Password must be between 8 and 100 characters and should match the regular expression pattern");
-                }
+                // ValidationUserAsync validates the Username, Password and EmailAddress
+                await ValidateUserAsync(entity);
 
-                byte[] salt = GenerateHashedPassword.GenerateSalt();
-                string saltString = Convert.ToBase64String(salt);
+                // Generates the hashedpasscode and Salt string to ensure User's Password security.
+                var (hashedPasscode, saltString) = GenerateUniqueHashedPassword(entity.Password);
 
-                // Generate hashed password using the salt
-                string hashedPasscode = GenerateHashedPassword.HashedPassword(entity.Password, saltString);
+
                 var newUser = new RegisterUser
                 {
-                    UserName = entity.UserName,
+                    UserName = entity.UserName.Trim().ToLower(),
                     UserEmail = new Email
                     {
                         Id = entity.UserEmail.Id,
@@ -54,11 +47,16 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     },
                     Password = hashedPasscode,
                     ConfirmPassword = hashedPasscode,
-                    Salt = saltString 
+                    Salt = saltString
                 };
 
                 _dbContext.RegisterUsers.Add(newUser);
                 await _dbContext.SaveChangesAsync();
+
+                #endregion
+
+                #region ToAPIResponse
+                // Not exposing Salt for security concerns. 
                 var responseEntity = new RegisterUserModel
                 {
                     UserName = newUser.UserName,
@@ -67,22 +65,21 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                         Id = newUser.UserEmail.Id,
                         EmailAddress = newUser.UserEmail.EmailAddress,
                         EmailType = Api.Models.Common.V1.EmailCategory.Personal
-                       
                     },
                     Password = hashedPasscode,
                     ConfirmPassword = hashedPasscode,
-                    Id = newUser.Id,
+                    Id = newUser.Id
                 };
 
                 return responseEntity;
             }
+            #endregion
             catch (DbUpdateException ex)
             {
                 throw new DbUpdateException($"Error occurred while Creating the user registration {ex.Message}");
             }
             catch (Exception ex)
             {
-                // Catch any other unexpected exceptions and rethrow
                 throw new Exception($"An error occurred: {ex.Message}", ex);
             }
         }
@@ -106,5 +103,40 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
         {
             throw new NotImplementedException();
         }
+
+
+        #region  Utility Methods
+
+        private async Task ValidateUserAsync(RegisterUserModel entity)
+        {
+            bool emailExists = await _dbContext.RegisterUsers.AnyAsync(u => u.UserEmail.EmailAddress == entity.UserEmail.EmailAddress);
+            bool emailValidator = EmailAddressValidator.IsValidEmail(entity.UserEmail.EmailAddress);
+            bool passwordValidator = PasswordValidation.ValidatePassword(entity.Password);
+
+            if (emailExists)
+            {
+                throw new Exception("This email address is already registered.");
+            }
+
+            if (!emailValidator)
+            {
+                throw new Exception("Invalid Email Format");
+            }
+
+            if (!passwordValidator)
+            {
+                throw new ArgumentException("Password must be between 8 and 100 characters and should match the regular expression pattern");
+            }
+        }
+
+        private (string hashedPassword, string salt) GenerateUniqueHashedPassword(string password)
+        {
+            byte[] salt = GenerateHashedPassword.GenerateSalt();
+            string saltString = Convert.ToBase64String(salt);
+            string hashedPassword = GenerateHashedPassword.HashedPassword(password, saltString);
+            return (hashedPassword, saltString);
+        }
+        #endregion
+
     }
 }

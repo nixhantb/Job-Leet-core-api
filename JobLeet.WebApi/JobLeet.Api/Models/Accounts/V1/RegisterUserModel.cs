@@ -1,13 +1,16 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
 {
     public class RegisterUserModel : BaseModel
     {
+        [JsonIgnore]
         public string? Salt { get; set; }
         [Required(ErrorMessage = "Username is required")]
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Username contains invalid characters.")]
         public string UserName { get; set; }
-
+        [Required(ErrorMessage = "User email is required")]
         public EmailModel UserEmail { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
