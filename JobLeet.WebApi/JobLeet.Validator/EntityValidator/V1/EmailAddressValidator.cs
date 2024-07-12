@@ -1,9 +1,9 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities
+namespace JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1
 {
-    public class EmailValidator
+    public class EmailAddressValidator
     {
         public static bool IsValidEmail(string email)
         {
