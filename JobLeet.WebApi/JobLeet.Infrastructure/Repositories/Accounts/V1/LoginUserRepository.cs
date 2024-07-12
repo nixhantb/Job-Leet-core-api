@@ -23,36 +23,18 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
         {
             try
             {
-                if(entity.Role == Api.Models.Accounts.V1.RoleCategory.Admin)
-                {
-                    throw new ArgumentException("Sorry, you cannot register as an Admin. Please contact administration if you need help");
-                }
+                #region ToJobLeetDB
 
-                if (!PasswordValidation.ValidatePassword(entity.Password))
-                {
-                    throw new ArgumentException("Password must be between 8 and 100 characters and should match the regular expression pattern");
-                }
-
-                var registrationUser = await _dbContext.RegisterUsers.FirstOrDefaultAsync(u => u.UserEmail.EmailAddress == entity.EmailAddress);
-                if (registrationUser == null)
-                {
-                    throw new Exception("Unregistered user found. Please try registering the User before Logging in");
-                }
+                var registrationUser = await ValidateUserAsync(entity);
                 string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
-
-
-                // Compare the hashed password with the one stored in the database
-                if (hashedPassword != registrationUser.Password)
-                {
-                    throw new Exception("Invalid credentials. Please check your email or password.");
-                }
+                DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.Local);
 
                 var loginUser = new LoginUser
                 {
                     EmailAddress = entity.EmailAddress,
                     Password = hashedPassword,
                     // opportunity to add local date time conversion
-                    LoginTime = entity.LoginTime = DateTime.UtcNow,
+                    LoginTime = entity.LoginTime = localDateTime,
                     IPAddress = entity.IPAddress,
                     Role = Core.Entities.Accounts.V1.RoleCategory.Users,
                     AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active,
@@ -61,12 +43,15 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 _dbContext.LoginUsers.Add(loginUser);
                 await _dbContext.SaveChangesAsync();
 
+                #endregion
+
+                #region  ToAPIResponse
                 var loginUserResponse = new LoginUserModel
                 {
                     EmailAddress = entity.EmailAddress,
                     Password = hashedPassword,
                     // opportunity to add local date time conversion
-                    LoginTime = loginUser.LoginTime = DateTime.UtcNow,
+                    LoginTime = loginUser.LoginTime = localDateTime,
                     IPAddress = loginUser.IPAddress,
                     Role = Api.Models.Accounts.V1.RoleCategory.Users,
                     Id = loginUser.Id,
@@ -74,11 +59,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     AccountStatus = Api.Models.Accounts.V1.AccountCategory.Active
 
                 };
-
-
-
                 return loginUserResponse;
-
+                #endregion
             }
             catch (Exception ex)
             {
@@ -105,7 +87,37 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
         {
             throw new NotImplementedException();
         }
-        
+
+        #region Helper Methods
+        private async Task<RegisterUser> ValidateUserAsync(LoginUserModel entity)
+        {
+
+            bool validatePassword = PasswordValidation.ValidatePassword(entity.Password);
+            var registrationUser = await _dbContext.RegisterUsers.FirstOrDefaultAsync(u => u.UserEmail.EmailAddress == entity.EmailAddress);
+            if (entity.Role == Api.Models.Accounts.V1.RoleCategory.Admin)
+            {
+                throw new ArgumentException("Sorry, you cannot register as an Admin. Please contact administration if you need help");
+            }
+
+            if (!validatePassword)
+            {
+                throw new ArgumentException("Password must be between 8 and 100 characters and should match the regular expression pattern");
+            }
+
+            if (registrationUser == null)
+            {
+                throw new Exception("Unregistered user found. Please try registering the User before Logging in");
+            }
+
+            // Compare the hashed password with the one stored in the database
+            string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
+            if (hashedPassword != registrationUser.Password)
+            {
+                throw new Exception("Invalid credentials. Please check your email or password.");
+            }
+            return registrationUser;
+        }
+        #endregion
     }
 
 }
