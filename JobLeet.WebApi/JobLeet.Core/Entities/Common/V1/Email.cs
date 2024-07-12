@@ -13,7 +13,6 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
             EmailType = EmailCategory.Personal;
         }
         [Required(ErrorMessage = "Email Address is required")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address format")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? EmailAddress { get; set; }
     }
