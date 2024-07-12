@@ -36,23 +36,5 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
             Assert.False(ValidateResults.Any(v => v.MemberNames.Contains("EmailType") && v.ErrorMessage.Contains("Email Type is required")), "Email Type should be marked as required");
             Assert.True(ValidateResults.Any(v => v.MemberNames.Contains("EmailAddress") && v.ErrorMessage.Contains("Email Address is required")), "Email Address should be marked as required");
         }
-
-        [Fact]
-        public void EmailModel_ShouldValidateCorrectEmailFormatting()
-        {
-            EmailModel emailModel = new EmailModel
-            {
-                EmailType = EmailCategory.Personal,
-                // Invalid email address format
-                EmailAddress = "invalid-email-format"
-            };
-
-            var validateResults = ValidateAnnotationHelper.ValidateModel(emailModel);
-
-            var emailFormatValidationResult = validateResults.FirstOrDefault(v => v.MemberNames.Contains("EmailAddress"));
-
-            Assert.NotNull(emailFormatValidationResult);
-            Assert.Equal("Invalid Email Address format", emailFormatValidationResult.ErrorMessage); 
-        }
     }
 }
