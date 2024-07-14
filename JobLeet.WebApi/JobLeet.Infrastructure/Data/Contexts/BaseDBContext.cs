@@ -37,7 +37,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
             modelBuilder.ApplyConfiguration(new EducationConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            modelBuilder.ApplyConfiguration(new  RegisterUserConfiguration());
+            modelBuilder.ApplyConfiguration(new RegisterUserConfiguration());
             modelBuilder.ApplyConfiguration(new LoginUserConfiguration());
             base.OnModelCreating(modelBuilder);
         }

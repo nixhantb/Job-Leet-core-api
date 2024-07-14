@@ -66,7 +66,7 @@ namespace JobLeet.WebApi.Migrations
                     emailid = table.Column<int>(name: "email_id", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     emailtype = table.Column<int>(name: "email_type", type: "int", nullable: false),
-                    emailaddress = table.Column<string>(name: "email_address", type: "longtext", nullable: false)
+                    emailaddress = table.Column<string>(name: "email_address", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>

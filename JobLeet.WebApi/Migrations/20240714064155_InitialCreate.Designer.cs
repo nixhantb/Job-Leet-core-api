@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20240517085709_InitialCreate")]
+    [Migration("20240714064155_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -198,7 +198,6 @@ namespace JobLeet.WebApi.Migrations
                         .HasColumnName("email_id");
 
                     b.Property<string>("EmailAddress")
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("email_address");
 
