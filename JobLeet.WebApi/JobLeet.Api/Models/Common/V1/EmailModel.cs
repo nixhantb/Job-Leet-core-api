@@ -16,6 +16,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
         [Required(ErrorMessage = "Email Address is required")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? EmailAddress { get; set; }
+        [JsonIgnore]
+        public override MetaDataModel MetaData { get => base.MetaData; set => base.MetaData = value; }
     }
     
 }
