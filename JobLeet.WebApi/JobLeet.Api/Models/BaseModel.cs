@@ -9,6 +9,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Models
     {
         public int Id { get; set; }
         [NotMapped]
-        public MetaDataModel MetaData { get; set; } = new MetaDataModel();
+        public virtual MetaDataModel MetaData { get; set; } = new MetaDataModel();
     }
 }

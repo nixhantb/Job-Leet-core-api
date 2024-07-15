@@ -6,7 +6,7 @@ public class BaseEntity
 {
     public int Id { get; set; }
     [NotMapped]
-    public MetaData MetaData { get; set; } = new MetaData();
+    public virtual MetaData MetaData { get; set; } = new MetaData();
 
 }
 
