@@ -1,4 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
+﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
+using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
@@ -96,24 +97,24 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             var registrationUser = await _dbContext.RegisterUsers.FirstOrDefaultAsync(u => u.UserEmail.EmailAddress == entity.EmailAddress);
             if (entity.Role == Api.Models.Accounts.V1.RoleCategory.Admin)
             {
-                throw new ArgumentException("Sorry, you cannot register as an Admin. Please contact administration if you need help");
+                throw new ArgumentException(ErrorMessageManager.GetErrorMessage("Invalid_Admin_Access"));
             }
 
             if (!validatePassword)
             {
-                throw new ArgumentException("Password must be between 8 and 100 characters and should match the regular expression pattern");
+                throw new ArgumentException(ErrorMessageManager.GetErrorMessage("Invalid_Password_Format"));
             }
 
             if (registrationUser == null)
             {
-                throw new Exception("Unregistered user found. Please try registering the User before Logging in");
+                throw new Exception(ErrorMessageManager.GetErrorMessage("Unregistered_User_Error"));
             }
 
             // Compare the hashed password with the one stored in the database
             string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
             if (hashedPassword != registrationUser.Password)
             {
-                throw new Exception("Invalid credentials. Please check your email or password.");
+                throw new Exception(ErrorMessageManager.GetErrorMessage("Invalid_Credentials_Error"));
             }
             return registrationUser;
         }

@@ -7,11 +7,9 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
     {
         [JsonIgnore]
         public string? Salt { get; set; }
-        [Required(ErrorMessage = "Username is required")]
-        //[RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Username contains invalid characters.")]
-       // public string UserName { get; set; }
+        [Required(ErrorMessage = "personName is a required field")]
         public PersonName PersonName {get; set;}
-        [Required(ErrorMessage = "User email is required")]
+        [Required(ErrorMessage = "userEmail is a required field")]
         public Email UserEmail { get; set; }
         
         [Required(ErrorMessage = "Password is required")]
