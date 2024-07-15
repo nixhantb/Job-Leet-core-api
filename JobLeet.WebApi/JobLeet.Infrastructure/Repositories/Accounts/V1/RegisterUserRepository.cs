@@ -29,16 +29,20 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             {
                 #region ToJobLeetDB
 
-                // ValidationUserAsync validates the Username, Password and EmailAddress
+                // ValidationUserAsync validates the PersonName, Password and EmailAddress
                 await ValidateUserAsync(entity);
 
                 // Generates the hashedpasscode and Salt string to ensure User's Password security.
                 var (hashedPasscode, saltString) = GenerateUniqueHashedPassword(entity.Password);
-
-
                 var newUser = new RegisterUser
                 {
-                    UserName = entity.UserName.Trim().ToLower(),
+                    PersonName = new PersonName {
+                        Id = entity.PersonName.Id,
+                        FirstName = entity.PersonName.FirstName.Trim().ToLower(),
+                        MiddleName = entity?.PersonName?.MiddleName?.Trim().ToLower(),
+                        LastName = entity?.PersonName?.LastName?.Trim().ToLower(),
+                    },
+                   // UserName = entity.UserName.Trim().ToLower(),
                     UserEmail = new Email
                     {
                         Id = entity.UserEmail.Id,
@@ -59,15 +63,20 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 // Not exposing Salt for security concerns. 
                 var responseEntity = new RegisterUserModel
                 {
-                    UserName = newUser.UserName,
+                    PersonName = new PersonNameModel{
+                        Id = newUser.PersonName.Id,
+                        FirstName = newUser.PersonName.FirstName,
+                        MiddleName = newUser.PersonName.MiddleName,
+                        LastName = newUser.PersonName.LastName,
+                    },
                     UserEmail = new EmailModel
                     {
                         Id = newUser.UserEmail.Id,
                         EmailAddress = newUser.UserEmail.EmailAddress,
                         EmailType = Api.Models.Common.V1.EmailCategory.Personal
                     },
-                    Password = hashedPasscode,
-                    ConfirmPassword = hashedPasscode,
+                    // Password = hashedPasscode,
+                    // ConfirmPassword = hashedPasscode,
                     Id = newUser.Id
                 };
 
@@ -113,6 +122,13 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             bool emailValidator = EmailAddressValidator.IsValidEmail(entity.UserEmail.EmailAddress);
             bool passwordValidator = PasswordValidation.ValidatePassword(entity.Password);
 
+            var checkFirstName = PersonNameValidator.IsValidUsername(entity.PersonName.FirstName);
+            var checkMiddleName = PersonNameValidator.IsValidMiddleName(entity.PersonName.MiddleName);
+            var checkLastName = PersonNameValidator.IsValidUsername(entity.PersonName.LastName);
+
+            if(!checkFirstName || !checkLastName || !checkMiddleName){
+                throw new Exception("Invalid syntax for FirstName, MiddleName or LastName");
+            }
             if (emailExists)
             {
                 throw new Exception("This email address is already registered.");
