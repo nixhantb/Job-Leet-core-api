@@ -8,13 +8,12 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     {
         public void Configure(EntityTypeBuilder<PersonName> builder)
         {
-            builder.ToTable("PersonName");
+            builder.ToTable("jblt_personName");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).HasColumnName("personname_id");
-            builder.Property(e => e.FirstName).HasColumnName("first_name");
-            builder.Property(e => e.MiddleName).HasColumnName("middle_name");
-            builder.Property(e => e.LastName).HasColumnName("last_name");
-            builder.OwnsOne(e => e.MetaData);
+            builder.Property(e => e.FirstName).HasColumnName("personName_firstname");
+            builder.Property(e => e.MiddleName).HasColumnName("personName_middlename");
+            builder.Property(e => e.LastName).HasColumnName("personName_lastname");
         }
     }
 }

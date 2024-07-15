@@ -8,16 +8,16 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     {
         public void Configure(EntityTypeBuilder<LoginUser> builder)
         {
-            builder.ToTable("LoginUser");
+            builder.ToTable("jblt_loginuser");
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.Id).HasColumnName("login_id");
-            builder.Property(e => e.EmailAddress).HasColumnName("email_address");
-            builder.Property(e => e.Password).HasColumnName("password");
-            builder.Property(e => e.AccountStatus).HasColumnName("account_status");
-            builder.Property(e => e.AccountCreated).HasColumnName("account_created");
-            builder.Property(e => e.LoginTime).HasColumnName("login_time");
-            builder.Property(e => e.IPAddress).HasColumnName("ip_address");
-            builder.Property(e => e.Role).HasColumnName("role");
+            builder.Property(e => e.Id).HasColumnName("loginuser_id");
+            builder.Property(e => e.EmailAddress).HasColumnName("loginuser_address");
+            builder.Property(e => e.Password).HasColumnName("loginuser_password");
+            builder.Property(e => e.AccountStatus).HasColumnName("loginuser_accountstatus");
+            builder.Property(e => e.AccountCreated).HasColumnName("loginuser_accountcreated");
+            builder.Property(e => e.LoginTime).HasColumnName("loginuser_logintime");
+            builder.Property(e => e.IPAddress).HasColumnName("loginuser_ipaddress");
+            builder.Property(e => e.Role).HasColumnName("loginuser_role");
             builder.OwnsOne(login => login.MetaData);
         }
     }

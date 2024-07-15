@@ -7,7 +7,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     {
         public void Configure(EntityTypeBuilder<Qualification> builder)
         {
-            builder.ToTable("Qualification");
+            builder.ToTable("jblt_qualification");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).HasColumnName("qualification_id");
             builder.Property(e => e.QualificationType).HasColumnName("qualification_type");

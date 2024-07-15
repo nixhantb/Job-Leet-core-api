@@ -8,7 +8,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     {
         public void Configure(EntityTypeBuilder<Email> builder)
         {
-                builder.ToTable("Email");
+                builder.ToTable("jblt_email");
                 builder.HasKey(e => e.Id);
                 builder.Property(e => e.Id).HasColumnName("email_id");
                 builder.Property(e => e.EmailType).HasColumnName("email_type");

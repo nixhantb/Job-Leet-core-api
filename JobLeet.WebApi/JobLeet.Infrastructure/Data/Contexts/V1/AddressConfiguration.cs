@@ -8,15 +8,15 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     {
         public void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.ToTable("Address");
+            builder.ToTable("jblt_userAddress");
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.Id).HasColumnName("AddressId");
-            builder.Property(e => e.Street).HasColumnName("Street");
-            builder.Property(e => e.City).HasColumnName("City");
-            builder.Property(e => e.State).HasColumnName("State");
-            builder.Property(e => e.PostalCode).HasColumnName("PostalCode");
-            builder.Property(e => e.Country).HasColumnName("Country");
-            builder.OwnsOne(Address => Address.MetaData);
+            builder.Property(e => e.Id).HasColumnName("address_id");
+            builder.Property(e => e.Street).HasColumnName("address_street");
+            builder.Property(e => e.City).HasColumnName("address_city");
+            builder.Property(e => e.State).HasColumnName("address_state");
+            builder.Property(e => e.PostalCode).HasColumnName("address_postalCode");
+            builder.Property(e => e.Country).HasColumnName("address_country");
+
         }
     }
 }

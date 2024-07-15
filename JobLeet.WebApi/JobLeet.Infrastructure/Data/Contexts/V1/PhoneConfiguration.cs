@@ -8,11 +8,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     {
         public void Configure(EntityTypeBuilder<Phone> builder)
         {
-            builder.ToTable("Phone");
+            builder.ToTable("jblt_phone");
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.Id).HasColumnName("phone_id");
-            builder.Property(e => e.CountryCode).HasColumnName("country_code");
-            builder.Property(e => e.PhoneNumber).HasColumnName("phone_number");
+            builder.Property(e => e.Id).HasColumnName("jblt_phoneid");
+            builder.Property(e => e.CountryCode).HasColumnName("jblt_countrycode");
+            builder.Property(e => e.PhoneNumber).HasColumnName("jblt_phonenumber");
             builder.OwnsOne(phone => phone.MetaData);
         }
     }

@@ -8,12 +8,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     {
         public void Configure(EntityTypeBuilder<RegisterUser> builder)
         {
-            builder.ToTable("RegisterUser");
+            builder.ToTable("jblt_registerUser");
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.Id).HasColumnName("register_id");
-            builder.Property(e => e.UserName).HasColumnName("username");
-            builder.Property(e => e.Password).HasColumnName("password");
-            builder.Property(e => e.ConfirmPassword).HasColumnName("confirm_password");
+            builder.Property(e => e.Id).HasColumnName("jblt_registerid");
+            builder.Property(e => e.Password).HasColumnName("jblt_password");
+            builder.Property(e => e.ConfirmPassword).HasColumnName("jblt_confirmpassword");
             builder.OwnsOne(register => register.MetaData);
         }
     }

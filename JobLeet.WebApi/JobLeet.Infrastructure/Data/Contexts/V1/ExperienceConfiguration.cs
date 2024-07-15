@@ -9,7 +9,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
         public void Configure(EntityTypeBuilder<Experience> builder)
         
         {
-            builder.ToTable("Experience");
+            builder.ToTable("jblt_experience");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).HasColumnName("experience_id");
             builder.Property(e => e.ExperienceLevel).HasColumnName("experience_type");
