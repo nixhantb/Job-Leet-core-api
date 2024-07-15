@@ -1,0 +1,6 @@
+Key,Value
+Email_Duplication_Exception, "This email address is already registered."
+Invalid_Email_Format, "Invalid Email Format, please use valid email format like abc@example.com'"
+Invalid_Password_Format, "Password must be between 8 and 100 characters and should match the regular expression pattern"
+PersonName_Exception_Message, "Invalid syntax for FirstName, MiddleName or LastName"
+User_Registration_Error, "Error occurred while Creating the user registration!"
