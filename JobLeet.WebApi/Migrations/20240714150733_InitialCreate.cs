@@ -16,51 +16,28 @@ namespace JobLeet.WebApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Address",
-                columns: table => new
-                {
-                    AddressId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Street = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    City = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    State = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PostalCode = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Country = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Address", x => x.AddressId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Education",
+                name: "jblt_education",
                 columns: table => new
                 {
                     educationid = table.Column<int>(name: "education_id", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    degree = table.Column<string>(type: "longtext", nullable: false)
+                    educationdegree = table.Column<string>(name: "education_degree", type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    major = table.Column<string>(type: "longtext", nullable: false)
+                    educationmajor = table.Column<string>(name: "education_major", type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    institution = table.Column<string>(type: "longtext", nullable: false)
+                    educationnstitution = table.Column<string>(name: "education_nstitution", type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    graduationdate = table.Column<DateOnly>(name: "graduation_date", type: "date", nullable: false),
-                    cgpa = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    educationgraduationdate = table.Column<DateOnly>(name: "education_graduationdate", type: "date", nullable: false),
+                    educationcgpa = table.Column<decimal>(name: "education_cgpa", type: "decimal(65,30)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Education", x => x.educationid);
+                    table.PrimaryKey("PK_jblt_education", x => x.educationid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Email",
+                name: "jblt_email",
                 columns: table => new
                 {
                     emailid = table.Column<int>(name: "email_id", type: "int", nullable: false)
@@ -71,12 +48,12 @@ namespace JobLeet.WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Email", x => x.emailid);
+                    table.PrimaryKey("PK_jblt_email", x => x.emailid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Experience",
+                name: "jblt_experience",
                 columns: table => new
                 {
                     experienceid = table.Column<int>(name: "experience_id", type: "int", nullable: false)
@@ -85,70 +62,70 @@ namespace JobLeet.WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Experience", x => x.experienceid);
+                    table.PrimaryKey("PK_jblt_experience", x => x.experienceid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "LoginUser",
+                name: "jblt_loginuser",
                 columns: table => new
                 {
-                    loginid = table.Column<int>(name: "login_id", type: "int", nullable: false)
+                    loginuserid = table.Column<int>(name: "loginuser_id", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    emailaddress = table.Column<string>(name: "email_address", type: "longtext", nullable: false)
+                    loginuseraddress = table.Column<string>(name: "loginuser_address", type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    password = table.Column<string>(type: "varchar(101)", maxLength: 101, nullable: false)
+                    loginuserpassword = table.Column<string>(name: "loginuser_password", type: "varchar(101)", maxLength: 101, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    accountstatus = table.Column<int>(name: "account_status", type: "int", nullable: false),
-                    accountcreated = table.Column<bool>(name: "account_created", type: "tinyint(1)", nullable: false),
-                    logintime = table.Column<DateTime>(name: "login_time", type: "datetime(6)", nullable: false),
-                    ipaddress = table.Column<string>(name: "ip_address", type: "longtext", nullable: true)
+                    loginuseraccountstatus = table.Column<int>(name: "loginuser_accountstatus", type: "int", nullable: false),
+                    loginuseraccountcreated = table.Column<bool>(name: "loginuser_accountcreated", type: "tinyint(1)", nullable: false),
+                    loginuserlogintime = table.Column<DateTime>(name: "loginuser_logintime", type: "datetime(6)", nullable: false),
+                    loginuseripaddress = table.Column<string>(name: "loginuser_ipaddress", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    role = table.Column<int>(type: "int", nullable: false)
+                    loginuserrole = table.Column<int>(name: "loginuser_role", type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoginUser", x => x.loginid);
+                    table.PrimaryKey("PK_jblt_loginuser", x => x.loginuserid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "PersonName",
+                name: "jblt_personName",
                 columns: table => new
                 {
                     personnameid = table.Column<int>(name: "personname_id", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    firstname = table.Column<string>(name: "first_name", type: "longtext", nullable: false)
+                    personNamefirstname = table.Column<string>(name: "personName_firstname", type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    middlename = table.Column<string>(name: "middle_name", type: "longtext", nullable: true)
+                    personNamemiddlename = table.Column<string>(name: "personName_middlename", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    lastname = table.Column<string>(name: "last_name", type: "longtext", nullable: false)
+                    personNamelastname = table.Column<string>(name: "personName_lastname", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonName", x => x.personnameid);
+                    table.PrimaryKey("PK_jblt_personName", x => x.personnameid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Phone",
+                name: "jblt_phone",
                 columns: table => new
                 {
-                    phoneid = table.Column<int>(name: "phone_id", type: "int", nullable: false)
+                    jbltphoneid = table.Column<int>(name: "jblt_phoneid", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    countrycode = table.Column<int>(name: "country_code", type: "int", nullable: false),
-                    phonenumber = table.Column<string>(name: "phone_number", type: "longtext", nullable: false)
+                    jbltcountrycode = table.Column<int>(name: "jblt_countrycode", type: "int", nullable: false),
+                    jbltphonenumber = table.Column<string>(name: "jblt_phonenumber", type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Phone", x => x.phoneid);
+                    table.PrimaryKey("PK_jblt_phone", x => x.jbltphoneid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Qualification",
+                name: "jblt_qualification",
                 columns: table => new
                 {
                     qualificationid = table.Column<int>(name: "qualification_id", type: "int", nullable: false)
@@ -159,26 +136,26 @@ namespace JobLeet.WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Qualification", x => x.qualificationid);
+                    table.PrimaryKey("PK_jblt_qualification", x => x.qualificationid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Role",
+                name: "jblt_role",
                 columns: table => new
                 {
-                    roleid = table.Column<int>(name: "role_id", type: "int", nullable: false)
+                    roleroleid = table.Column<int>(name: "role_roleid", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     rolename = table.Column<int>(name: "role_name", type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.roleid);
+                    table.PrimaryKey("PK_jblt_role", x => x.roleroleid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "SkillModel",
+                name: "jblt_skill",
                 columns: table => new
                 {
                     skillid = table.Column<int>(name: "skill_id", type: "int", nullable: false)
@@ -190,41 +167,74 @@ namespace JobLeet.WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SkillModel", x => x.skillid);
+                    table.PrimaryKey("PK_jblt_skill", x => x.skillid);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "RegisterUser",
+                name: "jblt_userAddress",
                 columns: table => new
                 {
-                    registerid = table.Column<int>(name: "register_id", type: "int", nullable: false)
+                    addressid = table.Column<int>(name: "address_id", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Salt = table.Column<string>(type: "longtext", nullable: true)
+                    addressstreet = table.Column<string>(name: "address_street", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    username = table.Column<string>(type: "longtext", nullable: false)
+                    addresscity = table.Column<string>(name: "address_city", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserEmailId = table.Column<int>(type: "int", nullable: false),
-                    password = table.Column<string>(type: "varchar(101)", maxLength: 101, nullable: false)
+                    addressstate = table.Column<string>(name: "address_state", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    confirmpassword = table.Column<string>(name: "confirm_password", type: "varchar(101)", maxLength: 101, nullable: false)
+                    addresspostalCode = table.Column<string>(name: "address_postalCode", type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    addresscountry = table.Column<string>(name: "address_country", type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RegisterUser", x => x.registerid);
+                    table.PrimaryKey("PK_jblt_userAddress", x => x.addressid);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "jblt_registerUser",
+                columns: table => new
+                {
+                    jbltregisterid = table.Column<int>(name: "jblt_registerid", type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Salt = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PersonNameId = table.Column<int>(type: "int", nullable: false),
+                    UserEmailId = table.Column<int>(type: "int", nullable: false),
+                    jbltpassword = table.Column<string>(name: "jblt_password", type: "varchar(101)", maxLength: 101, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    jbltconfirmpassword = table.Column<string>(name: "jblt_confirmpassword", type: "varchar(101)", maxLength: 101, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_jblt_registerUser", x => x.jbltregisterid);
                     table.ForeignKey(
-                        name: "FK_RegisterUser_Email_UserEmailId",
+                        name: "FK_jblt_registerUser_jblt_email_UserEmailId",
                         column: x => x.UserEmailId,
-                        principalTable: "Email",
+                        principalTable: "jblt_email",
                         principalColumn: "email_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_jblt_registerUser_jblt_personName_PersonNameId",
+                        column: x => x.PersonNameId,
+                        principalTable: "jblt_personName",
+                        principalColumn: "personname_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RegisterUser_UserEmailId",
-                table: "RegisterUser",
+                name: "IX_jblt_registerUser_PersonNameId",
+                table: "jblt_registerUser",
+                column: "PersonNameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_registerUser_UserEmailId",
+                table: "jblt_registerUser",
                 column: "UserEmailId");
         }
 
@@ -232,37 +242,37 @@ namespace JobLeet.WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "jblt_education");
 
             migrationBuilder.DropTable(
-                name: "Education");
+                name: "jblt_experience");
 
             migrationBuilder.DropTable(
-                name: "Experience");
+                name: "jblt_loginuser");
 
             migrationBuilder.DropTable(
-                name: "LoginUser");
+                name: "jblt_phone");
 
             migrationBuilder.DropTable(
-                name: "PersonName");
+                name: "jblt_qualification");
 
             migrationBuilder.DropTable(
-                name: "Phone");
+                name: "jblt_registerUser");
 
             migrationBuilder.DropTable(
-                name: "Qualification");
+                name: "jblt_role");
 
             migrationBuilder.DropTable(
-                name: "RegisterUser");
+                name: "jblt_skill");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "jblt_userAddress");
 
             migrationBuilder.DropTable(
-                name: "SkillModel");
+                name: "jblt_email");
 
             migrationBuilder.DropTable(
-                name: "Email");
+                name: "jblt_personName");
         }
     }
 }

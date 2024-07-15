@@ -24,42 +24,42 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("login_id");
+                        .HasColumnName("loginuser_id");
 
                     b.Property<bool>("AccountCreated")
                         .HasColumnType("tinyint(1)")
-                        .HasColumnName("account_created");
+                        .HasColumnName("loginuser_accountcreated");
 
                     b.Property<int>("AccountStatus")
                         .HasColumnType("int")
-                        .HasColumnName("account_status");
+                        .HasColumnName("loginuser_accountstatus");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("email_address");
+                        .HasColumnName("loginuser_address");
 
                     b.Property<string>("IPAddress")
                         .HasColumnType("longtext")
-                        .HasColumnName("ip_address");
+                        .HasColumnName("loginuser_ipaddress");
 
                     b.Property<DateTime>("LoginTime")
                         .HasColumnType("datetime(6)")
-                        .HasColumnName("login_time");
+                        .HasColumnName("loginuser_logintime");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(101)
                         .HasColumnType("varchar(101)")
-                        .HasColumnName("password");
+                        .HasColumnName("loginuser_password");
 
                     b.Property<int>("Role")
                         .HasColumnType("int")
-                        .HasColumnName("role");
+                        .HasColumnName("loginuser_role");
 
                     b.HasKey("Id");
 
-                    b.ToTable("LoginUser", (string)null);
+                    b.ToTable("jblt_loginuser", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.RegisterUser", b =>
@@ -67,19 +67,22 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("register_id");
+                        .HasColumnName("jblt_registerid");
 
                     b.Property<string>("ConfirmPassword")
                         .IsRequired()
                         .HasMaxLength(101)
                         .HasColumnType("varchar(101)")
-                        .HasColumnName("confirm_password");
+                        .HasColumnName("jblt_confirmpassword");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(101)
                         .HasColumnType("varchar(101)")
-                        .HasColumnName("password");
+                        .HasColumnName("jblt_password");
+
+                    b.Property<int>("PersonNameId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Salt")
                         .HasColumnType("longtext");
@@ -87,16 +90,13 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int>("UserEmailId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("username");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonNameId");
 
                     b.HasIndex("UserEmailId");
 
-                    b.ToTable("RegisterUser", (string)null);
+                    b.ToTable("jblt_registerUser", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.Role", b =>
@@ -104,7 +104,7 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("role_id");
+                        .HasColumnName("role_roleid");
 
                     b.Property<int>("RoleName")
                         .HasColumnType("int")
@@ -112,7 +112,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("jblt_role", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", b =>
@@ -120,36 +120,33 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("AddressId");
+                        .HasColumnName("address_id");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("City");
+                        .HasColumnName("address_city");
 
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("Country");
+                        .HasColumnName("address_country");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("PostalCode");
+                        .HasColumnName("address_postalCode");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("State");
+                        .HasColumnName("address_state");
 
                     b.Property<string>("Street")
-                        .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("Street");
+                        .HasColumnName("address_street");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address", (string)null);
+                    b.ToTable("jblt_userAddress", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Education", b =>
@@ -161,30 +158,30 @@ namespace JobLeet.WebApi.Migrations
 
                     b.Property<decimal>("Cgpa")
                         .HasColumnType("decimal(65,30)")
-                        .HasColumnName("cgpa");
+                        .HasColumnName("education_cgpa");
 
                     b.Property<string>("Degree")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("degree");
+                        .HasColumnName("education_degree");
 
                     b.Property<DateOnly>("GraduationDate")
                         .HasColumnType("date")
-                        .HasColumnName("graduation_date");
+                        .HasColumnName("education_graduationdate");
 
                     b.Property<string>("Institution")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("institution");
+                        .HasColumnName("education_nstitution");
 
                     b.Property<string>("Major")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("major");
+                        .HasColumnName("education_major");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Education", (string)null);
+                    b.ToTable("jblt_education", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Email", b =>
@@ -204,7 +201,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Email", (string)null);
+                    b.ToTable("jblt_email", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Experience", b =>
@@ -220,7 +217,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Experience", (string)null);
+                    b.ToTable("jblt_experience", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", b =>
@@ -233,20 +230,19 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("first_name");
+                        .HasColumnName("personName_firstname");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("last_name");
+                        .HasColumnName("personName_lastname");
 
                     b.Property<string>("MiddleName")
                         .HasColumnType("longtext")
-                        .HasColumnName("middle_name");
+                        .HasColumnName("personName_middlename");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PersonName", (string)null);
+                    b.ToTable("jblt_personName", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Phone", b =>
@@ -254,20 +250,20 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("phone_id");
+                        .HasColumnName("jblt_phoneid");
 
                     b.Property<int>("CountryCode")
                         .HasColumnType("int")
-                        .HasColumnName("country_code");
+                        .HasColumnName("jblt_countrycode");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("phone_number");
+                        .HasColumnName("jblt_phonenumber");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Phone", (string)null);
+                    b.ToTable("jblt_phone", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Qualification", b =>
@@ -287,7 +283,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Qualification", (string)null);
+                    b.ToTable("jblt_qualification", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Skill", b =>
@@ -309,7 +305,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SkillModel", (string)null);
+                    b.ToTable("jblt_skill", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.LoginUser", b =>
@@ -321,7 +317,7 @@ namespace JobLeet.WebApi.Migrations
 
                             b1.HasKey("LoginUserId");
 
-                            b1.ToTable("LoginUser");
+                            b1.ToTable("jblt_loginuser");
 
                             b1.WithOwner()
                                 .HasForeignKey("LoginUserId");
@@ -333,6 +329,12 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.RegisterUser", b =>
                 {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", "PersonName")
+                        .WithMany()
+                        .HasForeignKey("PersonNameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Email", "UserEmail")
                         .WithMany()
                         .HasForeignKey("UserEmailId")
@@ -346,7 +348,7 @@ namespace JobLeet.WebApi.Migrations
 
                             b1.HasKey("RegisterUserId");
 
-                            b1.ToTable("RegisterUser");
+                            b1.ToTable("jblt_registerUser");
 
                             b1.WithOwner()
                                 .HasForeignKey("RegisterUserId");
@@ -354,6 +356,8 @@ namespace JobLeet.WebApi.Migrations
 
                     b.Navigation("MetaData")
                         .IsRequired();
+
+                    b.Navigation("PersonName");
 
                     b.Navigation("UserEmail");
                 });
@@ -367,29 +371,10 @@ namespace JobLeet.WebApi.Migrations
 
                             b1.HasKey("RoleId");
 
-                            b1.ToTable("Role");
+                            b1.ToTable("jblt_role");
 
                             b1.WithOwner()
                                 .HasForeignKey("RoleId");
-                        });
-
-                    b.Navigation("MetaData")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", b =>
-                {
-                    b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
-                        {
-                            b1.Property<int>("AddressId")
-                                .HasColumnType("int");
-
-                            b1.HasKey("AddressId");
-
-                            b1.ToTable("Address");
-
-                            b1.WithOwner()
-                                .HasForeignKey("AddressId");
                         });
 
                     b.Navigation("MetaData")
@@ -405,7 +390,7 @@ namespace JobLeet.WebApi.Migrations
 
                             b1.HasKey("EducationId");
 
-                            b1.ToTable("Education");
+                            b1.ToTable("jblt_education");
 
                             b1.WithOwner()
                                 .HasForeignKey("EducationId");
@@ -424,29 +409,10 @@ namespace JobLeet.WebApi.Migrations
 
                             b1.HasKey("ExperienceId");
 
-                            b1.ToTable("Experience");
+                            b1.ToTable("jblt_experience");
 
                             b1.WithOwner()
                                 .HasForeignKey("ExperienceId");
-                        });
-
-                    b.Navigation("MetaData")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", b =>
-                {
-                    b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
-                        {
-                            b1.Property<int>("PersonNameId")
-                                .HasColumnType("int");
-
-                            b1.HasKey("PersonNameId");
-
-                            b1.ToTable("PersonName");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PersonNameId");
                         });
 
                     b.Navigation("MetaData")
@@ -462,7 +428,7 @@ namespace JobLeet.WebApi.Migrations
 
                             b1.HasKey("PhoneId");
 
-                            b1.ToTable("Phone");
+                            b1.ToTable("jblt_phone");
 
                             b1.WithOwner()
                                 .HasForeignKey("PhoneId");
@@ -481,7 +447,7 @@ namespace JobLeet.WebApi.Migrations
 
                             b1.HasKey("QualificationId");
 
-                            b1.ToTable("Qualification");
+                            b1.ToTable("jblt_qualification");
 
                             b1.WithOwner()
                                 .HasForeignKey("QualificationId");
@@ -500,7 +466,7 @@ namespace JobLeet.WebApi.Migrations
 
                             b1.HasKey("SkillId");
 
-                            b1.ToTable("SkillModel");
+                            b1.ToTable("jblt_skill");
 
                             b1.WithOwner()
                                 .HasForeignKey("SkillId");
