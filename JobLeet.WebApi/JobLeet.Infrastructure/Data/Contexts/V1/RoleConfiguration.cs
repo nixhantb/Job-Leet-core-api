@@ -9,9 +9,9 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
         public void Configure(EntityTypeBuilder<Role> builder)
         
         {
-            builder.ToTable("Role");
+            builder.ToTable("jblt_role");
             builder.HasKey(e => e.Id);
-            builder.Property(e => e.Id).HasColumnName("role_id");
+            builder.Property(e => e.Id).HasColumnName("role_roleid");
             builder.Property(e => e.RoleName).HasColumnName("role_name");
             builder.OwnsOne(role => role.MetaData);
         }

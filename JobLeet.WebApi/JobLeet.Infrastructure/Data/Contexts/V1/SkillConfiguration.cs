@@ -8,7 +8,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     {
         public void Configure(EntityTypeBuilder<Skill> builder)
         {
-            builder.ToTable("SkillModel");
+            builder.ToTable("jblt_skill");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).HasColumnName("skill_id");
             builder.Property(e => e.Title).HasColumnName("skill_title");
