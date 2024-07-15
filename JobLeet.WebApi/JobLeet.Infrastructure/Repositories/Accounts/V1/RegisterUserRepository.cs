@@ -6,6 +6,7 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities;
 using JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1;
+using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -36,13 +37,14 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 var (hashedPasscode, saltString) = GenerateUniqueHashedPassword(entity.Password);
                 var newUser = new RegisterUser
                 {
-                    PersonName = new PersonName {
+                    PersonName = new PersonName
+                    {
                         Id = entity.PersonName.Id,
                         FirstName = entity.PersonName.FirstName.Trim().ToLower(),
                         MiddleName = entity?.PersonName?.MiddleName?.Trim().ToLower(),
                         LastName = entity?.PersonName?.LastName?.Trim().ToLower(),
                     },
-                   // UserName = entity.UserName.Trim().ToLower(),
+                    // UserName = entity.UserName.Trim().ToLower(),
                     UserEmail = new Email
                     {
                         Id = entity.UserEmail.Id,
@@ -63,7 +65,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 // Not exposing Salt for security concerns. 
                 var responseEntity = new RegisterUserModel
                 {
-                    PersonName = new PersonNameModel{
+                    PersonName = new PersonNameModel
+                    {
                         Id = newUser.PersonName.Id,
                         FirstName = newUser.PersonName.FirstName,
                         MiddleName = newUser.PersonName.MiddleName,
@@ -85,7 +88,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             #endregion
             catch (DbUpdateException ex)
             {
-                throw new DbUpdateException($"Error occurred while Creating the user registration {ex.Message}");
+                throw new DbUpdateException($"{ErrorMessageManager.GetErrorMessage("User_Registration_Error")}{ex.Message}");
             }
             catch (Exception ex)
             {
@@ -126,22 +129,23 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             var checkMiddleName = PersonNameValidator.IsValidMiddleName(entity.PersonName.MiddleName);
             var checkLastName = PersonNameValidator.IsValidUsername(entity.PersonName.LastName);
 
-            if(!checkFirstName || !checkLastName || !checkMiddleName){
-                throw new Exception("Invalid syntax for FirstName, MiddleName or LastName");
+            if (!checkFirstName || !checkLastName || !checkMiddleName)
+            {
+                throw new Exception(ErrorMessageManager.GetErrorMessage("PersonName_Exception_Message"));
             }
             if (emailExists)
             {
-                throw new Exception("This email address is already registered.");
+                throw new Exception(ErrorMessageManager.GetErrorMessage("Email_Duplication_Exception"));
             }
 
             if (!emailValidator)
             {
-                throw new Exception("Invalid Email Format");
+                throw new Exception(ErrorMessageManager.GetErrorMessage("Invalid_Email_Format"));
             }
 
             if (!passwordValidator)
             {
-                throw new ArgumentException("Password must be between 8 and 100 characters and should match the regular expression pattern");
+                throw new ArgumentException(ErrorMessageManager.GetErrorMessage("Invalid_Password_Format"));
             }
         }
 
