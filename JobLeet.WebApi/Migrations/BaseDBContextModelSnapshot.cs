@@ -53,11 +53,16 @@ namespace JobLeet.WebApi.Migrations
                         .HasColumnType("varchar(101)")
                         .HasColumnName("loginuser_password");
 
+                    b.Property<int>("PersonNameId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Role")
                         .HasColumnType("int")
                         .HasColumnName("loginuser_role");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonNameId");
 
                     b.ToTable("jblt_loginuser", (string)null);
                 });
@@ -310,6 +315,12 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.LoginUser", b =>
                 {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", "PersonName")
+                        .WithMany()
+                        .HasForeignKey("PersonNameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("LoginUserId")
@@ -325,6 +336,8 @@ namespace JobLeet.WebApi.Migrations
 
                     b.Navigation("MetaData")
                         .IsRequired();
+
+                    b.Navigation("PersonName");
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.RegisterUser", b =>

@@ -1,5 +1,6 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Caching;
 using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             _cacheHelper = new BaseCacheHelper<List<RoleModel>>(memoryCache);
         }
         #endregion
-        public Task<RoleModel> AddAsync(RoleModel entity)
+        public Task<RoleModel> AddAsync(Role entity)
         {
             throw new NotImplementedException();
         }
@@ -48,7 +49,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     .Select(e => new RoleModel
                     {
                         Id = e.Id, 
-                        RoleName = (RoleCategory)e.RoleName
+                        RoleName = (Api.Models.Accounts.V1.RoleCategory)e.RoleName
                     }).ToListAsync();
                     return results;
                 }
@@ -65,7 +66,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(RoleModel entity)
+        public Task UpdateAsync(Role entity)
         {
             throw new NotImplementedException();
         }

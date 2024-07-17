@@ -24,7 +24,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
         }
         #endregion
-        public async Task<RegisterUserModel> AddAsync(RegisterUserModel entity)
+        public async Task<RegisterUserModel> AddAsync(RegisterUser entity)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(RegisterUserModel entity)
+        public Task UpdateAsync(RegisterUser entity)
         {
             throw new NotImplementedException();
         }
@@ -119,7 +119,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
         #region  Utility Methods
 
-        private async Task ValidateUserAsync(RegisterUserModel entity)
+        private async Task ValidateUserAsync(RegisterUser entity)
         {
             bool emailExists = await _dbContext.RegisterUsers.AnyAsync(u => u.UserEmail.EmailAddress == entity.UserEmail.EmailAddress);
             bool emailValidator = EmailAddressValidator.IsValidEmail(entity.UserEmail.EmailAddress);

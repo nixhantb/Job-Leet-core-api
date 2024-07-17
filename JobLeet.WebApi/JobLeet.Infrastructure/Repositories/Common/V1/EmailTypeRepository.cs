@@ -1,4 +1,5 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                 .Select(e => new EmailModel
                 {
                     Id = e.Id,
-                    EmailType = (EmailCategory)e.EmailType
+                    EmailType = (Api.Models.Common.V1.EmailCategory)e.EmailType
                 })
                 .FirstOrDefaultAsync();
 
@@ -54,7 +55,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                     .Select(e => new EmailModel
                     {
                         Id = e.Id,
-                        EmailType = (EmailCategory)e.EmailType,
+                        EmailType = (Api.Models.Common.V1.EmailCategory)e.EmailType
                     }).ToListAsync();
 
                 return result;
@@ -66,12 +67,12 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         }
         #endregion
 
-        public Task<EmailModel> AddAsync(EmailModel emailType)
+        public Task<EmailModel> AddAsync(Email emailType)
         {
             throw new NotSupportedException();
         }
 
-        public Task UpdateAsync(EmailModel emailType)
+        public Task UpdateAsync(Email emailType)
         {
             throw new NotSupportedException();
         }

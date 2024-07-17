@@ -1,4 +1,5 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.Data.SqlClient;
@@ -16,7 +17,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             _dbContext = dbContext;
         }
         #endregion
-        public Task<PhoneModel> AddAsync(PhoneModel entity)
+        public Task<PhoneModel> AddAsync(Phone entity)
         {
             throw new NotImplementedException();
         }
@@ -72,7 +73,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             }
         }
         #endregion
-        public Task UpdateAsync(PhoneModel entity)
+        public Task UpdateAsync(Phone entity)
         {
             throw new NotImplementedException();
         }

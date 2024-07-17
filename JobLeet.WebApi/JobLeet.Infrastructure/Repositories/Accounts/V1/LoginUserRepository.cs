@@ -1,5 +1,6 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
@@ -11,31 +12,40 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
     public class LoginUserRepository : ILoginUserRepository
     {
         #region Initialization
-        // <returns>The list of initializations</returns>
         private readonly BaseDBContext _dbContext;
 
         public LoginUserRepository(BaseDBContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-
         }
         #endregion
-        public async Task<LoginUserModel> AddAsync(LoginUserModel entity)
+
+        public async Task<LoginUserModel> AddAsync(LoginUser entity)
         {
             try
             {
-                #region ToJobLeetDB
+                #region Validate and Retrieve User Data
 
                 var registrationUser = await ValidateUserAsync(entity);
+                var personName = registrationUser.PersonName;
+                if (personName == null)
+                {
+                    throw new Exception("PersonName not found.");
+                }
+
                 string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
                 DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.Local);
+
+                #endregion
+
+                #region Create and Save LoginUser Entity
 
                 var loginUser = new LoginUser
                 {
                     EmailAddress = entity.EmailAddress,
                     Password = hashedPassword,
-                    // opportunity to add local date time conversion
-                    LoginTime = entity.LoginTime = localDateTime,
+                    PersonName = personName,
+                    LoginTime = localDateTime,
                     IPAddress = entity.IPAddress,
                     Role = Core.Entities.Accounts.V1.RoleCategory.Users,
                     AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active,
@@ -46,21 +56,27 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
                 #endregion
 
-                #region  ToAPIResponse
+                #region Convert to API Response Model
+
                 var loginUserResponse = new LoginUserModel
                 {
-                    EmailAddress = entity.EmailAddress,
-                    Password = hashedPassword,
-                    // opportunity to add local date time conversion
-                    LoginTime = loginUser.LoginTime = localDateTime,
-                    IPAddress = loginUser.IPAddress,
-                    Role = Api.Models.Accounts.V1.RoleCategory.Users,
                     Id = loginUser.Id,
+                    EmailAddress = loginUser.EmailAddress,
+                    PersonName = new PersonNameModel
+                    {
+                        Id = personName.Id,
+                        FirstName = personName.FirstName,
+                        MiddleName = personName.MiddleName,
+                        LastName = personName.LastName
+                    },
+                    LoginTime = loginUser.LoginTime,
+                   
+                    Role = Api.Models.Accounts.V1.RoleCategory.Users,
                     AccountCreated = true,
                     AccountStatus = Api.Models.Accounts.V1.AccountCategory.Active
-
                 };
                 return loginUserResponse;
+
                 #endregion
             }
             catch (Exception ex)
@@ -84,18 +100,26 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(LoginUserModel entity)
+        public Task UpdateAsync(LoginUser entity)
         {
             throw new NotImplementedException();
         }
 
         #region Helper Methods
-        private async Task<RegisterUser> ValidateUserAsync(LoginUserModel entity)
-        {
 
+        private async Task<RegisterUser> ValidateUserAsync(LoginUser entity)
+        {
             bool validatePassword = PasswordValidation.ValidatePassword(entity.Password);
-            var registrationUser = await _dbContext.RegisterUsers.FirstOrDefaultAsync(u => u.UserEmail.EmailAddress == entity.EmailAddress);
-            if (entity.Role == Api.Models.Accounts.V1.RoleCategory.Admin)
+            var registrationUser = await _dbContext.RegisterUsers
+                .Include(u => u.PersonName)
+                .FirstOrDefaultAsync(u => u.UserEmail.EmailAddress == entity.EmailAddress);
+
+            if (registrationUser == null)
+            {
+                throw new Exception(ErrorMessageManager.GetErrorMessage("Unregistered_User_Error"));
+            }
+
+            if (entity.Role == Core.Entities.Accounts.V1.RoleCategory.Admin)
             {
                 throw new ArgumentException(ErrorMessageManager.GetErrorMessage("Invalid_Admin_Access"));
             }
@@ -105,20 +129,15 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 throw new ArgumentException(ErrorMessageManager.GetErrorMessage("Invalid_Password_Format"));
             }
 
-            if (registrationUser == null)
-            {
-                throw new Exception(ErrorMessageManager.GetErrorMessage("Unregistered_User_Error"));
-            }
-
-            // Compare the hashed password with the one stored in the database
             string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
             if (hashedPassword != registrationUser.Password)
             {
                 throw new Exception(ErrorMessageManager.GetErrorMessage("Invalid_Credentials_Error"));
             }
+
             return registrationUser;
         }
+
         #endregion
     }
-
 }

@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+using Newtonsoft.Json;
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
 {
     public class LoginUser : BaseEntity
@@ -6,10 +8,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string EmailAddress { get; set; }
-
-        [Required(ErrorMessage = "Password is required")]
-        [StringLength(101, ErrorMessage = "Password must be between 8 and 100 characters", MinimumLength = 8)]
         public string Password { get; set; }
+        public PersonName? PersonName {get; set;}
         public AccountCategory AccountStatus { get; set; }
         public bool AccountCreated { get; set; } = false;
         public DateTime LoginTime { get; set; } = DateTime.UtcNow;

@@ -1,5 +1,6 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Caching;
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.Data.SqlClient;
@@ -21,7 +22,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             _cacheHelper = new BaseCacheHelper<List<ExperienceModel>>(memoryCache);
         }
         #endregion
-        public Task<ExperienceModel> AddAsync(ExperienceModel entity)
+        public Task<ExperienceModel> AddAsync(Experience entity)
         {
             throw new NotImplementedException();
         }
@@ -48,7 +49,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                         .Select(e => new ExperienceModel
                         {
                             Id = e.Id,
-                            ExperienceLevel = (ExperienceLevel)e.ExperienceLevel
+                            ExperienceLevel = (Api.Models.Common.V1.ExperienceLevel)e.ExperienceLevel
                         }).ToListAsync();
 
                     return results;
@@ -71,7 +72,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             throw new NotImplementedException();
         }
         #endregion
-        public Task UpdateAsync(ExperienceModel entity)
+        public Task UpdateAsync(Experience entity)
         {
             throw new NotImplementedException();
         }
