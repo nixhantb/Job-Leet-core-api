@@ -35,6 +35,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
                 string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
                 DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.Local);
+                var loginUserId = registrationUser.Id; 
 
                 #endregion
 
@@ -42,6 +43,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
                 var loginUser = new LoginUser
                 {
+                    Id = loginUserId,
                     EmailAddress = entity.EmailAddress,
                     Password = hashedPassword,
                     PersonName = personName,
@@ -51,7 +53,27 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active,
                     AccountCreated = true
                 };
-                _dbContext.LoginUsers.Add(loginUser);
+
+                // Handle existing users to override the things that are necessary
+                var existingLoginUser = await _dbContext.LoginUsers.FindAsync(loginUserId);
+                if (existingLoginUser != null)
+                {
+                    existingLoginUser.EmailAddress = entity.EmailAddress;
+                    existingLoginUser.Password = hashedPassword;
+                    existingLoginUser.PersonName = personName;
+                    existingLoginUser.LoginTime = localDateTime;
+                    existingLoginUser.IPAddress = entity.IPAddress;
+                    existingLoginUser.Role = Core.Entities.Accounts.V1.RoleCategory.Users;
+                    existingLoginUser.AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active;
+                    existingLoginUser.AccountCreated = true;
+
+                    _dbContext.LoginUsers.Update(existingLoginUser);
+                }
+                else
+                {
+                    _dbContext.LoginUsers.Add(loginUser);
+                }
+
                 await _dbContext.SaveChangesAsync();
 
                 #endregion
@@ -70,7 +92,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                         LastName = personName.LastName
                     },
                     LoginTime = loginUser.LoginTime,
-                   
                     Role = Api.Models.Accounts.V1.RoleCategory.Users,
                     AccountCreated = true,
                     AccountStatus = Api.Models.Accounts.V1.AccountCategory.Active
