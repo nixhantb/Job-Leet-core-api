@@ -32,7 +32,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
                    {
                        Id = e.Id,
                        QualificationType = (Api.Models.Common.V1.QualificationCategory)e.QualificationType,
-                       QualificationInformation = e.QualificationInformation
+                       QualificateionInformation = e.QualificationInformation
                    })
                    .ToListAsync();
 
