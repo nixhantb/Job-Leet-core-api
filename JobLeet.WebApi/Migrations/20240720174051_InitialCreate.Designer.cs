@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20240718160816_InitialCreate")]
+    [Migration("20240720174051_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -263,7 +263,6 @@ namespace JobLeet.WebApi.Migrations
                         .HasColumnName("jblt_countrycode");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("jblt_phonenumber");
 
@@ -300,32 +299,74 @@ namespace JobLeet.WebApi.Migrations
                         .HasColumnName("skill_id");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("skill_description");
+                        .HasColumnName("description");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("skill_title");
+                        .HasColumnName("title");
 
                     b.HasKey("Id");
 
                     b.ToTable("jblt_skill", (string)null);
                 });
 
-            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.IndustryType", b =>
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Company", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("company_id");
 
-                    b.Property<int>("IndustryCategory")
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("longtext")
+                        .HasColumnName("company_name");
+
+                    b.Property<int?>("ProfileId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("IndustryType");
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("jblt_company", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.CompanyProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("companyprofile_id");
+
+                    b.Property<int?>("CompanyAddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ContactEmailId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ContactPhoneId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IndustryType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfileInfo")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("longtext")
+                        .HasColumnName("company_website");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyAddressId");
+
+                    b.HasIndex("ContactEmailId");
+
+                    b.HasIndex("ContactPhoneId");
+
+                    b.ToTable("jblt_companyprofile", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", b =>
@@ -335,31 +376,51 @@ namespace JobLeet.WebApi.Migrations
                         .HasColumnType("int")
                         .HasColumnName("job_id");
 
-                    b.Property<decimal?>("BasicPay")
-                        .HasColumnType("decimal(65,30)")
-                        .HasColumnName("job_basicPay");
+                    b.Property<DateTime?>("ApplicationDeadline")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("job_applicationdeadline");
+
+                    b.Property<string>("BasicPay")
+                        .HasColumnType("longtext")
+                        .HasColumnName("job_basic_pay");
+
+                    b.Property<string>("Benefits")
+                        .HasColumnType("longtext")
+                        .HasColumnName("job_benefits");
+
+                    b.Property<int?>("CompanyDescriptionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FunctionalArea")
                         .HasColumnType("longtext")
-                        .HasColumnName("job_functionalarea");
-
-                    b.Property<int?>("IndustryTypeId")
-                        .HasColumnType("int");
+                        .HasColumnName("job_functional_area");
 
                     b.Property<int?>("JobAddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("JobDescription")
                         .HasColumnType("longtext")
-                        .HasColumnName("job_vacancies");
+                        .HasColumnName("job_description");
+
+                    b.Property<string>("JobResponsibilities")
+                        .HasColumnType("longtext")
+                        .HasColumnName("job_responsibility");
 
                     b.Property<string>("JobTitle")
                         .HasColumnType("longtext")
                         .HasColumnName("job_title");
 
+                    b.Property<string>("JobType")
+                        .HasColumnType("longtext")
+                        .HasColumnName("job_type");
+
                     b.Property<DateTime?>("PostingDate")
                         .HasColumnType("datetime(6)")
-                        .HasColumnName("job_postingDate");
+                        .HasColumnName("job_posting_date");
+
+                    b.Property<string>("PreferredQualifications")
+                        .HasColumnType("longtext")
+                        .HasColumnName("preferred_qualifications");
 
                     b.Property<int?>("RequiredExperienceId")
                         .HasColumnType("int");
@@ -367,18 +428,28 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int?>("RequiredQualificationId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Vacancies")
+                    b.Property<int?>("SkillsRequiredId")
                         .HasColumnType("int");
+
+                    b.Property<int?>("Vacancies")
+                        .HasColumnType("int")
+                        .HasColumnName("job_vacancies");
+
+                    b.Property<string>("WorkEnvironment")
+                        .HasColumnType("longtext")
+                        .HasColumnName("job_workenvironment");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IndustryTypeId");
+                    b.HasIndex("CompanyDescriptionId");
 
                     b.HasIndex("JobAddressId");
 
                     b.HasIndex("RequiredExperienceId");
 
                     b.HasIndex("RequiredQualificationId");
+
+                    b.HasIndex("SkillsRequiredId");
 
                     b.ToTable("jblt_job", (string)null);
                 });
@@ -557,11 +628,41 @@ namespace JobLeet.WebApi.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Company", b =>
+                {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.CompanyProfile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.CompanyProfile", b =>
+                {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", "CompanyAddress")
+                        .WithMany()
+                        .HasForeignKey("CompanyAddressId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Email", "ContactEmail")
+                        .WithMany()
+                        .HasForeignKey("ContactEmailId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Phone", "ContactPhone")
+                        .WithMany()
+                        .HasForeignKey("ContactPhoneId");
+
+                    b.Navigation("CompanyAddress");
+
+                    b.Navigation("ContactEmail");
+
+                    b.Navigation("ContactPhone");
+                });
+
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", b =>
                 {
-                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.IndustryType", "IndustryType")
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Company", "CompanyDescription")
                         .WithMany()
-                        .HasForeignKey("IndustryTypeId");
+                        .HasForeignKey("CompanyDescriptionId");
 
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", "JobAddress")
                         .WithMany()
@@ -575,29 +676,19 @@ namespace JobLeet.WebApi.Migrations
                         .WithMany()
                         .HasForeignKey("RequiredQualificationId");
 
-                    b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
-                        {
-                            b1.Property<int>("JobEntityId")
-                                .HasColumnType("int");
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Skill", "SkillsRequired")
+                        .WithMany()
+                        .HasForeignKey("SkillsRequiredId");
 
-                            b1.HasKey("JobEntityId");
-
-                            b1.ToTable("jblt_job");
-
-                            b1.WithOwner()
-                                .HasForeignKey("JobEntityId");
-                        });
-
-                    b.Navigation("IndustryType");
+                    b.Navigation("CompanyDescription");
 
                     b.Navigation("JobAddress");
-
-                    b.Navigation("MetaData")
-                        .IsRequired();
 
                     b.Navigation("RequiredExperience");
 
                     b.Navigation("RequiredQualification");
+
+                    b.Navigation("SkillsRequired");
                 });
 #pragma warning restore 612, 618
         }

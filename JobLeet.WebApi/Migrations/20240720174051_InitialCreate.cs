@@ -16,20 +16,6 @@ namespace JobLeet.WebApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "IndustryType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    IndustryCategory = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IndustryType", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "jblt_education",
                 columns: table => new
                 {
@@ -106,7 +92,7 @@ namespace JobLeet.WebApi.Migrations
                     jbltphoneid = table.Column<int>(name: "jblt_phoneid", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     jbltcountrycode = table.Column<int>(name: "jblt_countrycode", type: "int", nullable: false),
-                    jbltphonenumber = table.Column<string>(name: "jblt_phonenumber", type: "longtext", nullable: false)
+                    jbltphonenumber = table.Column<string>(name: "jblt_phonenumber", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -151,9 +137,9 @@ namespace JobLeet.WebApi.Migrations
                 {
                     skillid = table.Column<int>(name: "skill_id", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    skilltitle = table.Column<string>(name: "skill_title", type: "longtext", nullable: false)
+                    title = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    skilldescription = table.Column<string>(name: "skill_description", type: "longtext", nullable: false)
+                    description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -248,33 +234,103 @@ namespace JobLeet.WebApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "jblt_companyprofile",
+                columns: table => new
+                {
+                    companyprofileid = table.Column<int>(name: "companyprofile_id", type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ProfileInfo = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CompanyAddressId = table.Column<int>(type: "int", nullable: true),
+                    ContactPhoneId = table.Column<int>(type: "int", nullable: true),
+                    ContactEmailId = table.Column<int>(type: "int", nullable: true),
+                    companywebsite = table.Column<string>(name: "company_website", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IndustryType = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_jblt_companyprofile", x => x.companyprofileid);
+                    table.ForeignKey(
+                        name: "FK_jblt_companyprofile_jblt_email_ContactEmailId",
+                        column: x => x.ContactEmailId,
+                        principalTable: "jblt_email",
+                        principalColumn: "email_id");
+                    table.ForeignKey(
+                        name: "FK_jblt_companyprofile_jblt_phone_ContactPhoneId",
+                        column: x => x.ContactPhoneId,
+                        principalTable: "jblt_phone",
+                        principalColumn: "jblt_phoneid");
+                    table.ForeignKey(
+                        name: "FK_jblt_companyprofile_jblt_userAddress_CompanyAddressId",
+                        column: x => x.CompanyAddressId,
+                        principalTable: "jblt_userAddress",
+                        principalColumn: "address_id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "jblt_company",
+                columns: table => new
+                {
+                    companyid = table.Column<int>(name: "company_id", type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    companyname = table.Column<string>(name: "company_name", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProfileId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_jblt_company", x => x.companyid);
+                    table.ForeignKey(
+                        name: "FK_jblt_company_jblt_companyprofile_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "jblt_companyprofile",
+                        principalColumn: "companyprofile_id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "jblt_job",
                 columns: table => new
                 {
                     jobid = table.Column<int>(name: "job_id", type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    JobAddressId = table.Column<int>(type: "int", nullable: true),
-                    RequiredQualificationId = table.Column<int>(type: "int", nullable: true),
+                    CompanyDescriptionId = table.Column<int>(type: "int", nullable: true),
                     jobtitle = table.Column<string>(name: "job_title", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    jobvacancies = table.Column<string>(name: "job_vacancies", type: "longtext", nullable: true)
+                    jobdescription = table.Column<string>(name: "job_description", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Vacancies = table.Column<int>(type: "int", nullable: true),
+                    jobtype = table.Column<string>(name: "job_type", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    JobAddressId = table.Column<int>(type: "int", nullable: true),
+                    jobvacancies = table.Column<int>(name: "job_vacancies", type: "int", nullable: true),
+                    jobbasicpay = table.Column<string>(name: "job_basic_pay", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    jobfunctionalarea = table.Column<string>(name: "job_functional_area", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SkillsRequiredId = table.Column<int>(type: "int", nullable: true),
+                    RequiredQualificationId = table.Column<int>(type: "int", nullable: true),
                     RequiredExperienceId = table.Column<int>(type: "int", nullable: true),
-                    jobbasicPay = table.Column<decimal>(name: "job_basicPay", type: "decimal(65,30)", nullable: true),
-                    jobfunctionalarea = table.Column<string>(name: "job_functionalarea", type: "longtext", nullable: true)
+                    preferredqualifications = table.Column<string>(name: "preferred_qualifications", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IndustryTypeId = table.Column<int>(type: "int", nullable: true),
-                    jobpostingDate = table.Column<DateTime>(name: "job_postingDate", type: "datetime(6)", nullable: true)
+                    jobresponsibility = table.Column<string>(name: "job_responsibility", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    jobbenefits = table.Column<string>(name: "job_benefits", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    jobworkenvironment = table.Column<string>(name: "job_workenvironment", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    jobpostingdate = table.Column<DateTime>(name: "job_posting_date", type: "datetime(6)", nullable: true),
+                    jobapplicationdeadline = table.Column<DateTime>(name: "job_applicationdeadline", type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_jblt_job", x => x.jobid);
                     table.ForeignKey(
-                        name: "FK_jblt_job_IndustryType_IndustryTypeId",
-                        column: x => x.IndustryTypeId,
-                        principalTable: "IndustryType",
-                        principalColumn: "Id");
+                        name: "FK_jblt_job_jblt_company_CompanyDescriptionId",
+                        column: x => x.CompanyDescriptionId,
+                        principalTable: "jblt_company",
+                        principalColumn: "company_id");
                     table.ForeignKey(
                         name: "FK_jblt_job_jblt_experience_RequiredExperienceId",
                         column: x => x.RequiredExperienceId,
@@ -286,6 +342,11 @@ namespace JobLeet.WebApi.Migrations
                         principalTable: "jblt_qualification",
                         principalColumn: "qualification_id");
                     table.ForeignKey(
+                        name: "FK_jblt_job_jblt_skill_SkillsRequiredId",
+                        column: x => x.SkillsRequiredId,
+                        principalTable: "jblt_skill",
+                        principalColumn: "skill_id");
+                    table.ForeignKey(
                         name: "FK_jblt_job_jblt_userAddress_JobAddressId",
                         column: x => x.JobAddressId,
                         principalTable: "jblt_userAddress",
@@ -294,9 +355,29 @@ namespace JobLeet.WebApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_jblt_job_IndustryTypeId",
+                name: "IX_jblt_company_ProfileId",
+                table: "jblt_company",
+                column: "ProfileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_companyprofile_CompanyAddressId",
+                table: "jblt_companyprofile",
+                column: "CompanyAddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_companyprofile_ContactEmailId",
+                table: "jblt_companyprofile",
+                column: "ContactEmailId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_companyprofile_ContactPhoneId",
+                table: "jblt_companyprofile",
+                column: "ContactPhoneId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_job_CompanyDescriptionId",
                 table: "jblt_job",
-                column: "IndustryTypeId");
+                column: "CompanyDescriptionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_jblt_job_JobAddressId",
@@ -312,6 +393,11 @@ namespace JobLeet.WebApi.Migrations
                 name: "IX_jblt_job_RequiredQualificationId",
                 table: "jblt_job",
                 column: "RequiredQualificationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_job_SkillsRequiredId",
+                table: "jblt_job",
+                column: "SkillsRequiredId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_jblt_loginuser_PersonNameId",
@@ -342,19 +428,13 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_loginuser");
 
             migrationBuilder.DropTable(
-                name: "jblt_phone");
-
-            migrationBuilder.DropTable(
                 name: "jblt_registerUser");
 
             migrationBuilder.DropTable(
                 name: "jblt_role");
 
             migrationBuilder.DropTable(
-                name: "jblt_skill");
-
-            migrationBuilder.DropTable(
-                name: "IndustryType");
+                name: "jblt_company");
 
             migrationBuilder.DropTable(
                 name: "jblt_experience");
@@ -363,13 +443,22 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_qualification");
 
             migrationBuilder.DropTable(
-                name: "jblt_userAddress");
+                name: "jblt_skill");
+
+            migrationBuilder.DropTable(
+                name: "jblt_personName");
+
+            migrationBuilder.DropTable(
+                name: "jblt_companyprofile");
 
             migrationBuilder.DropTable(
                 name: "jblt_email");
 
             migrationBuilder.DropTable(
-                name: "jblt_personName");
+                name: "jblt_phone");
+
+            migrationBuilder.DropTable(
+                name: "jblt_userAddress");
         }
     }
 }
