@@ -1,5 +1,6 @@
 ﻿using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1;
 using Microsoft.EntityFrameworkCore;
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
@@ -24,6 +25,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RegisterUser> RegisterUsers { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
+        public virtual DbSet<JobEntity> JobEntity {get; set;}
 
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +41,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new RegisterUserConfiguration());
             modelBuilder.ApplyConfiguration(new LoginUserConfiguration());
+            modelBuilder.ApplyConfiguration(new JobConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
