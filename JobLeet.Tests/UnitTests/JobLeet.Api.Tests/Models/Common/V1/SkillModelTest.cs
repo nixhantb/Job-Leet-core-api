@@ -11,8 +11,8 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
             // Arrange
             var skillModel = new SkillModel
             {
-                Title = "Programming",
-                Description = "Excellent coding skills."
+                Title = ["Programming"],
+                Description = ["Excellent coding skills."]
             };
 
             

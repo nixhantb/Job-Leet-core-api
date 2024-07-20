@@ -14,7 +14,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Jobs.V1
                 JobTitle = "SDE",
                 JobDescription = "Description",
                 Vacancies = 1,
-                BasicPay = 1234.66m,
+                //BasicPay = 1234.66m,
                 FunctionalArea = "CA",
                 PostingDate = new DateTime(),
 

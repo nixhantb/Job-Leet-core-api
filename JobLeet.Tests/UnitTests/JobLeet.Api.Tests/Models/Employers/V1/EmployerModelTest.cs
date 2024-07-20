@@ -72,7 +72,7 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Employers.V1
                     ContactPhone = new PhoneModel { CountryCode = 91, PhoneNumber = "921212" },
                     ContactEmail = new EmailModel { EmailType = EmailCategory.Work, EmailAddress = "ayz.official@xyz.com" },
                     Website = "www.ayz.com",
-                    IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology }
+                    //IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology }
                 },
                 IndustryType = new IndustryTypeModel { IndustryCategory = IndustryCategory.Technology },
             };

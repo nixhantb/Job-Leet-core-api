@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 namespace JobLeet.WebApi.JobLeet.Api.Models.Companies.V1
 {
     public class CompanyModel : BaseModel
     {
-        [Required(ErrorMessage = "Company Name is required")]
-        public string CompanyName { get; set; }
-        [Required(ErrorMessage = "Company profile is required")]
-        public CompanyProfileModel Profile { get; set; }
+        public string? CompanyName { get; set; }
+        public CompanyProfileModel? Profile { get; set; }
+        
+        [JsonIgnore]
+        public override MetaDataModel MetaData { get => base.MetaData; set => base.MetaData = value; }
     }
 }
