@@ -2,7 +2,9 @@
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1;
+using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1;
 using Microsoft.EntityFrameworkCore;
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
 {
@@ -30,6 +32,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<IndustryType> IndustryTypes {get; set;}
         public virtual DbSet<CompanyProfile> CompanyProfiles {get; set;}
         public virtual DbSet<Company> Companies {get; set;}
+        public virtual DbSet<Seeker> Seekers {get; set;}
 
 
         #endregion
@@ -50,6 +53,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
             modelBuilder.ApplyConfiguration(new IndustryTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyProfileConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
+            modelBuilder.ApplyConfiguration(new SeekersConfiguration());
             base.OnModelCreating(modelBuilder);
             modelBuilder.Ignore<IndustryType>();
         }
