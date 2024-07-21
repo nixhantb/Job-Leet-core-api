@@ -62,6 +62,13 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
                       v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null))
                  .Metadata.SetValueComparer(valueComparer);
 
+            builder.Property(e => e.Tags)
+                .HasColumnName("job_tags")
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null)
+                ).Metadata.SetValueComparer(valueComparer);
+
 
         }
     }

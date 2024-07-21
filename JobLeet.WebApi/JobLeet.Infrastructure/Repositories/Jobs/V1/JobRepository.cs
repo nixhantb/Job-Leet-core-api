@@ -88,6 +88,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                     Benefits = entity.Benefits,
                     FunctionalArea = entity.FunctionalArea,
                     WorkEnvironment = entity.WorkEnvironment,
+                    Tags = entity.Tags,
                     PostingDate = entity.PostingDate,
                     ApplicationDeadline = entity.ApplicationDeadline
                 };
@@ -172,6 +173,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                     JobResponsibilities = job.JobResponsibilities,
                     Benefits = job.Benefits,
                     WorkEnvironment = job.WorkEnvironment,
+                    Tags = job.Tags,
                     PostingDate = job.PostingDate,
                     ApplicationDeadline = job.PostingDate
                 };

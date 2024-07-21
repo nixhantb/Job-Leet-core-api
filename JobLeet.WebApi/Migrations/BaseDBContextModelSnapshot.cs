@@ -428,6 +428,10 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int?>("SkillsRequiredId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Tags")
+                        .HasColumnType("longtext")
+                        .HasColumnName("job_tags");
+
                     b.Property<int?>("Vacancies")
                         .HasColumnType("int")
                         .HasColumnName("job_vacancies");

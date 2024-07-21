@@ -318,6 +318,8 @@ namespace JobLeet.WebApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     jobbenefits = table.Column<string>(name: "job_benefits", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    jobtags = table.Column<string>(name: "job_tags", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     jobworkenvironment = table.Column<string>(name: "job_workenvironment", type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     jobpostingdate = table.Column<DateTime>(name: "job_posting_date", type: "datetime(6)", nullable: true),

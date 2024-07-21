@@ -19,6 +19,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1
         public List<string>? PreferredQualifications { get; set; }
         public List<string>? JobResponsibilities { get; set; }
         public List<string>? Benefits { get; set; }
+        public List<string>? Tags {get; set;}
         public string? WorkEnvironment { get; set; }
         public DateTime? PostingDate { get; set; }
         public DateTime? ApplicationDeadline { get; set; }
