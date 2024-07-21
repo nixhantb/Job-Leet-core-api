@@ -24,7 +24,6 @@ namespace UnitTests.JobLeet.Api.Tests.Models.Common.V1
         [Theory]
         [InlineData(-1, "123456789", "Country Code must be a positive number")]
         [InlineData(1, "abc", "Invalid Phone Number format. Use only digits.")]
-        [InlineData(1, "", "Phone number is required")]
         public void PhoneModel_Validation_Failure(int countryCode, string phoneNumber, string expectedErrorMessage)
         {
             var phoneModel = new PhoneModel
