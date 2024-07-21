@@ -15,6 +15,8 @@ using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Helpers;
 using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Consumer;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1;
+using JobLeet.WebApi.JobLeet.Core.Interfaces.Seekers.V1;
+using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -40,6 +42,7 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
 builder.Services.AddScoped<ILoginUserRepository, LoginUserRepository>();
 builder.Services.AddScoped<IJobRepository, JobRepository>();
+builder.Services.AddScoped<ISeekerRepository, SeekersRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
