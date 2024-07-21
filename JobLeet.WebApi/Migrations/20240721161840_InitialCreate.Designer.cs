@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20240721035340_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20240721161840_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -458,6 +458,71 @@ namespace JobLeet.WebApi.Migrations
                     b.ToTable("jblt_job", (string)null);
                 });
 
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.Seeker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("seeker_id");
+
+                    b.Property<string>("Achievements")
+                        .HasColumnType("longtext")
+                        .HasColumnName("job_achievements");
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("seeker_dob");
+
+                    b.Property<int?>("EducationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Interests")
+                        .HasColumnType("longtext")
+                        .HasColumnName("job_interests");
+
+                    b.Property<string>("LinkedInProfile")
+                        .HasColumnType("longtext")
+                        .HasColumnName("seeker_linkedin");
+
+                    b.Property<int?>("PhoneId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Portfolio")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ProfileSummary")
+                        .HasColumnType("longtext")
+                        .HasColumnName("seeker_profilesummary");
+
+                    b.Property<int?>("QualificationsId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SkillsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("EducationId");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.HasIndex("PhoneId");
+
+                    b.HasIndex("QualificationsId");
+
+                    b.HasIndex("SkillsId");
+
+                    b.ToTable("jblt_seeker", (string)null);
+                });
+
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.LoginUser", b =>
                 {
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", "PersonName")
@@ -693,6 +758,45 @@ namespace JobLeet.WebApi.Migrations
                     b.Navigation("RequiredQualification");
 
                     b.Navigation("SkillsRequired");
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.Seeker", b =>
+                {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Education", "Education")
+                        .WithMany()
+                        .HasForeignKey("EducationId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Experience", "Experience")
+                        .WithMany()
+                        .HasForeignKey("ExperienceId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Phone", "Phone")
+                        .WithMany()
+                        .HasForeignKey("PhoneId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Qualification", "Qualifications")
+                        .WithMany()
+                        .HasForeignKey("QualificationsId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Skill", "Skills")
+                        .WithMany()
+                        .HasForeignKey("SkillsId");
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Education");
+
+                    b.Navigation("Experience");
+
+                    b.Navigation("Phone");
+
+                    b.Navigation("Qualifications");
+
+                    b.Navigation("Skills");
                 });
 #pragma warning restore 612, 618
         }

@@ -270,6 +270,66 @@ namespace JobLeet.WebApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "jblt_seeker",
+                columns: table => new
+                {
+                    seekerid = table.Column<int>(name: "seeker_id", type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PhoneId = table.Column<int>(type: "int", nullable: true),
+                    AddressId = table.Column<int>(type: "int", nullable: true),
+                    SkillsId = table.Column<int>(type: "int", nullable: true),
+                    EducationId = table.Column<int>(type: "int", nullable: true),
+                    ExperienceId = table.Column<int>(type: "int", nullable: true),
+                    seekerdob = table.Column<DateTime>(name: "seeker_dob", type: "datetime(6)", nullable: true),
+                    QualificationsId = table.Column<int>(type: "int", nullable: true),
+                    seekerprofilesummary = table.Column<string>(name: "seeker_profilesummary", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    seekerlinkedin = table.Column<string>(name: "seeker_linkedin", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Portfolio = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    jobinterests = table.Column<string>(name: "job_interests", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    jobachievements = table.Column<string>(name: "job_achievements", type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_jblt_seeker", x => x.seekerid);
+                    table.ForeignKey(
+                        name: "FK_jblt_seeker_jblt_education_EducationId",
+                        column: x => x.EducationId,
+                        principalTable: "jblt_education",
+                        principalColumn: "education_id");
+                    table.ForeignKey(
+                        name: "FK_jblt_seeker_jblt_experience_ExperienceId",
+                        column: x => x.ExperienceId,
+                        principalTable: "jblt_experience",
+                        principalColumn: "experience_id");
+                    table.ForeignKey(
+                        name: "FK_jblt_seeker_jblt_phone_PhoneId",
+                        column: x => x.PhoneId,
+                        principalTable: "jblt_phone",
+                        principalColumn: "jblt_phoneid");
+                    table.ForeignKey(
+                        name: "FK_jblt_seeker_jblt_qualification_QualificationsId",
+                        column: x => x.QualificationsId,
+                        principalTable: "jblt_qualification",
+                        principalColumn: "qualification_id");
+                    table.ForeignKey(
+                        name: "FK_jblt_seeker_jblt_skill_SkillsId",
+                        column: x => x.SkillsId,
+                        principalTable: "jblt_skill",
+                        principalColumn: "skill_id");
+                    table.ForeignKey(
+                        name: "FK_jblt_seeker_jblt_userAddress_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "jblt_userAddress",
+                        principalColumn: "address_id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "jblt_company",
                 columns: table => new
                 {
@@ -415,14 +475,41 @@ namespace JobLeet.WebApi.Migrations
                 name: "IX_jblt_registerUser_UserEmailId",
                 table: "jblt_registerUser",
                 column: "UserEmailId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_seeker_AddressId",
+                table: "jblt_seeker",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_seeker_EducationId",
+                table: "jblt_seeker",
+                column: "EducationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_seeker_ExperienceId",
+                table: "jblt_seeker",
+                column: "ExperienceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_seeker_PhoneId",
+                table: "jblt_seeker",
+                column: "PhoneId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_seeker_QualificationsId",
+                table: "jblt_seeker",
+                column: "QualificationsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_jblt_seeker_SkillsId",
+                table: "jblt_seeker",
+                column: "SkillsId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "jblt_education");
-
             migrationBuilder.DropTable(
                 name: "jblt_job");
 
@@ -436,7 +523,16 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_role");
 
             migrationBuilder.DropTable(
+                name: "jblt_seeker");
+
+            migrationBuilder.DropTable(
                 name: "jblt_company");
+
+            migrationBuilder.DropTable(
+                name: "jblt_personName");
+
+            migrationBuilder.DropTable(
+                name: "jblt_education");
 
             migrationBuilder.DropTable(
                 name: "jblt_experience");
@@ -446,9 +542,6 @@ namespace JobLeet.WebApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "jblt_skill");
-
-            migrationBuilder.DropTable(
-                name: "jblt_personName");
 
             migrationBuilder.DropTable(
                 name: "jblt_companyprofile");
