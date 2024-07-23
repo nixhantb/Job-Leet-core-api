@@ -17,6 +17,10 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using JobLeet.WebApi.JobLeet.Api.Security.Jwt;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -51,6 +55,34 @@ builder.Services.AddMemoryCache(); // Register IMemoryCache
 builder.Services.AddScoped(typeof(BaseCacheHelper<>));
 #endregion
 
+#region  JWT Configurations
+var jwtKey = JwtHelper.GetOrCreateJwtKey();
+var jwtKeyBase64 = Convert.ToBase64String(jwtKey);
+
+var configuration = builder.Configuration;
+builder.Configuration["Jwt:Key"] = jwtKeyBase64;
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = configuration["Jwt:Issuer"],
+        ValidAudience = configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(builder.Configuration["Jwt:Key"]))
+    };
+});
+
+#endregion
 
 #region Database configuration Services
 
@@ -85,6 +117,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 #region Middleware Configurations

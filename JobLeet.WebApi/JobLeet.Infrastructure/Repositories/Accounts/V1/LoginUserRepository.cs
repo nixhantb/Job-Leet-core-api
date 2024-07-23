@@ -1,4 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
+﻿using System.IdentityModel.Tokens.Jwt;
+using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
@@ -6,6 +7,7 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities;
 using Microsoft.EntityFrameworkCore;
+using JobLeet.WebApi.JobLeet.Api.Secutiy.Jwt;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 {
@@ -13,10 +15,12 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
     {
         #region Initialization
         private readonly BaseDBContext _dbContext;
+        private readonly IConfiguration _configuration;
 
-        public LoginUserRepository(BaseDBContext dbContext)
+        public LoginUserRepository(BaseDBContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
         #endregion
 
@@ -27,6 +31,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 #region Validate and Retrieve User Data
 
                 var registrationUser = await ValidateUserAsync(entity);
+                var token = GenerateToken.GenerateJwtToken(registrationUser, _configuration);
                 var personName = registrationUser.PersonName;
                 if (personName == null)
                 {
@@ -78,6 +83,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
                 #endregion
 
+                
                 #region Convert to API Response Model
 
                 var loginUserResponse = new LoginUserModel
@@ -94,7 +100,9 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     LoginTime = loginUser.LoginTime,
                     Role = Api.Models.Accounts.V1.RoleCategory.Users,
                     AccountCreated = true,
-                    AccountStatus = Api.Models.Accounts.V1.AccountCategory.Active
+                    AccountStatus = Api.Models.Accounts.V1.AccountCategory.Active,
+                    Token = token
+                    
                 };
                 return loginUserResponse;
 
@@ -133,6 +141,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             bool validatePassword = PasswordValidation.ValidatePassword(entity.Password);
             var registrationUser = await _dbContext.RegisterUsers
                 .Include(u => u.PersonName)
+                .Include(u => u.UserEmail)
                 .FirstOrDefaultAsync(u => u.UserEmail.EmailAddress == entity.EmailAddress);
 
             if (registrationUser == null)
