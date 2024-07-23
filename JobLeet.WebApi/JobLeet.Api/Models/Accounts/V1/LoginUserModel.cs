@@ -15,6 +15,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
         public bool AccountCreated { get; set; } = false;
         public DateTime LoginTime { get; set; } = DateTime.UtcNow;
         public RoleCategory Role { get; set; }
+        public string? Token {get; set;}
     }
 
     public enum AccountCategory

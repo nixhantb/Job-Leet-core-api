@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20240721161905_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20240723042016_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
