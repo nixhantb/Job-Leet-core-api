@@ -4,7 +4,8 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Api.Exceptions;
-namespace JobLeet.WebApi.JobLeet.Api.Secutiy.Jwt
+
+namespace JobLeet.WebApi.JobLeet.Api.Security.Jwt
 {
     public static class GenerateToken
     {
@@ -13,39 +14,30 @@ namespace JobLeet.WebApi.JobLeet.Api.Secutiy.Jwt
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Convert.FromBase64String(configuration["Jwt:Key"]);
-                if (key.Length < 32)
-                {
-                    throw new JwtTokenException(ErrorMessageManager.GetErrorMessage("Invalid_JWT_TokenLength_Error"));
-                }
+                var key = JwtHelper.GetOrCreateJwtKey(); // Use the same key generation method
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                    new Claim(ClaimTypes.Email, user?.UserEmail?.EmailAddress),
-                    new Claim(ClaimTypes.NameIdentifier, user?.Id.ToString())
+                                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim("email", user?.UserEmail?.EmailAddress ?? string.Empty),
+                    new Claim("nameid", user?.Id.ToString() ?? string.Empty)
                 }),
                     Expires = DateTime.UtcNow.AddHours(1),
+                    Issuer = configuration["Jwt:Issuer"],
+                    Audience = configuration["Jwt:Audience"],
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                 };
+
+
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 return tokenHandler.WriteToken(token);
             }
-            catch (ArgumentNullException ex)
-            {
-                throw new JwtTokenException("A required argument was null.", ex);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new JwtTokenException("An argument was invalid.", ex);
-            }
-
             catch (Exception ex)
             {
                 throw new JwtTokenException("An error occurred while generating the JWT token.", ex);
             }
-
         }
     }
+
 }

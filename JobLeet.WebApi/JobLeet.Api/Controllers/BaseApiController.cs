@@ -16,8 +16,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         where TRepository : IRepository<TEntity, TModel>
     {
         protected readonly TRepository Repository;
-        private readonly ILoggerManagerV1 _logger;
-        private readonly RabbitMQService _rabbitMQService;
+        protected readonly ILoggerManagerV1 _logger;
+        protected readonly RabbitMQService _rabbitMQService;
 
         protected BaseApiController(TRepository repository, ILoggerManagerV1 logger, RabbitMQService rabbitMQService)
         {

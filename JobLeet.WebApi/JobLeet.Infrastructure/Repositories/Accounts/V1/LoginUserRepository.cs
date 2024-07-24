@@ -7,7 +7,7 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities;
 using Microsoft.EntityFrameworkCore;
-using JobLeet.WebApi.JobLeet.Api.Secutiy.Jwt;
+using JobLeet.WebApi.JobLeet.Api.Security.Jwt;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 {

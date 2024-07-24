@@ -19,8 +19,8 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using JobLeet.WebApi.JobLeet.Api.Security.Jwt;
+using JobLeet.WebApi.JobLeet.Api.Middlewares.JwtMiddleware;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -117,14 +117,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+
+
 app.MapControllers();
 
 #region Middleware Configurations
 app.UseHsts();
 app.UseHttpsRedirection();
-
+app.UseMiddleware<JwtMiddleware>();
+app.UseAuthorization();
+// app.UseAuthentication();
 // Enable CORS
 app.UseCors("AllowAll");
 // app.UseMiddleware<SecurityHeaders>();
