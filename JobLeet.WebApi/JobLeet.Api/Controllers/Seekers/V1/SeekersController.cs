@@ -34,7 +34,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
                 var result = await Repository.AddAsync(entity);
                 try
                 {
-                    _rabbitMQService.PublishMessage($"New seeker created: {entity}");
+                    string topic = "Jobleetseekers";
+                    _rabbitMQService.PublishMessage(topic,$"New seeker created: {entity}");
                 }
                 catch (Exception rabbitMqEx)
                 {

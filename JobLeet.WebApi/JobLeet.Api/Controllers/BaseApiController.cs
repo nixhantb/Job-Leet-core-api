@@ -94,8 +94,9 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                 {
                     return BadRequest();
                 }
+                string topic = "jobLeetTopic";
                 var result = await Repository.AddAsync(entity);
-                _rabbitMQService.PublishMessage($"New entity created: {entity}");
+                _rabbitMQService.PublishMessage(topic, $"New entity created: {entity}");
                 return Ok(result);
             }
             catch (Exception ex)

@@ -22,15 +22,23 @@ namespace JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Publisher
             _rabbitMQServiceSetup.Dispose();
         }
 
-        public void PublishMessage(string message){
+        public void PublishMessage(object @event, string message){
+            var eventName = @event.GetType().Name;
+            
+
+        if (string.IsNullOrEmpty(eventName))
+        {
+            _logger.LogWarning("No routing key found for event type '{EventType}'", eventName);
+            return;
+        }
             var body = Encoding.UTF8.GetBytes(message);
 
             _channel.BasicPublish(exchange: "messages",
-                                  routingKey: "",
+                                  routingKey: eventName,
                                   basicProperties: null,
                                   body: body);
            
-             _logger.LogInformation("Published message: {message}", message);
+             _logger.LogInformation("Published message to topic '{Topic}': {Message}", eventName, message);
 
         }
     }
