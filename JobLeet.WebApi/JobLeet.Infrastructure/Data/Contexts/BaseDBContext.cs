@@ -28,7 +28,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RegisterUser> RegisterUsers { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
-        public virtual DbSet<JobEntity> JobEntity {get; set;}
+        public virtual DbSet<JobEntity> Jobs {get; set;}
         public virtual DbSet<IndustryType> IndustryTypes {get; set;}
         public virtual DbSet<CompanyProfile> CompanyProfiles {get; set;}
         public virtual DbSet<Company> Companies {get; set;}

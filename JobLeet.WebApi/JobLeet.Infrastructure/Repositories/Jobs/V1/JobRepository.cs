@@ -1,8 +1,11 @@
+using System.Data.Common;
 using JobLeet.WebApi.JobLeet.Api.Models.Companies.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
 {
@@ -18,7 +21,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-
+        
         public async Task<JobModel> AddAsync(JobEntity entity)
         {
             try
@@ -93,7 +96,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                     ApplicationDeadline = entity.ApplicationDeadline
                 };
 
-                _dbContext.JobEntity.Add(job);
+                _dbContext.Jobs.Add(job);
                  await _dbContext.SaveChangesAsync();
                 #endregion
 
@@ -194,7 +197,98 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
 
         public async Task<List<JobModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+           
+           
+                try
+                {
+                    var results = await _dbContext.Jobs
+                    .Select(e => new JobModel
+                    {
+                        Id = e.Id,
+                        JobTitle = e.JobTitle,
+                        JobDescription = e.JobDescription,
+                        JobType = e.JobType,
+                        CompanyDescription = new(){
+                            Id = e.CompanyDescription.Id,
+                            CompanyName = e.CompanyDescription.CompanyName,
+                            Profile = new(){
+                                ProfileInfo = e.CompanyDescription.Profile.ProfileInfo,
+                                CompanyAddress = new(){
+                                    Id = e.CompanyDescription.Profile.CompanyAddress.Id,
+                                    Street = e.CompanyDescription.Profile.CompanyAddress.Street,
+                                    City = e.CompanyDescription.Profile.CompanyAddress.City,
+                                    State = e.CompanyDescription.Profile.CompanyAddress.State,
+                                    PostalCode = e.CompanyDescription.Profile.CompanyAddress.PostalCode,
+                                    Country = e.CompanyDescription.Profile.CompanyAddress.Country
+                                },
+                                ContactPhone = new(){
+                                    CountryCode = e.CompanyDescription.Profile.ContactPhone.CountryCode,
+                                    PhoneNumber = e.CompanyDescription.Profile.ContactPhone.PhoneNumber,
+                                    Id = e.CompanyDescription.Profile.ContactPhone.Id
+                                },
+                                ContactEmail = new(){
+                                    EmailType = (Api.Models.Common.V1.EmailCategory)e.CompanyDescription.Profile.ContactEmail.EmailType,
+                                    EmailAddress = e.CompanyDescription.Profile.ContactEmail.EmailAddress,
+                                    Id = e.CompanyDescription.Profile.ContactEmail.Id
+                                },
+                                Website = e.CompanyDescription.Profile.Website,
+                                IndustryType = (IndustryCategory)e.CompanyDescription.Profile.IndustryType,
+                                Id = e.CompanyDescription.Profile.Id
+                            },
+                        },
+                        JobAddress = new()
+                        {
+                            Id = e.JobAddress.Id,
+                            Street = e.JobAddress.Street,
+                            City = e.JobAddress.City,
+                            State = e.JobAddress.State,
+                            PostalCode = e.JobAddress.PostalCode,
+                            Country = e.JobAddress.Country
+        
+                        },
+                        Vacancies = e.Vacancies,
+                        BasicPay = new(){
+                            MinmumPay  = e.BasicPay.MinmumPay,
+                            MaximumPay = e.BasicPay.MaximumPay,
+                            Currency = e.BasicPay.Currency
+                        },
+                        FunctionalArea = e.FunctionalArea,
+                        SkillsRequired = new(){
+                            Id = e.SkillsRequired.Id,
+                            Title = e.SkillsRequired.Title,
+                            Description = e.SkillsRequired.Description
+                        },
+                        RequiredQualification = new()
+                        {
+                            Id = e.RequiredQualification.Id,
+                            QualificationType = (Api.Models.Common.V1.QualificationCategory)e.RequiredQualification.QualificationType,
+                            QualificateionInformation= e.RequiredQualification.QualificationInformation
+                        },
+                        RequiredExperience = new()
+                        {
+                            Id = e.RequiredExperience.Id,
+                            ExperienceLevel = (Api.Models.Common.V1.ExperienceLevel)e.RequiredExperience.ExperienceLevel
+                        },
+                        PreferredQualifications = e.PreferredQualifications,
+                        JobResponsibilities = e.JobResponsibilities,
+                        Benefits = e.Benefits,
+                        WorkEnvironment = e.WorkEnvironment,
+                        Tags = e.Tags,
+                        ApplicationDeadline = e.ApplicationDeadline
+                        
+
+                        
+                    }).ToListAsync();
+
+                    return results;
+
+                }
+                catch (Exception ex) when (ex is DbUpdateException || ex is DbException || ex is SqlException)
+                {
+                    throw new Exception("Error while fetching data from the database. Please try again later.");
+                }
+
+            
         }
 
         public async Task<JobModel> GetByIdAsync(int id)
