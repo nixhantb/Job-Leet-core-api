@@ -111,7 +111,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                         Id = job.CompanyDescription.Id,
                         CompanyName = job.CompanyDescription.CompanyName,
                         Profile = new(){
-                            ProfileInfo = entity.CompanyDescription.Profile.ProfileInfo,
+                            ProfileInfo = job.CompanyDescription.Profile.ProfileInfo,
                             CompanyAddress = new(){
                                 // Headquater of the Company
                                 Id = job.CompanyDescription.Profile.CompanyAddress.Id,
