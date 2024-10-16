@@ -1,126 +1,29 @@
-# Job Leet - Job Portal API
+## Job Leet - Your Smart Recruitment Partner
 
-Welcome to Job Leet, your go-to job portal powered by the Job Leet Job Portal API. This project is built using .NET 8, Docker and MySQL, providing a robust REST API for job-related functionalities.
+Welcome to Job Leet, a cutting-edge recruitment agency solution designed to simplify the hiring process and connect top talent with recruiters. As a comprehensive recruitment platform, Job Leet not only helps job seekers find the perfect career opportunities but also provides recruiters with the tools they need to identify and attract the best candidates.
 
-Find the Frontend Development repository of this project [Here](https://github.com/Nix-code/Job-Leet-core-UI)
+At the core of Job Leet is a smart CRM tailored for recruitment agencies. This intelligent system streamlines the hiring process, enabling recruiters to manage candidate relationships more efficiently and make data-driven decisions. Whether you're a job seeker looking for your next opportunity or a recruiter aiming to discover top talent, Job Leet is your go-to solution.
 
-### Getting Started with Docker environment
+**How Job Leet Works**
 
-Install 
-[Docker](https://www.docker.com/get-started/)
+- **For Job Seekers**: Search for job openings, submit applications, and track your progress. Our platform matches your skills with the right opportunities, providing personalized job recommendations.
+- **For Recruiters**: Job Leet empowers recruitment agencies and employers to streamline the hiring process. Our smart CRM helps agents and recruiters manage candidate pools, engage with top talent, and facilitate smooth communication. The platform also includes advanced filtering and search tools to find the right candidates quickly.
 
-1. Create `.env` file in the root directory 
-   Fill the following information 
+**Why Choose Job Leet?**
 
-  ```bash
-  MYSQL_DATABASE= DBName
-  MYSQL_PASSWORD= StrongPassword
+- **Efficient Talent Acquisition**: Automate and optimize your recruitment process with our smart CRM, reducing the time spent on manual tasks.
+- **Personalized Job Matching**: Advanced algorithms match job seekers with relevant roles based on their skills, preferences, and career goals.
+- **Enhanced Candidate Experience**: User-friendly interfaces and real-time updates keep job seekers informed and engaged throughout the hiring process.
+- **Recruiter Tools and Analytics**: Gain insights into hiring trends, candidate engagement, and recruitment metrics to make better hiring decisions.
 
-  ```
-2. Rename `appsettings.json` to `appsettings.Development.json` 
-  Replace the following informatoin
+Job Leet is your all-in-one recruitment platform that brings candidates and recruiters together, fostering meaningful connections and driving career success. Join Job Leet today and experience a smarter way to hire and get hired!
 
-  ```bash
-  "ConnectionStrings": {
-      "jobleetconnect": "Server=sql_server;Database=<DBName>;User=<Username>;Password=<password>;Port=3306;AllowPublicKeyRetrieval=True;SslMode=None"
-    },
-  ```
-3. Navigate to the `docker-compose.yml` and check the credentials; It should match the credentials of `jobleetconnect` 
-Note: The credentials in `docker-compose.yml`, `.env` and `jobleetconnect` must match.
-
-```bash
- environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: leetadmin
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}`
-   ```
-4. Final step 
-```bash
-docker-compose build && docker-compose up
-```
-and Access the service using 
-```bash
-http://localhost:8080/api/v1/<endpoint>
-```
-
-Or 
-
-```bash
-http://localhost:8080/swagger/index.html
-```
-## Table of Contents
-
-- [Introduction](#job-leet---job-portal-api)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Clone and Build](#clone-and-build)
-  - [Configuration](#configuration)
-- [Database](#database)
-- [Features](#features)
-- [Issues](#issues)
-- [Contribution](#contribution)
-- [License](#license)
-## Getting Started In local environment
-
-### Prerequisites
-
-Make sure you have the following installed on your system:
-- [.NET 8](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [MySQL](https://www.mysql.com/) 
-- [Docker](https://www.docker.com/get-started/)
-
-### Clone and Build
-
-Clone the repository:
-
-```bash
-git clone https://github.com/Nix-code/Job-Leet-core-api.git
-
-```
-
-Navigate to the project directory:
-
-```cd Job-Leet-core-api```
-
-Build the application:
-```bash dotnet build```
-
-
-### Configuration
-Update the `appsettings.json` file with your MySQL database connection details. But we will be using `appsettings.Development.json` for our work.
-
-### Database
-Job Leet uses a MySQL database to store job-related data. You can configure the database connection settings in the appsettings.json file.
-
- #### Migrate the Database
- ```bash
- dotnet add package Microsoft.EntityFrameworkCore.Design
-
-```
-
-### Features
- - BaseAPIController
- - BaseDBContext
- - Input Validation
- - Data Validation
- - Database Migrations
- - Endpoints
- - Caching
- - Loggers
- - Authentication
- - Exceptions
- - SecurityHeaders
- - RateLimiter
- - Versioning
- - Jwt Tokens
- - Message Broker (RabbitMQ)
- - Documentations
- - Docker Container
- - CICD
- - Unit tests
+## Installation
+Feel free to install the JobLeet project, reffering with our official documentation here
+[Installation Guide](https://jobleet-documentation.vercel.app/docs/guides/introduction)
 
 ### Issues
-If you encounter any issues or have suggestions, feel free to open an issue [here](https://github.com/Nix-code/Job-Leet-core-api/issues)
+If you encounter any issues or have suggestions, feel free to open an issue [here](https://github.com/nixhantb/Job-Leet-core-api/issues)
 
 ### Contribution
 We welcome contributions to make Job Leet even better! If you'd like to contribute, please follow the steps [here](CONTRIBUTION.md) 
