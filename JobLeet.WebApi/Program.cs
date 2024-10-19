@@ -21,6 +21,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using JobLeet.WebApi.JobLeet.Api.Security.Jwt;
 using JobLeet.WebApi.JobLeet.Api.Middlewares.JwtMiddleware;
+using JobLeet.WebApi.JobLeet.Core.Interfaces.Companies.V1;
+using JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -47,6 +49,7 @@ builder.Services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
 builder.Services.AddScoped<ILoginUserRepository, LoginUserRepository>();
 builder.Services.AddScoped<IJobRepository, JobRepository>();
 builder.Services.AddScoped<ISeekerRepository, SeekersRepository>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

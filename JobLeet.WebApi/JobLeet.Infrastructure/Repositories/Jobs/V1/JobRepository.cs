@@ -276,8 +276,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                         Tags = e.Tags,
                         ApplicationDeadline = e.ApplicationDeadline
                         
-
-                        
                     }).ToListAsync();
 
                     return results;
