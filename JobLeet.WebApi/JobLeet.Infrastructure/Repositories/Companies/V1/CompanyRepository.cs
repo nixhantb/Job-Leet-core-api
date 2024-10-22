@@ -22,14 +22,16 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1{
         {
             try{
                 
-                await _dbContext.Companies.AddAsync(entity);
-                await _dbContext.SaveChangesAsync();
                 if (entity == null){
                     throw new ArgumentNullException(nameof(entity));
                 }
 
-                var companyModel = CompanyMapper.ToCompanyModel(entity);
-                return companyModel;
+                var saveToDb = CompanyMapper.ToCompanyDataBase(entity);
+                await _dbContext.Companies.AddAsync(saveToDb);
+                await _dbContext.SaveChangesAsync();
+                
+                var apiResponse = CompanyMapper.ToCompanyModel(saveToDb);
+                return apiResponse;
             }
             catch(Exception ex){
                 throw new Exception("Error adding company", ex);

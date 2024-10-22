@@ -4,9 +4,9 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
 {
     public class PersonNameModel : BaseModel
     {
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
         public string? MiddleName { get; set; }
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         [JsonIgnore]
         public override MetaDataModel MetaData { get => base.MetaData; set => base.MetaData = value; }
 
