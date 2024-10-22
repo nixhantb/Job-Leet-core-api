@@ -5,9 +5,20 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1 {
 
     public static class PhoneMapper{
         
-        public static PhoneModel ToPhoneModel (Phone entity){
-            return new PhoneModel {
+        public static Phone ToPhoneDatabase (Phone entity){
+            return new Phone {
+                Id = entity.Id,
+                CountryCode = entity.CountryCode,
+                PhoneNumber = entity.PhoneNumber
+                
+            };
+        }
 
+        public static PhoneModel ToPhoneModel(Phone model){
+            return new PhoneModel {
+                Id = model.Id,
+                CountryCode = model.CountryCode,
+                PhoneNumber = model.PhoneNumber
             };
         }
     }

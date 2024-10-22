@@ -5,12 +5,15 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1 {
 
     public static class EmailMapper{
         
-        public static EmailModel ToEmailModel (Email entity){
-            return new EmailModel {
+        public static Email ToEmailDatabase (Email entity){
+            return new Email {
                 Id = entity.Id,
                 EmailAddress = entity.EmailAddress,
-                EmailType = (Api.Models.Common.V1.EmailCategory)entity.EmailType
+                EmailType = entity.EmailType,
             };
+        }
+        public static EmailModel ToEmailModel (Email model){
+            return new EmailModel {};
         }
     }
 }
