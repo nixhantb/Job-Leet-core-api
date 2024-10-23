@@ -16,9 +16,9 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             var profile = entity?.Profile;
             return new Company
             {
-                Id = profile.Id,
-                CompanyName = entity.CompanyName,
-                Profile = ToCompanyProfileDatabase(profile, profile?.ContactPhone, profile?.CompanyAddress, profile?.ContactEmail)
+                Id = profile!.Id,
+                CompanyName = entity!.CompanyName,
+                Profile = ToCompanyProfileDatabase(profile, profile.ContactPhone, profile?.CompanyAddress, profile?.ContactEmail)
             };
         }
         public static CompanyProfile ToCompanyProfileDatabase(CompanyProfile entity, Phone phoneEntity, Address addressEntity, Email emailEntity)
