@@ -29,7 +29,7 @@ services:
       - key: MYSQL_USER
         value: leetadmin
       - key: MYSQL_PASSWORD
-        value: test
+        value: test123
     ports:
       - 3306
     healthCheckCommand: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
