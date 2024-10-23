@@ -2,7 +2,7 @@
 # Define the base image with ASP.NET runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
-WORKDIR /app
+WORKDIR /src
 # Expose port 8080 to allow external access
 EXPOSE 8080
 
@@ -11,14 +11,14 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY *.sln .
-COPY JobLeet.WebApi/*.csproj ./JobLeet.WebApi/
+COPY JobLeet.WebApi/JobLeet.WebApi.sln .
+COPY JobLeet.WebApi/JobLeet.WebApi.csproj ./JobLeet.WebApi/
 COPY JobLeet.Tests/UnitTests/*.csproj ./JobLeet.Tests/UnitTests/
 
-# Restore NuGet packages
-RUN dotnet restore
+WORKDIR /src/JobLeet.WebApi
+RUN dotnet restore JobLeet.WebApi.csproj
 
-COPY . .
+COPY JobLeet.WebApi/. .
 WORKDIR "/src/JobLeet.WebApi"
 RUN dotnet build -c $BUILD_CONFIGURATION -o /app/build
 
