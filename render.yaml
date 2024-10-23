@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: jobleet-api
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Development
+      - key: DBHOST
+        value: jobleet-database
+    ports:
+      - 8080
+    healthCheckPath: /
+    buildCommand: docker build -t jobleet-api .
+    startCommand: docker run -p 8080:8080 jobleet-api
+    dependsOn:
+      - name: jobleet-database
+
+  - type: database
+    name: jobleet-database
+    env: docker
+    plan: free
+    image: mysql/mysql-server:8.0.3
+    containerCommand: [ "mysqld" ]
+    envVars:
+      - key: MYSQL_DATABASE
+        value: jobleet
+      - key: MYSQL_USER
+        value: leetadmin
+      - key: MYSQL_PASSWORD
+        value: test
+    ports:
+      - 3306
+    healthCheckCommand: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+    healthCheckInterval: 20s
+    healthCheckTimeout: 20s
+    healthCheckRetries: 10
+    persistentDisk:
+      mountPath: /var/lib/mysql
+      sizeGB: 10
