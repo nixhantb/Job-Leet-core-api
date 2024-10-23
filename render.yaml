@@ -1,41 +1,24 @@
+databases:
+  - name: jobleet-db 
+    databaseName: ${MYSQL_DATABASE}
+    user: leetadmin
+    password: ${MYSQL_PASSWORD}
+    mysqlVersion: 8.0.3 
+
 services:
-  - type: web
+  - type: pserv
     name: jobleet-api
-    env: docker
     plan: free
-    dockerfilePath: Dockerfile
+    env: docker
+    dockerfilePath: ./Dockerfile 
     envVars:
+      - key: DBHOST
+        value: jobleet-db 
       - key: ASPNETCORE_ENVIRONMENT
         value: Development
-      - key: DBHOST
-        value: jobleet-database
-    ports:
-      - 8080
-    healthCheckPath: /
-    buildCommand: docker build -t jobleet-api .
-    startCommand: docker run -p 8080:8080 jobleet-api
-    dependsOn:
-      - name: jobleet-database
-
-  - type: database
-    name: jobleet-database
-    env: docker
-    plan: free
-    image: mysql/mysql-server:8.0.3
-    containerCommand: [ "mysqld" ]
-    envVars:
       - key: MYSQL_DATABASE
-        value: jobleet
-      - key: MYSQL_USER
-        value: leetadmin
+        value: ${MYSQL_DATABASE} 
       - key: MYSQL_PASSWORD
-        value: test123
+        value: ${MYSQL_PASSWORD}
     ports:
-      - 3306
-    healthCheckCommand: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-    healthCheckInterval: 20s
-    healthCheckTimeout: 20s
-    healthCheckRetries: 10
-    persistentDisk:
-      mountPath: /var/lib/mysql
-      sizeGB: 10
+      - "8080"
