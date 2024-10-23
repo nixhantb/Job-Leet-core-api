@@ -50,8 +50,8 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             var profile = entity?.Profile;
             return new CompanyModel
             {
-                Id = profile.Id,
-                CompanyName = entity.CompanyName,
+                Id = profile!.Id,
+                CompanyName = entity!.CompanyName,
                 Profile = ToCompanyProfileModel(profile, profile?.ContactPhone, profile?.CompanyAddress, profile?.ContactEmail)
             };
         }
