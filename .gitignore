@@ -51,3 +51,4 @@ artifacts/
 
 #Ignore File holding secrects
 jwtkey.key
+render.yaml

@@ -25,7 +25,7 @@ services:
   - type: web
     name: jobleet-api
     runtime: docker
-    repo: https://github.com/nixhantb/Job-Leet-core-api/tree/feature/deployment/beta/test # Replace with your GitHub repository URL
+    repo: https://github.com/nixhantb/Job-Leet-core-api/tree/feature/deployment/beta/test 
     dockerfilePath: ./Dockerfile
     envVars:
       - key: DBHOST
