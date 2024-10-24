@@ -4,7 +4,7 @@ services:
     image: mysql/mysql-server:8.0.3
     container_name: sql_server
     ports:
-      - "3306:3306"
+      - "3307:3307"
     restart: always
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
