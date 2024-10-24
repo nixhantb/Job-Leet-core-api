@@ -1,39 +1,35 @@
-# Render Blueprint Configuration
-# This file defines the services for hosting an ASP.NET API and MySQL database.
-
 previews:
   generation: automatic # Enable preview environments
 
 services:
-  # MySQL Database Service
+  # PostgreSQL Database Service
   - type: pserv
     name: jobleet-database
     runtime: docker
     autoDeploy: false
     envVars:
-      - key: MYSQL_DATABASE
-        value: ${MYSQL_DATABASE}
-      - key: MYSQL_USER
+      - key: POSTGRES_DB
+        value: ${POSTGRES_DB}
+      - key: POSTGRES_USER
         value: leetadmin
-      - key: MYSQL_PASSWORD
-        value: ${MYSQL_PASSWORD}
+      - key: POSTGRES_PASSWORD
+        value: ${POSTGRES_PASSWORD}
     disk:
-      name: mysql-disk
-      mountPath: /var/lib/mysql
+      name: postgres-disk
+      mountPath: /var/lib/postgresql/data
    
   # ASP.NET API Service
   - type: web
     name: jobleet-api
     runtime: docker
-    repo: https://github.com/nixhantb/Job-Leet-core-api/tree/feature/deployment/beta/test 
+    repo: https://github.com/nixhantb/Job-Leet-core-api/tree/feature/deployment/beta/test
     dockerfilePath: ./Dockerfile
     envVars:
       - key: DBHOST
         value: jobleet-database
       - key: ASPNETCORE_ENVIRONMENT
         value: Development
-      - key: MYSQL_DATABASE
-        value: ${MYSQL_DATABASE}
-      - key: MYSQL_PASSWORD
-        value: ${MYSQL_PASSWORD}
-
+      - key: POSTGRES_DB
+        value: ${POSTGRES_DB}
+      - key: POSTGRES_PASSWORD
+        value: ${POSTGRES_PASSWORD}
