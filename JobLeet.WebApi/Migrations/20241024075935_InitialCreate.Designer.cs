@@ -5,14 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20240723042038_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20241024075935_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,46 +21,50 @@ namespace JobLeet.WebApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.14")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1.LoginUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("loginuser_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<bool>("AccountCreated")
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("boolean")
                         .HasColumnName("loginuser_accountcreated");
 
                     b.Property<int>("AccountStatus")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("loginuser_accountstatus");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("loginuser_address");
 
                     b.Property<string>("IPAddress")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("loginuser_ipaddress");
 
                     b.Property<DateTime>("LoginTime")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("loginuser_logintime");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("loginuser_password");
 
                     b.Property<int?>("PersonNameId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("Role")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("loginuser_role");
 
                     b.HasKey("Id");
@@ -73,29 +78,31 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("jblt_registerid");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ConfirmPassword")
                         .IsRequired()
                         .HasMaxLength(101)
-                        .HasColumnType("varchar(101)")
+                        .HasColumnType("character varying(101)")
                         .HasColumnName("jblt_confirmpassword");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(101)
-                        .HasColumnType("varchar(101)")
+                        .HasColumnType("character varying(101)")
                         .HasColumnName("jblt_password");
 
                     b.Property<int>("PersonNameId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Salt")
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<int>("UserEmailId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -110,11 +117,13 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("role_roleid");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("RoleName")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("role_name");
 
                     b.HasKey("Id");
@@ -126,28 +135,30 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("address_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("City")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("address_city");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("address_country");
 
                     b.Property<string>("PostalCode")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("address_postalCode");
 
                     b.Property<string>("State")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("address_state");
 
                     b.Property<string>("Street")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("address_street");
 
                     b.HasKey("Id");
@@ -159,16 +170,18 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("education_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<decimal>("Cgpa")
-                        .HasColumnType("decimal(65,30)")
+                        .HasColumnType("numeric")
                         .HasColumnName("education_cgpa");
 
                     b.Property<string>("Degree")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("education_degree");
 
                     b.Property<DateOnly>("GraduationDate")
@@ -177,12 +190,12 @@ namespace JobLeet.WebApi.Migrations
 
                     b.Property<string>("Institution")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("education_nstitution");
 
                     b.Property<string>("Major")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("education_major");
 
                     b.HasKey("Id");
@@ -194,15 +207,17 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("email_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("EmailAddress")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("email_address");
 
                     b.Property<int>("EmailType")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("email_type");
 
                     b.HasKey("Id");
@@ -214,11 +229,13 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("experience_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("ExperienceLevel")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("experience_type");
 
                     b.HasKey("Id");
@@ -230,20 +247,21 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("personname_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("personName_firstname");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("personName_lastname");
 
                     b.Property<string>("MiddleName")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("personName_middlename");
 
                     b.HasKey("Id");
@@ -255,15 +273,17 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("jblt_phoneid");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CountryCode")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("jblt_countrycode");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("jblt_phonenumber");
 
                     b.HasKey("Id");
@@ -275,15 +295,17 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("qualification_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("QualificationInformation")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("qualification_information");
 
                     b.Property<int>("QualificationType")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("qualification_type");
 
                     b.HasKey("Id");
@@ -295,15 +317,17 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("skill_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Description")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("description");
 
                     b.Property<string>("Title")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("title");
 
                     b.HasKey("Id");
@@ -315,15 +339,17 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("company_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("CompanyName")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("company_name");
 
                     b.Property<int?>("ProfileId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -336,26 +362,28 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("companyprofile_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int?>("CompanyAddressId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("ContactEmailId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("ContactPhoneId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("IndustryType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ProfileInfo")
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<string>("Website")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("company_website");
 
                     b.HasKey("Id");
@@ -373,74 +401,76 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("job_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<DateTime?>("ApplicationDeadline")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("job_applicationdeadline");
 
                     b.Property<string>("BasicPay")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_basic_pay");
 
                     b.Property<string>("Benefits")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_benefits");
 
                     b.Property<int?>("CompanyDescriptionId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("FunctionalArea")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_functional_area");
 
                     b.Property<int?>("JobAddressId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("JobDescription")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_description");
 
                     b.Property<string>("JobResponsibilities")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_responsibility");
 
                     b.Property<string>("JobTitle")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_title");
 
                     b.Property<string>("JobType")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_type");
 
                     b.Property<DateTime?>("PostingDate")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("job_posting_date");
 
                     b.Property<string>("PreferredQualifications")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("preferred_qualifications");
 
                     b.Property<int?>("RequiredExperienceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("RequiredQualificationId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("SkillsRequiredId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Tags")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_tags");
 
                     b.Property<int?>("Vacancies")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("job_vacancies");
 
                     b.Property<string>("WorkEnvironment")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_workenvironment");
 
                     b.HasKey("Id");
@@ -462,49 +492,51 @@ namespace JobLeet.WebApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("seeker_id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Achievements")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_achievements");
 
                     b.Property<int?>("AddressId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("seeker_dob");
 
                     b.Property<int?>("EducationId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("ExperienceId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Interests")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("job_interests");
 
                     b.Property<string>("LinkedInProfile")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("seeker_linkedin");
 
                     b.Property<int?>("PhoneId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Portfolio")
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProfileSummary")
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("seeker_profilesummary");
 
                     b.Property<int?>("QualificationsId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("SkillsId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -532,7 +564,7 @@ namespace JobLeet.WebApi.Migrations
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("LoginUserId")
-                                .HasColumnType("int");
+                                .HasColumnType("integer");
 
                             b1.HasKey("LoginUserId");
 
@@ -565,7 +597,7 @@ namespace JobLeet.WebApi.Migrations
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("RegisterUserId")
-                                .HasColumnType("int");
+                                .HasColumnType("integer");
 
                             b1.HasKey("RegisterUserId");
 
@@ -588,7 +620,7 @@ namespace JobLeet.WebApi.Migrations
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("RoleId")
-                                .HasColumnType("int");
+                                .HasColumnType("integer");
 
                             b1.HasKey("RoleId");
 
@@ -607,7 +639,7 @@ namespace JobLeet.WebApi.Migrations
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("EducationId")
-                                .HasColumnType("int");
+                                .HasColumnType("integer");
 
                             b1.HasKey("EducationId");
 
@@ -626,7 +658,7 @@ namespace JobLeet.WebApi.Migrations
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("ExperienceId")
-                                .HasColumnType("int");
+                                .HasColumnType("integer");
 
                             b1.HasKey("ExperienceId");
 
@@ -645,7 +677,7 @@ namespace JobLeet.WebApi.Migrations
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("PhoneId")
-                                .HasColumnType("int");
+                                .HasColumnType("integer");
 
                             b1.HasKey("PhoneId");
 
@@ -664,7 +696,7 @@ namespace JobLeet.WebApi.Migrations
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("QualificationId")
-                                .HasColumnType("int");
+                                .HasColumnType("integer");
 
                             b1.HasKey("QualificationId");
 
@@ -683,7 +715,7 @@ namespace JobLeet.WebApi.Migrations
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("SkillId")
-                                .HasColumnType("int");
+                                .HasColumnType("integer");
 
                             b1.HasKey("SkillId");
 
