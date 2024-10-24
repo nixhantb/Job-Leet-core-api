@@ -44,7 +44,6 @@ services:
     
 
 envVarGroups:
-  # Environment Group for MySQL Configurations
   - name: mysql
     envVars:
       - key: MYSQL_DATABASE
@@ -52,5 +51,6 @@ envVarGroups:
       - key: MYSQL_USER
         value: leetadmin
       - key: MYSQL_PASSWORD
+        value: jblt123#
         generateValue: true
       
