@@ -9,7 +9,7 @@ services:
   - type: pserv
     name: jobleet-database
     runtime: docker
-    plan: standard
+    plan: free
     autoDeploy: false
     envVars:
       - key: MYSQL_DATABASE
@@ -21,17 +21,13 @@ services:
     disk:
       name: mysql-disk
       mountPath: /var/lib/mysql
-      sizeGB: 10
    
-
   # ASP.NET API Service
   - type: web
     name: jobleet-api
     runtime: docker
     repo: https://github.com/nixhantb/Job-Leet-core-api/tree/feature/deployment/beta/test # Replace with your GitHub repository URL
     dockerfilePath: ./Dockerfile
-    buildCommand: "dotnet build"
-    startCommand: "dotnet run --urls=http://0.0.0.0:8080"
     envVars:
       - key: DBHOST
         value: jobleet-database
