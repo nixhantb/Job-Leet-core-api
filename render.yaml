@@ -41,16 +41,4 @@ services:
         value: ${MYSQL_DATABASE}
       - key: MYSQL_PASSWORD
         value: ${MYSQL_PASSWORD}
-    
 
-envVarGroups:
-  - name: mysql
-    envVars:
-      - key: MYSQL_DATABASE
-        value: jobleet_db 
-      - key: MYSQL_USER
-        value: leetadmin
-      - key: MYSQL_PASSWORD
-        value: jblt123#
-        generateValue: true
-      
