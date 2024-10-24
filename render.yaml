@@ -9,7 +9,6 @@ services:
   - type: pserv
     name: jobleet-database
     runtime: docker
-    plan: free
     autoDeploy: false
     envVars:
       - key: MYSQL_DATABASE
