@@ -91,7 +91,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddDbContext<BaseDBContext>(options =>
 {
-    options.UseMySql(builder.Configuration.GetConnectionString("jobleetconnect"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("jobleetconnect")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("jobleetconnect"));
 });
 #endregion
 
