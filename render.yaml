@@ -1,24 +1,56 @@
-databases:
-  - name: jobleet-db 
-    databaseName: ${MYSQL_DATABASE}
-    user: leetadmin
-    password: ${MYSQL_PASSWORD}
-    mysqlVersion: 8.0.3 
+# Render Blueprint Configuration
+# This file defines the services for hosting an ASP.NET API and MySQL database.
+
+previews:
+  generation: automatic # Enable preview environments
 
 services:
+  # MySQL Database Service
   - type: pserv
+    name: jobleet-database
+    runtime: docker
+    plan: standard
+    autoDeploy: false
+    envVars:
+      - key: MYSQL_DATABASE
+        value: ${MYSQL_DATABASE}
+      - key: MYSQL_USER
+        value: leetadmin
+      - key: MYSQL_PASSWORD
+        value: ${MYSQL_PASSWORD}
+    disk:
+      name: mysql-disk
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+   
+
+  # ASP.NET API Service
+  - type: web
     name: jobleet-api
-    plan: free
-    env: docker
-    dockerfilePath: ./Dockerfile 
+    runtime: docker
+    repo: https://github.com/nixhantb/Job-Leet-core-api/tree/feature/deployment/beta/test # Replace with your GitHub repository URL
+    dockerfilePath: ./Dockerfile
+    buildCommand: "dotnet build"
+    startCommand: "dotnet run --urls=http://0.0.0.0:8080"
     envVars:
       - key: DBHOST
-        value: jobleet-db 
+        value: jobleet-database
       - key: ASPNETCORE_ENVIRONMENT
         value: Development
       - key: MYSQL_DATABASE
-        value: ${MYSQL_DATABASE} 
+        value: ${MYSQL_DATABASE}
       - key: MYSQL_PASSWORD
         value: ${MYSQL_PASSWORD}
-    ports:
-      - "8080"
+    
+
+envVarGroups:
+  # Environment Group for MySQL Configurations
+  - name: mysql
+    envVars:
+      - key: MYSQL_DATABASE
+        value: jobleet_db 
+      - key: MYSQL_USER
+        value: leetadmin
+      - key: MYSQL_PASSWORD
+        generateValue: true
+      
