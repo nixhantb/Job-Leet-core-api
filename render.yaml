@@ -33,14 +33,3 @@ services:
         value: ${POSTGRES_DB}
       - key: POSTGRES_PASSWORD
         value: ${POSTGRES_PASSWORD}
-
-# RabbitMQ Service
-  - type: pserv
-    name: jobleet-rabbitmq
-    runtime: docker
-    dockerfilePath: ./Dockerfile.rabbitmq
-    envVars:
-      - key: UserName
-        value: guest
-      - key: Password
-        value: guest
