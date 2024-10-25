@@ -10,9 +10,6 @@ using JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Extensions;
-using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Publisher;
-using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Helpers;
-using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Consumer;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Seekers.V1;
@@ -104,9 +101,6 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
-builder.Services.AddSingleton<RabbitMQServiceSetup>();
-builder.Services.AddSingleton<RabbitMQService>();
-builder.Services.AddHostedService<RabbitMQConsumerService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
