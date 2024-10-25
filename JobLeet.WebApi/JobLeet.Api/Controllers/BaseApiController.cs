@@ -1,7 +1,6 @@
 ﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Core.Interfaces;
-using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Publisher;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -17,13 +16,12 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
     {
         protected readonly TRepository Repository;
         protected readonly ILoggerManagerV1 _logger;
-        protected readonly RabbitMQService _rabbitMQService;
 
-        protected BaseApiController(TRepository repository, ILoggerManagerV1 logger, RabbitMQService rabbitMQService)
+        protected BaseApiController(TRepository repository, ILoggerManagerV1 logger)
         {
             Repository = repository;
             _logger = logger;
-            _rabbitMQService = rabbitMQService;
+    
         }
 
         #region Retrieve record GET request
@@ -94,9 +92,9 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                 {
                     return BadRequest();
                 }
-                string topic = "jobLeetTopic";
+        
                 var result = await Repository.AddAsync(entity);
-                _rabbitMQService.PublishMessage(topic, $"New entity created: {entity}");
+                
                 return Ok(result);
             }
             catch (Exception ex)

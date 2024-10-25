@@ -2,7 +2,6 @@ using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Api.Models.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Seekers.V1;
-using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Publisher;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -16,8 +15,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
     [Route("api/v1/seekers")]
     public class SeekersController : BaseApiController<Seeker, SeekerModel, ISeekerRepository>
     {
-        public SeekersController(ISeekerRepository seekerRepository, ILoggerManagerV1 logger, RabbitMQService rabbitMQService)
-            : base(seekerRepository, logger, rabbitMQService)
+        public SeekersController(ISeekerRepository seekerRepository, ILoggerManagerV1 logger)
+            : base(seekerRepository, logger)
         {
             
         }
@@ -32,20 +31,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
                 }
 
                 var result = await Repository.AddAsync(entity);
-                try
-                {
-                    string topic = "Jobleetseekers";
-                    _rabbitMQService.PublishMessage(topic,$"New seeker created: {entity}");
-                }
-                catch (Exception rabbitMqEx)
-                {
-                    _logger.LogError($"RabbitMQ error: {rabbitMqEx.Message}");
-                    return StatusCode(500, new GlobalErrorResponse
-                    {
-                        Error = "RabbitMQ Error",
-                        Message = "An error occurred while publishing the message to RabbitMQ."
-                    });
-                }
+        
 
                 return Ok(result);
             }
