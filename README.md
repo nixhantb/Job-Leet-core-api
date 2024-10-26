@@ -24,7 +24,7 @@ Job Leet is your all-in-one recruitment platform that brings candidates and recr
 
 ## Installation
 Feel free to install the JobLeet project, reffering with our official documentation here
-[Installation Guide](https://jobleet-documentation.vercel.app/docs/guides/introduction)
+[Installation Guide](https://nixhantb.github.io/Job-Leet-core-api/)
 
 ### Issues
 If you encounter any issues or have suggestions, feel free to open an issue [here](https://github.com/nixhantb/Job-Leet-core-api/issues)
