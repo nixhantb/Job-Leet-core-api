@@ -7,7 +7,7 @@ Welcome to Job Leet, a cutting-edge recruitment agency solution designed to simp
 At the core of Job Leet is a smart CRM tailored for recruitment agencies. This intelligent system streamlines the hiring process, enabling recruiters to manage candidate relationships more efficiently and make data-driven decisions. Whether you're a job seeker looking for your next opportunity or a recruiter aiming to discover top talent, Job Leet is your go-to solution.
 
 
-![JobLeet Agency](https://raw.githubusercontent.com/nixhantb/Job-Leet-core-api/refs/heads/develop/docs/assets/jobleet-agency.jpg)
+![JobLeet Agency](https://raw.githubusercontent.com/nixhantb/Job-Leet-core-api/refs/heads/main/JobLeetInfra.Assets/assets/jobleet-agency.jpg)
 
 **How Job Leet Works**
 
@@ -26,7 +26,7 @@ Job Leet is your all-in-one recruitment platform that brings candidates and recr
 ### JobLeet Database
 The database is structured to support essential functionalities of a recruitment agency, including managing job postings, employer profiles, job seeker information, and job applications and many more.
 
-![JobLeet Agency](https://raw.githubusercontent.com/nixhantb/Job-Leet-core-api/refs/heads/develop/docs/Database/jobleet_ERD_V1.01.png)
+![JobLeet Agency](https://raw.githubusercontent.com/nixhantb/Job-Leet-core-api/refs/heads/main/JobLeetInfra.Assets/Database/jobleet_ERD_V1.01.png)
 
 ### Database Structure
 
