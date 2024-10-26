@@ -2,7 +2,7 @@ name: Deploy mdBook site to Pages
 
 on:
   push:
-    branches: ["develop"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -40,7 +40,7 @@ jobs:
 
       - name: Build with mdBook
         run: |
-          cd documentation
+          cd docs
           mdbook build
           mv book ${{ runner.temp }}/book
 
