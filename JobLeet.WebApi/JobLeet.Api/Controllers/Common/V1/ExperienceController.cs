@@ -2,7 +2,6 @@
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
-using JobLeet.WebApi.JobLeet.Core.Services.MessageBroker.Publisher;
 using Microsoft.AspNetCore.Components;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
@@ -10,9 +9,9 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
     [Route("api/v1/leet-experiences")]
     public class ExperienceController : BaseApiController<Experience,ExperienceModel, IExperienceRepository>
     {
-        public ExperienceController(IExperienceRepository experienceRepository, ILoggerManagerV1 logger, RabbitMQService rabbitMQService)
+        public ExperienceController(IExperienceRepository experienceRepository, ILoggerManagerV1 logger)
 
-            : base(experienceRepository, logger, rabbitMQService)
+            : base(experienceRepository, logger)
         {
             
         }
