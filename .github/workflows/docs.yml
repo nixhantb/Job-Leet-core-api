@@ -40,7 +40,7 @@ jobs:
 
       - name: Build with mdBook
         run: |
-          cd docs
+          cd documentation
           mdbook build
           mv book ${{ runner.temp }}/book
 
