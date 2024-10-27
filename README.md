@@ -6,7 +6,7 @@ Welcome to Job Leet, a cutting-edge recruitment agency solution designed to simp
 At the core of Job Leet is a smart CRM tailored for recruitment agencies. This intelligent system streamlines the hiring process, enabling recruiters to manage candidate relationships more efficiently and make data-driven decisions. Whether you're a job seeker looking for your next opportunity or a recruiter aiming to discover top talent, Job Leet is your go-to solution.
 
 
-![JobLeet Agency](/JobLeetInfra.Assets/assets/jobleet-agency.jpg)
+![JobLeet Agency](/JobLeet.Assets.Library/assets/jobleet-agency.jpg)
 
 **How Job Leet Works**
 
