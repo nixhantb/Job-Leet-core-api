@@ -2,8 +2,6 @@
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers
 {
