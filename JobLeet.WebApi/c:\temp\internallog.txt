@@ -1,0 +1,20 @@
+2024-12-05 19:05:40.5792 Info AppDomain Shutting down. LogFactory closing...
+2024-12-05 19:05:40.5820 Debug Stop watching file-filter 'nlog.config' in directory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0
+2024-12-05 19:05:40.5832 Debug Targets not configured for Logger: JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1
+2024-12-05 19:05:40.5842 Debug Closing logging configuration...
+2024-12-05 19:05:40.5842 Trace Closing FileTarget(Name=logfile)
+2024-12-05 19:05:40.5855 Debug FileTarget(Name=logfile): Closing...
+2024-12-05 19:05:40.5873 Trace FileTarget(Name=logfile): FinalizeFile '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt, isArchiving: False'
+2024-12-05 19:05:40.5885 Debug FileTarget(Name=logfile): FileAppender Invalidate Closing File: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2024-12-05 19:05:40.5888 Trace FileTarget: Closing '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2024-12-05 19:05:40.5907 Debug FileTarget(Name=logfile): Closed.
+2024-12-05 19:05:40.5911 Trace Closing c:\temp\internallog.txt
+2024-12-05 19:05:40.5911 Trace Closing Layout Renderer: ${literal}
+2024-12-05 19:05:40.5927 Trace Closing ${longdate} ${level:uppercase=true} ${message}
+2024-12-05 19:05:40.5932 Trace Closing Layout Renderer: ${longdate}
+2024-12-05 19:05:40.5932 Trace Closing Layout Renderer: ${literal}
+2024-12-05 19:05:40.5932 Trace Closing Layout Renderer: ${level}
+2024-12-05 19:05:40.5932 Trace Closing Layout Renderer: ${literal}
+2024-12-05 19:05:40.5932 Trace Closing Layout Renderer: ${message}
+2024-12-05 19:05:40.5932 Debug Finished closing logging configuration.
+2024-12-05 19:05:40.5941 Info LogFactory has been closed.

@@ -39,7 +39,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 }
 
                 string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
-                DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.Local);
+                
                 var loginUserId = registrationUser.Id; 
 
                 #endregion
@@ -52,7 +52,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     EmailAddress = entity.EmailAddress,
                     Password = hashedPassword,
                     PersonName = personName,
-                    LoginTime = localDateTime,
+                    LoginTime = entity.LoginTime,
                     IPAddress = entity.IPAddress,
                     Role = Core.Entities.Accounts.V1.RoleCategory.Users,
                     AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active,
@@ -66,7 +66,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     existingLoginUser.EmailAddress = entity.EmailAddress;
                     existingLoginUser.Password = hashedPassword;
                     existingLoginUser.PersonName = personName;
-                    existingLoginUser.LoginTime = localDateTime;
+                    existingLoginUser.LoginTime = entity.LoginTime;
                     existingLoginUser.IPAddress = entity.IPAddress;
                     existingLoginUser.Role = Core.Entities.Accounts.V1.RoleCategory.Users;
                     existingLoginUser.AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active;

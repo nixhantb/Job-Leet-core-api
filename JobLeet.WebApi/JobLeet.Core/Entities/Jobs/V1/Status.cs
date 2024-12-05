@@ -9,7 +9,11 @@
         Active,
         Inactive,
         Pending,
-        Completed,
-        Cancelled
+        Reviewed,
+        Cancelled,
+        Accepted,
+        Rejected,
+        Interview
+        
     }
 }

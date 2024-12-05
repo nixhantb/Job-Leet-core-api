@@ -20,12 +20,20 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             return new Employer
             {
                 Id = entity.Id,
-                Name = entity.Name,
+                Name = new() {
+                     FirstName = entity.Name.FirstName,
+                    MiddleName = entity.Name.MiddleName,
+                    LastName = entity.Name.LastName
+                },
                 Address = AddressMapper.ToAddressDatabase(entity.Address),
                 Phone = PhoneMapper.ToPhoneDatabase(entity.Phone),
                 Profile = CompanyMapper.ToCompanyProfileDatabase(profile, profile.ContactPhone, profile.CompanyAddress, profile.ContactEmail),
-                EmployerType = entity.EmployerType,
-                IndustryType = entity.IndustryType
+                EmployerType = new(){
+                    EmployerCategory = entity.EmployerType.EmployerCategory
+                },
+                IndustryType = new(){
+                    IndustryCategory = entity.IndustryType.IndustryCategory
+                }
             };
         }
 

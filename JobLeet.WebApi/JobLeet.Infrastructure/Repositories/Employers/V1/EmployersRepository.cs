@@ -2,6 +2,8 @@ using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Employers.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
+using JobLeet.WebApi.JobLeet.Mappers.V1;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Employers.V1
 {
@@ -9,16 +11,32 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Employers.V1
     {
         #region Initialization
         // <returns>The list of initializations</returns>
-       // private readonly BaseDBContext _dbContext;
+       private readonly BaseDBContext _dbContext;
 
-        // public EmployersRepository(BaseDBContext dbContext)
-        // {
-        //     _dbContext = dbContext?? throw new ArgumentNullException(nameof(dbContext));
-        // }
-        #endregion
-        public Task<EmployerModel> AddAsync(Employer entity)
+        public EmployersRepository(BaseDBContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext?? throw new ArgumentNullException(nameof(dbContext));
+        }
+        #endregion
+        public async Task<EmployerModel> AddAsync(Employer entity)
+        {
+            try{
+
+                if(entity == null){
+                    throw new ArgumentNullException(nameof(entity));
+                }
+
+                var saveToDb = EmployerMapper.ToEmployer(entity);
+                await _dbContext.Employers.AddAsync(saveToDb);
+                await _dbContext.SaveChangesAsync();
+
+                var apiResponse = EmployerMapper.ToEmployerModel(saveToDb);
+
+                return apiResponse;
+            }
+            catch(Exception ex){
+                throw new Exception("Error adding employers ", ex);
+            }
         }
 
         public Task DeleteAsync(int id)
@@ -26,9 +44,15 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Employers.V1
             throw new NotImplementedException();
         }
 
-        public Task<List<EmployerModel>> GetAllAsync()
+        public async Task<List<EmployerModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try {
+                var employers = await _dbContext.Employers.ToListAsync();
+                return employers.Select(EmployerMapper.ToEmployerModel).ToList();
+            }
+            catch(Exception ex){
+                throw new Exception("Error Retriving Employers", ex);
+            }
         }
 
         public Task<EmployerModel> GetByIdAsync(int id)

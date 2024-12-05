@@ -373,9 +373,6 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int?>("ContactPhoneId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("IndustryType")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ProfileInfo")
                         .HasColumnType("text");
 
@@ -392,6 +389,105 @@ namespace JobLeet.WebApi.Migrations
                     b.HasIndex("ContactPhoneId");
 
                     b.ToTable("jblt_companyprofile", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1.Employer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("employer_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("NameId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("PhoneId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ProfileId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("NameId");
+
+                    b.HasIndex("PhoneId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("jblt_employer", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Application", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("application_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ApplicationDateId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EmployerId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("JobsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SeekersId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationDateId");
+
+                    b.HasIndex("EmployerId");
+
+                    b.HasIndex("JobsId");
+
+                    b.HasIndex("SeekersId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("jblt_application", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.ApplicationDate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DecisionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ReviewDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("SubmitDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationDate");
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", b =>
@@ -483,6 +579,22 @@ namespace JobLeet.WebApi.Migrations
                     b.HasIndex("SkillsRequiredId");
 
                     b.ToTable("jblt_job", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("StatusName")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.Seeker", b =>
@@ -754,6 +866,76 @@ namespace JobLeet.WebApi.Migrations
                     b.Navigation("ContactEmail");
 
                     b.Navigation("ContactPhone");
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1.Employer", b =>
+                {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", "Name")
+                        .WithMany()
+                        .HasForeignKey("NameId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Phone", "Phone")
+                        .WithMany()
+                        .HasForeignKey("PhoneId");
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.CompanyProfile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Name");
+
+                    b.Navigation("Phone");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Application", b =>
+                {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.ApplicationDate", "ApplicationDate")
+                        .WithMany()
+                        .HasForeignKey("ApplicationDateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1.Employer", "Employer")
+                        .WithMany()
+                        .HasForeignKey("EmployerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", "Jobs")
+                        .WithMany()
+                        .HasForeignKey("JobsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.Seeker", "Seekers")
+                        .WithMany()
+                        .HasForeignKey("SeekersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationDate");
+
+                    b.Navigation("Employer");
+
+                    b.Navigation("Jobs");
+
+                    b.Navigation("Seekers");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", b =>

@@ -13,7 +13,11 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1 {
             };
         }
         public static EmailModel ToEmailModel (Email model){
-            return new EmailModel {};
+            return new EmailModel {
+                Id = model.Id,
+                EmailAddress = model.EmailAddress,
+                EmailType = (Api.Models.Common.V1.EmailCategory)model.EmailType
+            };
         }
     }
 }

@@ -36,7 +36,10 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 CompanyAddress = AddressMapper.ToAddressDatabase(addressEntity),
                 ContactEmail = EmailMapper.ToEmailDatabase(emailEntity),
                 Website = entity.Website,
-                IndustryType = entity.IndustryType
+                IndustryType = new(){
+                    IndustryCategory = entity.IndustryType.IndustryCategory
+                }
+               
             };
         }
 
@@ -71,7 +74,11 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 CompanyAddress = AddressMapper.ToAddressModel(addressModel),
                 ContactEmail = EmailMapper.ToEmailModel(emailModel),
                 Website = model.Website,
-                IndustryType = (Api.Models.Companies.V1.IndustryCategory?)model.IndustryType
+                IndustryType = new()
+                {
+                    IndustryCategory = (Api.Models.Companies.V1.IndustryCategory)model.IndustryType.IndustryCategory
+                }
+                
             };
         }
 

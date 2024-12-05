@@ -1,25 +1,25 @@
 using JobLeet.WebApi.JobLeet.Api.Logging;
-using JobLeet.WebApi.JobLeet.Api.Models.Seekers.V1;
-using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
-using JobLeet.WebApi.JobLeet.Core.Interfaces.Seekers.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using JobLeet.WebApi.JobLeet.Api.Exceptions;
+using JobLeet.WebApi.JobLeet.Core.Interfaces.Employers.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
+using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 {
     [Authorize]
-    [Route("api/v1/seekers")]
-    public class SeekersController : BaseApiController<Seeker, SeekerModel, ISeekerRepository>
+    [Route("api/v1/employers")]
+    public class EmployerController : BaseApiController<Employer, EmployerModel, IEmployerRepository>
     {
-        public SeekersController(ISeekerRepository seekerRepository, ILoggerManagerV1 logger)
-            : base(seekerRepository, logger)
+        public EmployerController(IEmployerRepository employerRepository, ILoggerManagerV1 logger)
+            : base(employerRepository, logger)
         {
             
         }
         [HttpPost]
-        public override async Task<IActionResult> CreateAsync([FromBody] Seeker entity)
+        public override async Task<IActionResult> CreateAsync([FromBody] Employer entity)
         {
             try
             {

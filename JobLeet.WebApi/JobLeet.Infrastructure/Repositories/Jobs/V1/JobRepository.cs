@@ -20,7 +20,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        
+
         public async Task<JobModel> AddAsync(JobEntity entity)
         {
             try
@@ -28,12 +28,15 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                 #region  To JobLeet DB
                 var job = new JobEntity
                 {
-                    CompanyDescription = new(){
-                        
+                    CompanyDescription = new()
+                    {
+
                         CompanyName = entity.CompanyDescription.CompanyName,
-                        Profile = new(){
+                        Profile = new()
+                        {
                             ProfileInfo = entity.CompanyDescription.Profile.ProfileInfo,
-                            CompanyAddress = new(){
+                            CompanyAddress = new()
+                            {
                                 // Headquater of the Company
                                 Street = entity.CompanyDescription.Profile.CompanyAddress.State,
                                 City = entity.CompanyDescription.Profile.CompanyAddress.City,
@@ -42,11 +45,13 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                                 Country = entity.CompanyDescription.Profile.CompanyAddress.Country
                             },
 
-                            ContactPhone = new(){
+                            ContactPhone = new()
+                            {
                                 CountryCode = entity.CompanyDescription.Profile.ContactPhone.CountryCode,
                                 PhoneNumber = entity.CompanyDescription.Profile.ContactPhone.PhoneNumber
                             },
-                            ContactEmail = new(){
+                            ContactEmail = new()
+                            {
                                 EmailType = entity.CompanyDescription.Profile.ContactEmail.EmailType,
                                 EmailAddress = entity.CompanyDescription.Profile.ContactEmail.EmailAddress
                             },
@@ -72,7 +77,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                     },
                     JobType = entity.JobType,
                     Vacancies = entity.Vacancies,
-                    SkillsRequired = new () {
+                    SkillsRequired = new()
+                    {
                         Title = entity?.SkillsRequired?.Title,
                         Description = entity?.SkillsRequired?.Description
                     },
@@ -80,7 +86,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                     {
                         ExperienceLevel = entity.RequiredExperience.ExperienceLevel
                     },
-                    BasicPay = new(){
+                    BasicPay = new()
+                    {
                         MinmumPay = entity.BasicPay.MinmumPay,
                         MaximumPay = entity.BasicPay.MaximumPay,
                         Currency = entity.BasicPay.Currency
@@ -96,7 +103,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                 };
 
                 _dbContext.Jobs.Add(job);
-                 await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
                 #endregion
 
                 #region  To Api Response
@@ -106,12 +113,15 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                     JobTitle = job.JobTitle,
                     JobDescription = job.JobDescription,
                     JobType = job.JobType,
-                    CompanyDescription = new(){
+                    CompanyDescription = new()
+                    {
                         Id = job.CompanyDescription.Id,
                         CompanyName = job.CompanyDescription.CompanyName,
-                        Profile = new(){
+                        Profile = new()
+                        {
                             ProfileInfo = job.CompanyDescription.Profile.ProfileInfo,
-                            CompanyAddress = new(){
+                            CompanyAddress = new()
+                            {
                                 // Headquater of the Company
                                 Id = job.CompanyDescription.Profile.CompanyAddress.Id,
                                 Street = job.CompanyDescription.Profile.CompanyAddress.State,
@@ -121,18 +131,23 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                                 Country = job.CompanyDescription.Profile.CompanyAddress.Country
                             },
 
-                            ContactPhone = new(){
+                            ContactPhone = new()
+                            {
                                 CountryCode = job.CompanyDescription.Profile.ContactPhone.CountryCode,
                                 PhoneNumber = job.CompanyDescription.Profile.ContactPhone.PhoneNumber,
                                 Id = job.CompanyDescription.Profile.ContactPhone.Id
                             },
-                            ContactEmail = new(){
+                            ContactEmail = new()
+                            {
                                 EmailType = (Api.Models.Common.V1.EmailCategory)job.CompanyDescription.Profile.ContactEmail.EmailType,
                                 EmailAddress = job.CompanyDescription.Profile.ContactEmail.EmailAddress,
                                 Id = job.CompanyDescription.Profile.ContactEmail.Id
                             },
                             Website = job.CompanyDescription.Profile.Website,
-                            IndustryType = (IndustryCategory)job.CompanyDescription.Profile.IndustryType,
+                            IndustryType = new()
+                            {
+                                IndustryCategory = (Api.Models.Companies.V1.IndustryCategory)job.CompanyDescription.Profile.IndustryType.IndustryCategory
+                            },
                             Id = job.CompanyDescription.Profile.Id
                         }
                     },
@@ -147,13 +162,15 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                         Country = job.JobAddress.Country
                     },
                     Vacancies = job.Vacancies,
-                    BasicPay = new(){
-                        MinmumPay  = job.BasicPay.MinmumPay,
+                    BasicPay = new()
+                    {
+                        MinmumPay = job.BasicPay.MinmumPay,
                         MaximumPay = job.BasicPay.MaximumPay,
                         Currency = job.BasicPay.Currency
                     },
                     FunctionalArea = job.FunctionalArea,
-                    SkillsRequired = new(){
+                    SkillsRequired = new()
+                    {
                         Id = job.SkillsRequired.Id,
                         Title = job.SkillsRequired.Title,
                         Description = job.SkillsRequired.Description
@@ -162,9 +179,9 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
                     {
                         Id = job.RequiredQualification.Id,
                         QualificationType = (Api.Models.Common.V1.QualificationCategory)job.RequiredQualification.QualificationType,
-                        QualificateionInformation= job.RequiredQualification.QualificationInformation
+                        QualificateionInformation = job.RequiredQualification.QualificationInformation
                     },
-                    
+
                     RequiredExperience = new()
                     {
                         Id = job.RequiredExperience.Id,
@@ -196,96 +213,106 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
 
         public async Task<List<JobModel>> GetAllAsync()
         {
-           
-           
-                try
+
+
+            try
+            {
+                var results = await _dbContext.Jobs
+                .Select(e => new JobModel
                 {
-                    var results = await _dbContext.Jobs
-                    .Select(e => new JobModel
+                    Id = e.Id,
+                    JobTitle = e.JobTitle,
+                    JobDescription = e.JobDescription,
+                    JobType = e.JobType,
+                    CompanyDescription = new()
                     {
-                        Id = e.Id,
-                        JobTitle = e.JobTitle,
-                        JobDescription = e.JobDescription,
-                        JobType = e.JobType,
-                        CompanyDescription = new(){
-                            Id = e.CompanyDescription.Id,
-                            CompanyName = e.CompanyDescription.CompanyName,
-                            Profile = new(){
-                                ProfileInfo = e.CompanyDescription.Profile.ProfileInfo,
-                                CompanyAddress = new(){
-                                    Id = e.CompanyDescription.Profile.CompanyAddress.Id,
-                                    Street = e.CompanyDescription.Profile.CompanyAddress.Street,
-                                    City = e.CompanyDescription.Profile.CompanyAddress.City,
-                                    State = e.CompanyDescription.Profile.CompanyAddress.State,
-                                    PostalCode = e.CompanyDescription.Profile.CompanyAddress.PostalCode,
-                                    Country = e.CompanyDescription.Profile.CompanyAddress.Country
-                                },
-                                ContactPhone = new(){
-                                    CountryCode = e.CompanyDescription.Profile.ContactPhone.CountryCode,
-                                    PhoneNumber = e.CompanyDescription.Profile.ContactPhone.PhoneNumber,
-                                    Id = e.CompanyDescription.Profile.ContactPhone.Id
-                                },
-                                ContactEmail = new(){
-                                    EmailType = (Api.Models.Common.V1.EmailCategory)e.CompanyDescription.Profile.ContactEmail.EmailType,
-                                    EmailAddress = e.CompanyDescription.Profile.ContactEmail.EmailAddress,
-                                    Id = e.CompanyDescription.Profile.ContactEmail.Id
-                                },
-                                Website = e.CompanyDescription.Profile.Website,
-                                IndustryType = (IndustryCategory)e.CompanyDescription.Profile.IndustryType,
-                                Id = e.CompanyDescription.Profile.Id
+                        Id = e.CompanyDescription.Id,
+                        CompanyName = e.CompanyDescription.CompanyName,
+                        Profile = new()
+                        {
+                            ProfileInfo = e.CompanyDescription.Profile.ProfileInfo,
+                            CompanyAddress = new()
+                            {
+                                Id = e.CompanyDescription.Profile.CompanyAddress.Id,
+                                Street = e.CompanyDescription.Profile.CompanyAddress.Street,
+                                City = e.CompanyDescription.Profile.CompanyAddress.City,
+                                State = e.CompanyDescription.Profile.CompanyAddress.State,
+                                PostalCode = e.CompanyDescription.Profile.CompanyAddress.PostalCode,
+                                Country = e.CompanyDescription.Profile.CompanyAddress.Country
                             },
+                            ContactPhone = new()
+                            {
+                                CountryCode = e.CompanyDescription.Profile.ContactPhone.CountryCode,
+                                PhoneNumber = e.CompanyDescription.Profile.ContactPhone.PhoneNumber,
+                                Id = e.CompanyDescription.Profile.ContactPhone.Id
+                            },
+                            ContactEmail = new()
+                            {
+                                EmailType = (Api.Models.Common.V1.EmailCategory)e.CompanyDescription.Profile.ContactEmail.EmailType,
+                                EmailAddress = e.CompanyDescription.Profile.ContactEmail.EmailAddress,
+                                Id = e.CompanyDescription.Profile.ContactEmail.Id
+                            },
+                            Website = e.CompanyDescription.Profile.Website,
+                            IndustryType = new()
+                            {
+                                IndustryCategory = (Api.Models.Companies.V1.IndustryCategory)e.CompanyDescription.Profile.IndustryType.IndustryCategory
+                            },
+                            Id = e.CompanyDescription.Profile.Id
                         },
-                        JobAddress = new()
-                        {
-                            Id = e.JobAddress.Id,
-                            Street = e.JobAddress.Street,
-                            City = e.JobAddress.City,
-                            State = e.JobAddress.State,
-                            PostalCode = e.JobAddress.PostalCode,
-                            Country = e.JobAddress.Country
-        
-                        },
-                        Vacancies = e.Vacancies,
-                        BasicPay = new(){
-                            MinmumPay  = e.BasicPay.MinmumPay,
-                            MaximumPay = e.BasicPay.MaximumPay,
-                            Currency = e.BasicPay.Currency
-                        },
-                        FunctionalArea = e.FunctionalArea,
-                        SkillsRequired = new(){
-                            Id = e.SkillsRequired.Id,
-                            Title = e.SkillsRequired.Title,
-                            Description = e.SkillsRequired.Description
-                        },
-                        RequiredQualification = new()
-                        {
-                            Id = e.RequiredQualification.Id,
-                            QualificationType = (Api.Models.Common.V1.QualificationCategory)e.RequiredQualification.QualificationType,
-                            QualificateionInformation= e.RequiredQualification.QualificationInformation
-                        },
-                        RequiredExperience = new()
-                        {
-                            Id = e.RequiredExperience.Id,
-                            ExperienceLevel = (Api.Models.Common.V1.ExperienceLevel)e.RequiredExperience.ExperienceLevel
-                        },
-                        PreferredQualifications = e.PreferredQualifications,
-                        JobResponsibilities = e.JobResponsibilities,
-                        Benefits = e.Benefits,
-                        WorkEnvironment = e.WorkEnvironment,
-                        Tags = e.Tags,
-                        ApplicationDeadline = e.ApplicationDeadline
-                        
-                    }).ToListAsync();
+                    },
+                    JobAddress = new()
+                    {
+                        Id = e.JobAddress.Id,
+                        Street = e.JobAddress.Street,
+                        City = e.JobAddress.City,
+                        State = e.JobAddress.State,
+                        PostalCode = e.JobAddress.PostalCode,
+                        Country = e.JobAddress.Country
 
-                    return results;
+                    },
+                    Vacancies = e.Vacancies,
+                    BasicPay = new()
+                    {
+                        MinmumPay = e.BasicPay.MinmumPay,
+                        MaximumPay = e.BasicPay.MaximumPay,
+                        Currency = e.BasicPay.Currency
+                    },
+                    FunctionalArea = e.FunctionalArea,
+                    SkillsRequired = new()
+                    {
+                        Id = e.SkillsRequired.Id,
+                        Title = e.SkillsRequired.Title,
+                        Description = e.SkillsRequired.Description
+                    },
+                    RequiredQualification = new()
+                    {
+                        Id = e.RequiredQualification.Id,
+                        QualificationType = (Api.Models.Common.V1.QualificationCategory)e.RequiredQualification.QualificationType,
+                        QualificateionInformation = e.RequiredQualification.QualificationInformation
+                    },
+                    RequiredExperience = new()
+                    {
+                        Id = e.RequiredExperience.Id,
+                        ExperienceLevel = (Api.Models.Common.V1.ExperienceLevel)e.RequiredExperience.ExperienceLevel
+                    },
+                    PreferredQualifications = e.PreferredQualifications,
+                    JobResponsibilities = e.JobResponsibilities,
+                    Benefits = e.Benefits,
+                    WorkEnvironment = e.WorkEnvironment,
+                    Tags = e.Tags,
+                    ApplicationDeadline = e.ApplicationDeadline
 
-                }
-                catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
-                {
-                    throw new Exception("Error while fetching data from the database. Please try again later.");
-                }
+                }).ToListAsync();
 
-            
+                return results;
+
+            }
+            catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
+            {
+                throw new Exception("Error while fetching data from the database. Please try again later.");
+            }
+
+
         }
 
         public async Task<JobModel> GetByIdAsync(int id)
