@@ -437,13 +437,16 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int>("ApplicationDateId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EmployerId")
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("JobId")
                         .HasColumnType("integer");
 
                     b.Property<int>("JobsId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SeekersId")
+                    b.Property<int>("SeekerId")
                         .HasColumnType("integer");
 
                     b.Property<int>("StatusId")
@@ -453,11 +456,11 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasIndex("ApplicationDateId");
 
-                    b.HasIndex("EmployerId");
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("JobsId");
 
-                    b.HasIndex("SeekersId");
+                    b.HasIndex("SeekerId");
 
                     b.HasIndex("StatusId");
 
@@ -903,9 +906,9 @@ namespace JobLeet.WebApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1.Employer", "Employer")
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("EmployerId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -917,7 +920,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.Seeker", "Seekers")
                         .WithMany()
-                        .HasForeignKey("SeekersId")
+                        .HasForeignKey("SeekerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -929,7 +932,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.Navigation("ApplicationDate");
 
-                    b.Navigation("Employer");
+                    b.Navigation("Company");
 
                     b.Navigation("Jobs");
 

@@ -5,6 +5,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
 {
     public class Experience : BaseEntity
     {
+        
         public ExperienceLevel ExperienceLevel { get; set; }
     }
     [JsonConverter(typeof(JsonStringEnumConverter))]

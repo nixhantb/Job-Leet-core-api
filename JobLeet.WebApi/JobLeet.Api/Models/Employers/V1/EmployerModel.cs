@@ -11,7 +11,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Employers.V1
       
         public PhoneModel? Phone { get; set; }
        
-        public CompanyProfileModel? Profile { get; set; }
+        public CompanyModel? Company{ get; set; }
        
         public EmployerTypeModel? EmployerType { get; set; }
         

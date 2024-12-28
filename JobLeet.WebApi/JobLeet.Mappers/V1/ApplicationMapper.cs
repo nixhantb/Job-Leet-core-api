@@ -19,8 +19,8 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             return new Application
             {
                 Seekers = SeekersMapper.ToSeekerDataBase(entity.Seekers),
-                Employer = EmployerMapper.ToEmployer(entity.Employer),
-                Jobs = JobsMapper.ToJobDataBase(entity.Jobs),
+                Company = CompanyMapper.ToCompanyDataBase(entity.Company),
+                Jobs = JobsMapper.ToJobDatabase(entity.Jobs),
                 ApplicationDate = new(){
                     SubmitDate = entity.ApplicationDate.SubmitDate,
                     ReviewDate = entity.ApplicationDate.ReviewDate,
@@ -47,7 +47,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             return new ApplicationModel{
 
                 Seekers = SeekersMapper.ToSeekerModel(model.Seekers),
-                Employer = EmployerMapper.ToEmployerModel(model.Employer),
+                
                 Jobs = JobsMapper.ToJobModel(model.Jobs),
 
                 ApplicationDate= new(){

@@ -5,35 +5,40 @@ using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Mappers.V1;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1{
+namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
+{
 
     public class CompanyRepository : ICompanyRepository
     {
-         #region Initialization
+        #region Initialization
         private readonly BaseDBContext _dbContext;
 
         #endregion
 
-        public CompanyRepository(BaseDBContext dbContext){
+        public CompanyRepository(BaseDBContext dbContext)
+        {
 
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
         public async Task<CompanyModel> AddAsync(Company entity)
         {
-            try{
-                
-                if (entity == null){
+            try
+            {
+
+                if (entity == null)
+                {
                     throw new ArgumentNullException(nameof(entity));
                 }
 
                 var saveToDb = CompanyMapper.ToCompanyDataBase(entity);
                 await _dbContext.Companies.AddAsync(saveToDb);
                 await _dbContext.SaveChangesAsync();
-                
+
                 var apiResponse = CompanyMapper.ToCompanyModel(saveToDb);
                 return apiResponse;
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 throw new Exception("Error adding company", ex);
             }
         }
@@ -45,19 +50,52 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1{
 
         public async Task<List<CompanyModel>> GetAllAsync()
         {
-            try{
+            try
+            {
+                var companies = await _dbContext.Companies
+                 .Include(c => c.Profile)
+                     .ThenInclude(p => p.ContactEmail)
+                 .Include(c => c.Profile)
+                     .ThenInclude(p => p.CompanyAddress)
+                 .Include(c => c.Profile)
+                     .ThenInclude(p => p.ContactPhone)
+                 .ToListAsync();
 
-            var companies = await _dbContext.Companies.ToListAsync();
-            return companies.Select(CompanyMapper.ToCompanyModel).ToList();
+                return companies.Select(CompanyMapper.ToCompanyModel).ToList();
+
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 throw new Exception("Error Retriving company", ex);
             }
         }
 
-        public Task<CompanyModel> GetByIdAsync(int id)
+        public async Task<CompanyModel> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var company = await _dbContext.Companies
+                 .Where(c => c.Id == id)
+                 .Include(c => c.Profile)
+                     .ThenInclude(p => p.ContactEmail)
+                 .Include(c => c.Profile)
+                     .ThenInclude(p => p.CompanyAddress)
+                 .Include(c => c.Profile)
+                     .ThenInclude(p => p.ContactPhone)
+                 .FirstOrDefaultAsync();
+
+                if (company == null)
+                {
+                    throw new KeyNotFoundException($"Company with id {id} not found");
+                }
+                var companyModel = CompanyMapper.ToCompanyModel(company);
+                return companyModel;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving company by id", ex);
+            }
+
         }
 
         public Task UpdateAsync(Company entity)

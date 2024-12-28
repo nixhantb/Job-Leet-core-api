@@ -7,7 +7,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1
         public PersonName? Name { get; set; }
         public Address? Address { get; set; }
         public Phone? Phone { get; set; }
-        public CompanyProfile? Profile { get; set; }
+        public Company? Company{ get; set; }
         public EmployerType? EmployerType { get; set; }
         public IndustryType? IndustryType { get; set; }
 

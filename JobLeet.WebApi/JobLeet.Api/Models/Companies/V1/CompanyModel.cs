@@ -7,7 +7,5 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Companies.V1
         public string? CompanyName { get; set; }
         public CompanyProfileModel? Profile { get; set; }
         
-        [JsonIgnore]
-        public override MetaDataModel MetaData { get => base.MetaData; set => base.MetaData = value; }
     }
 }

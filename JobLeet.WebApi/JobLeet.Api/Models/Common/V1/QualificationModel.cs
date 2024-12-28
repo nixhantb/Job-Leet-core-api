@@ -6,7 +6,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
     {
         public QualificationCategory QualificationType { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public List<string>? QualificateionInformation {get; set;}
+        public List<string>? QualificationInformation {get; set;}
         [JsonIgnore]
         public override MetaDataModel MetaData { get => base.MetaData; set => base.MetaData = value; }
     }

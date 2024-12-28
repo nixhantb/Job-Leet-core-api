@@ -1,6 +1,7 @@
 
 using JobLeet.WebApi.JobLeet.Api.Models.Companies.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
 
 namespace JobLeet.WebApi.JobLeet.Mappers.V1
@@ -16,7 +17,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 return null;
             }
-            var profile = entity.Profile;
+            
             return new Employer
             {
                 Id = entity.Id,
@@ -27,7 +28,8 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 },
                 Address = AddressMapper.ToAddressDatabase(entity.Address),
                 Phone = PhoneMapper.ToPhoneDatabase(entity.Phone),
-                Profile = CompanyMapper.ToCompanyProfileDatabase(profile, profile.ContactPhone, profile.CompanyAddress, profile.ContactEmail),
+                
+                Company = CompanyMapper.ToCompanyDataBase(entity.Company),
                 EmployerType = new(){
                     EmployerCategory = entity.EmployerType.EmployerCategory
                 },
@@ -47,7 +49,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 return null;
             }
 
-            var profile = model.Profile;
+            
             return new EmployerModel
             {
                 Id = model.Id,
@@ -59,7 +61,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 },
                 Address = AddressMapper.ToAddressModel(model.Address),
                 Phone = PhoneMapper.ToPhoneModel(model.Phone),
-                Profile = CompanyMapper.ToCompanyProfileModel(profile, profile.ContactPhone, profile.CompanyAddress, profile.ContactEmail),
+                Company = CompanyMapper.ToCompanyModel(model.Company),
 
                 EmployerType = new()
                 {
@@ -68,7 +70,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
 
                 IndustryType = new()
                 {
-                    IndustryCategory = (IndustryCategory)model.IndustryType.IndustryCategory
+                    IndustryCategory = (Api.Models.Companies.V1.IndustryCategory)model.IndustryType.IndustryCategory
                 }
             };
         }
