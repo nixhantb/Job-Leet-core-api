@@ -4,8 +4,6 @@ using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
 using Microsoft.AspNetCore.Mvc;
 
-
-
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 {
     [Route("api/v1/applications")]
