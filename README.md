@@ -20,6 +20,12 @@ At the core of Job Leet is a smart CRM tailored for recruitment agencies. This i
 - **Enhanced Candidate Experience**: User-friendly interfaces and real-time updates keep job seekers informed and engaged throughout the hiring process.
 - **Recruiter Tools and Analytics**: Gain insights into hiring trends, candidate engagement, and recruitment metrics to make better hiring decisions.
 
+
+## JobLeet - Database Schema (ERD)
+
+![ERD](/JobLeet.Assets.Library//Database/JobLeet_ERD_V1.3.png)
+
+
 Job Leet is your all-in-one recruitment platform that brings candidates and recruiters together, fostering meaningful connections and driving career success. Join Job Leet today and experience a smarter way to hire and get hired!
 
 ![JobLeet Agency](/JobLeet.Assets.Library/assets/landingpage.png)
