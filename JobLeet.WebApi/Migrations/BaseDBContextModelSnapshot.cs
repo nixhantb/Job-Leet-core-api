@@ -403,24 +403,24 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("NameId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("PhoneId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ProfileId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("NameId");
 
                     b.HasIndex("PhoneId");
-
-                    b.HasIndex("ProfileId");
 
                     b.ToTable("jblt_employer", (string)null);
                 });
@@ -434,7 +434,7 @@ namespace JobLeet.WebApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ApplicationDateId")
+                    b.Property<int?>("ApplicationDateId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CompanyId")
@@ -443,13 +443,10 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int>("JobId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("JobsId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("SeekerId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("StatusId")
+                    b.Property<int?>("StatusId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -458,7 +455,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("JobsId");
+                    b.HasIndex("JobId");
 
                     b.HasIndex("SeekerId");
 
@@ -476,7 +473,6 @@ namespace JobLeet.WebApi.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comments")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DecisionDate")
@@ -877,6 +873,10 @@ namespace JobLeet.WebApi.Migrations
                         .WithMany()
                         .HasForeignKey("AddressId");
 
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", "Name")
                         .WithMany()
                         .HasForeignKey("NameId");
@@ -885,26 +885,20 @@ namespace JobLeet.WebApi.Migrations
                         .WithMany()
                         .HasForeignKey("PhoneId");
 
-                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.CompanyProfile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId");
-
                     b.Navigation("Address");
+
+                    b.Navigation("Company");
 
                     b.Navigation("Name");
 
                     b.Navigation("Phone");
-
-                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Application", b =>
                 {
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.ApplicationDate", "ApplicationDate")
                         .WithMany()
-                        .HasForeignKey("ApplicationDateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationDateId");
 
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Company", "Company")
                         .WithMany()
@@ -914,7 +908,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", "Jobs")
                         .WithMany()
-                        .HasForeignKey("JobsId")
+                        .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -926,9 +920,7 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StatusId");
 
                     b.Navigation("ApplicationDate");
 

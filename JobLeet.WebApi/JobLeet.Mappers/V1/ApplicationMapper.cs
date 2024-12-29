@@ -47,7 +47,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             return new ApplicationModel{
 
                 Seekers = SeekersMapper.ToSeekerModel(model.Seekers),
-                
+                 Company = CompanyMapper.ToCompanyModel(model.Company),
                 Jobs = JobsMapper.ToJobModel(model.Jobs),
 
                 ApplicationDate= new(){
