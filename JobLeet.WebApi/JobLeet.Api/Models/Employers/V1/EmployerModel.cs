@@ -15,7 +15,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Employers.V1
        
         public EmployerTypeModel? EmployerType { get; set; }
         
-        public IndustryTypeModel? IndustryType { get; set; }
+        public IndustryModel? IndustryType { get; set; }
     }
     
 }

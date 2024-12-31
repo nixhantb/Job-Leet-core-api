@@ -1,6 +1,7 @@
 using JobLeet.WebApi.JobLeet.Api.Models.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace JobLeet.WebApi.JobLeet.Mappers.V1
 {
@@ -30,10 +31,12 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                     ContactEmail = entity.Profile.ContactEmail != null
                         ? EmailMapper.ToEmailDatabase(entity.Profile.ContactEmail)
                         : null,
+                    IndustryTypes = new(){
+                        Id = entity.Profile.IndustryTypes.Id,
+                        IndustryType = entity.Profile.IndustryTypes.IndustryType
+                    },
                     Website = entity.Profile.Website,
-                    IndustryType = entity.Profile.IndustryType != null
-                        ? new IndustryType { IndustryCategory = entity.Profile.IndustryType.IndustryCategory }
-                        : null
+                   
                 }
             };
         }
@@ -62,14 +65,16 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                     ContactEmail = entity.Profile.ContactEmail != null
                         ? EmailMapper.ToEmailModel(entity.Profile.ContactEmail)
                         : null,
+                    IndustryType = entity.Profile.IndustryTypes != null 
+                        ? new Api.Models.Companies.V1.IndustryModel{
+                        Id = entity.Profile.IndustryTypes.Id,
+                        IndustryType = entity.Profile.IndustryTypes.IndustryType !=null 
+                            ? (Api.Models.Companies.V1.IndustryCategory)(entity.Profile.IndustryTypes.IndustryType)
+                            : default(Api.Models.Companies.V1.IndustryCategory)
+                            
+                        } :null,
                     Website = entity.Profile.Website,
-                    IndustryType = entity.Profile.IndustryType != null
-                        ? new IndustryTypeModel
-                        {
-                            IndustryCategory = (Api.Models.Companies.V1.IndustryCategory)
-                                entity.Profile.IndustryType.IndustryCategory
-                        }
-                        : null
+                   
                 }
             };
         }

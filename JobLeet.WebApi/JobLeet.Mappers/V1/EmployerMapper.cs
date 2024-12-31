@@ -32,9 +32,6 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 Company = CompanyMapper.ToCompanyDataBase(entity.Company),
                 EmployerType = new(){
                     EmployerCategory = entity.EmployerType.EmployerCategory
-                },
-                IndustryType = new(){
-                    IndustryCategory = entity.IndustryType.IndustryCategory
                 }
             };
         }
@@ -66,11 +63,6 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 EmployerType = new()
                 {
                     EmployerCategory = (Api.Models.Employers.V1.EmployerCategory)model.EmployerType.EmployerCategory
-                },
-
-                IndustryType = new()
-                {
-                    IndustryCategory = (Api.Models.Companies.V1.IndustryCategory)model.IndustryType.IndustryCategory
                 }
             };
         }

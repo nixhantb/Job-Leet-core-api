@@ -12,7 +12,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1
         /// Website can be extended in future based on the requirements
         /// </summary>
         public string? Website { get; set; }
-        public IndustryType? IndustryType { get; set; }
+        public Industry? IndustryTypes { get; set; }
        
     }
 }

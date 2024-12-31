@@ -27,6 +27,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 DateOfBirth = entity.DateOfBirth,
                 Qualifications = new()
                 {
+                    Id = entity.Qualifications.Id,
                     QualificationType = entity.Qualifications.QualificationType,
                     QualificationInformation = entity.Qualifications.QualificationInformation
                 },
@@ -61,6 +62,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 Qualifications = model.Qualifications != null
                 ? new Api.Models.Common.V1.QualificationModel
                 {
+                    Id = model.Qualifications.Id,
                     QualificationType = model.Qualifications.QualificationType != null
                         ? (Api.Models.Common.V1.QualificationCategory)model.Qualifications.QualificationType
                         : default(Api.Models.Common.V1.QualificationCategory),

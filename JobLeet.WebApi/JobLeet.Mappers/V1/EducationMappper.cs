@@ -8,6 +8,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1 {
         public static Education ToEducationDatabase (Education entity){
 
            return new Education {
+                Id = entity.Id,
                 Degree = entity.Degree,
                 Major = entity.Major,
                 Institution = entity.Institution,
@@ -18,6 +19,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1 {
 
         public static EducationModel ToEducationModel(Education model){
             return new EducationModel {
+                Id = model.Id,
                 Degree = model.Degree,
                 Major = model.Major,
                 Institution = model.Institution,

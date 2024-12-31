@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1
 {
-    public class IndustryType : BaseEntity
+    public class IndustryType
     {
         public IndustryCategory IndustryCategory { get; set; }
     }
