@@ -14,6 +14,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
 
             return new Skill
             {
+                Id = entity.Id,
                 Title = entity.Title,
                 Description = entity.Description
             };
@@ -28,6 +29,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
 
             return new SkillModel
             {
+                Id = model.Id,
                 Title = model.Title,
                 Description = model.Description
             };

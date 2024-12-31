@@ -378,6 +378,9 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int?>("ContactPhoneId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("IndustryTypesId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ProfileInfo")
                         .HasColumnType("text");
 
@@ -393,7 +396,27 @@ namespace JobLeet.WebApi.Migrations
 
                     b.HasIndex("ContactPhoneId");
 
+                    b.HasIndex("IndustryTypesId");
+
                     b.ToTable("jblt_companyprofile", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Industry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("industry_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IndustryType")
+                        .HasColumnType("integer")
+                        .HasColumnName("industry_type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("jblt_industryType", (string)null);
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1.Employer", b =>
@@ -411,6 +434,9 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<int?>("CompanyId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("IndustryTypeId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("NameId")
                         .HasColumnType("integer");
 
@@ -422,6 +448,8 @@ namespace JobLeet.WebApi.Migrations
                     b.HasIndex("AddressId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("IndustryTypeId");
 
                     b.HasIndex("NameId");
 
@@ -871,11 +899,17 @@ namespace JobLeet.WebApi.Migrations
                         .WithMany()
                         .HasForeignKey("ContactPhoneId");
 
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Industry", "IndustryTypes")
+                        .WithMany()
+                        .HasForeignKey("IndustryTypesId");
+
                     b.Navigation("CompanyAddress");
 
                     b.Navigation("ContactEmail");
 
                     b.Navigation("ContactPhone");
+
+                    b.Navigation("IndustryTypes");
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1.Employer", b =>
@@ -888,6 +922,10 @@ namespace JobLeet.WebApi.Migrations
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Industry", "IndustryType")
+                        .WithMany()
+                        .HasForeignKey("IndustryTypeId");
+
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", "Name")
                         .WithMany()
                         .HasForeignKey("NameId");
@@ -899,6 +937,8 @@ namespace JobLeet.WebApi.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("Company");
+
+                    b.Navigation("IndustryType");
 
                     b.Navigation("Name");
 

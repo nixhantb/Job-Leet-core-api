@@ -50,6 +50,7 @@ builder.Services.AddScoped<IJobRepository, JobRepository>();
 builder.Services.AddScoped<ISeekerRepository, SeekersRepository>();
 
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<IIndustryTypeRepository, IndustryTypeRepository>();
 builder.Services.AddScoped<IEmployerRepository, EmployersRepository>();
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

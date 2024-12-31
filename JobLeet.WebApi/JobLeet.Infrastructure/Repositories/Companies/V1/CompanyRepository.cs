@@ -59,6 +59,8 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                      .ThenInclude(p => p.CompanyAddress)
                  .Include(c => c.Profile)
                      .ThenInclude(p => p.ContactPhone)
+                 .Include(c => c.Profile)
+                     .ThenInclude(p => p.IndustryTypes)
                  .ToListAsync();
 
                 return companies.Select(CompanyMapper.ToCompanyModel).ToList();
@@ -82,6 +84,8 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                      .ThenInclude(p => p.CompanyAddress)
                  .Include(c => c.Profile)
                      .ThenInclude(p => p.ContactPhone)
+                .Include(c => c.Profile)
+                     .ThenInclude(p => p.IndustryTypes)
                  .FirstOrDefaultAsync();
 
                 if (company == null)

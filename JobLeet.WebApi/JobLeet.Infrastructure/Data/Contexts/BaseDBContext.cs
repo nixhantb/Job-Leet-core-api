@@ -30,7 +30,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<RegisterUser> RegisterUsers { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
         public virtual DbSet<JobEntity> Jobs {get; set;}
-        public virtual DbSet<IndustryType> IndustryTypes {get; set;}
+        public virtual DbSet<Industry> IndustryTypes {get; set;}
         public virtual DbSet<CompanyProfile> CompanyProfiles {get; set;}
         public virtual DbSet<Company> Companies {get; set;}
         public virtual DbSet<Seeker> Seekers {get; set;}
@@ -53,14 +53,13 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
             modelBuilder.ApplyConfiguration(new RegisterUserConfiguration());
             modelBuilder.ApplyConfiguration(new LoginUserConfiguration());
             modelBuilder.ApplyConfiguration(new JobConfiguration());
-            modelBuilder.ApplyConfiguration(new IndustryTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new IndustryConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyProfileConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
             modelBuilder.ApplyConfiguration(new SeekersConfiguration());
             modelBuilder.ApplyConfiguration(new EmployerConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicationConfiguration());
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Ignore<IndustryType>();
             modelBuilder.Ignore<EmployerType>();
         }
     }

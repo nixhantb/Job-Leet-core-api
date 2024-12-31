@@ -47,7 +47,10 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
                 .Include(c => c.Phone)
                 .Include(c => c.Address)
                 .Include(c => c.Skills)
+                .Include(c => c.Education)
+                .Include(c => c.Qualifications)
                 .Include(c => c.Experience)
+               
                     .ThenInclude(e => e.Company)
                         .ThenInclude(c => c.Profile)
                             .ThenInclude(p => p.ContactEmail)
@@ -59,6 +62,10 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
                     .ThenInclude(c => c.Company)
                         .ThenInclude(p => p.Profile)
                             .ThenInclude(p => p.ContactPhone)
+                .Include(e => e.Experience)
+                    .ThenInclude(c => c.Company)
+                        .ThenInclude(p => p.Profile)
+                            .ThenInclude(it => it.IndustryTypes)
                 .FirstOrDefaultAsync();
 
 

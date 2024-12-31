@@ -13,7 +13,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Companies.V1
         /// Website can be extended in future based on the requirements
         /// </summary>
         public string? Website { get; set; }
-        public IndustryTypeModel? IndustryType { get; set; }
+        public IndustryModel? IndustryType { get; set; }
 
         [JsonIgnore]
         public override MetaDataModel MetaData { get => base.MetaData; set => base.MetaData = value; }

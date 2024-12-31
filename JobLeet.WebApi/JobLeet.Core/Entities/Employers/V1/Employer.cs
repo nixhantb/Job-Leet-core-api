@@ -9,7 +9,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1
         public Phone? Phone { get; set; }
         public Company? Company{ get; set; }
         public EmployerType? EmployerType { get; set; }
-        public IndustryType? IndustryType { get; set; }
+        public Industry? IndustryType { get; set; }
 
     }   
 }
