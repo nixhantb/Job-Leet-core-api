@@ -231,11 +231,16 @@ namespace JobLeet.WebApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ExperienceLevel")
                         .HasColumnType("integer")
                         .HasColumnName("experience_type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("jblt_experience", (string)null);
                 });
@@ -763,6 +768,10 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Experience", b =>
                 {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
                     b.OwnsOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.MetaData", "MetaData", b1 =>
                         {
                             b1.Property<int>("ExperienceId")
@@ -775,6 +784,8 @@ namespace JobLeet.WebApi.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ExperienceId");
                         });
+
+                    b.Navigation("Company");
 
                     b.Navigation("MetaData")
                         .IsRequired();

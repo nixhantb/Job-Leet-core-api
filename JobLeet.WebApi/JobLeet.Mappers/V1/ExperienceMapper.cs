@@ -1,0 +1,25 @@
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+
+namespace JobLeet.WebApi.JobLeet.Mappers.V1 {
+
+    public static class ExperienceMapper{
+        
+        public static Experience ToExperienceDatabase (Experience entity){
+
+           return new Experience {
+               Company = CompanyMapper.ToCompanyDataBase(entity.Company),
+               ExperienceLevel = entity.ExperienceLevel,
+
+           };
+        }
+
+        public static ExperienceModel ToExperienceModel(Experience model){
+            return new ExperienceModel {
+                
+                CompanyModel = CompanyMapper.ToCompanyModel(model.Company),
+                ExperienceLevel = (Api.Models.Common.V1.ExperienceLevel)model.ExperienceLevel
+            };
+        }
+    }
+}
