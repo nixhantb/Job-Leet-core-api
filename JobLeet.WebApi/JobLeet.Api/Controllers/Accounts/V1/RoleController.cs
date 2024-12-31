@@ -2,7 +2,7 @@
 using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Accounts.V1
 {
