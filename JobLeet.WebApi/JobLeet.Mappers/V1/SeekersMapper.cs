@@ -23,10 +23,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 Address = AddressMapper.ToAddressDatabase(entity.Address),
                 Skills = SkillsMapper.ToSkillsDB(entity.Skills),
                 Education = EducationMapper.ToEducationDatabase(entity.Education),
-                Experience = new()
-                {
-                    ExperienceLevel = entity.Experience.ExperienceLevel
-                },
+                Experience = ExperienceMapper.ToExperienceDatabase(entity.Experience),
                 DateOfBirth = entity.DateOfBirth,
                 Qualifications = new()
                 {
@@ -59,14 +56,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 Skills = model.Skills != null ? SkillsMapper.ToSkillModel(model.Skills) : null,
                 Education = model.Education != null ? EducationMapper.ToEducationModel(model.Education) : null,
                 
-                Experience = model.Experience != null
-                ? new Api.Models.Common.V1.ExperienceModel
-                {
-                    ExperienceLevel = model.Experience.ExperienceLevel != null
-                        ? (Api.Models.Common.V1.ExperienceLevel)model.Experience.ExperienceLevel
-                        : default(Api.Models.Common.V1.ExperienceLevel)
-                }
-                : null,
+                Experience = model.Experience !=null ? ExperienceMapper.ToExperienceModel(model.Experience): null,
                 DateOfBirth = model.DateOfBirth,
                 Qualifications = model.Qualifications != null
                 ? new Api.Models.Common.V1.QualificationModel

@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
 {
     public class Experience : BaseEntity
     {
-        
         public ExperienceLevel ExperienceLevel { get; set; }
+        
+        public Company? Company {get; set;}
     }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ExperienceLevel
