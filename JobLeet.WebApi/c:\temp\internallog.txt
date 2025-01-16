@@ -1,0 +1,271 @@
+2025-01-16 23:57:49.6073 Debug Message Template Auto Format enabled
+2025-01-16 23:57:49.6708 Debug FileTarget FilePathLayout with FilePathKind.Relative using AppDomain.BaseDirectory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/
+2025-01-16 23:57:49.6780 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:57:49.6805 Trace Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-16 23:57:49.6830 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:57:49.6830 Trace Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-16 23:57:49.6830 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:57:49.6830 Trace Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-16 23:57:49.6847 Debug Adding target NLog.Targets.FileTarget(Name=logfile)
+2025-01-16 23:57:49.6856 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-01-16 23:57:49.6865 Trace ParseRulesElement
+2025-01-16 23:57:49.7034 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-01-16 23:57:49.7091 Debug Start watching file-filter 'nlog.config' in directory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0
+2025-01-16 23:57:49.7091 Debug --- NLog configuration dump ---
+2025-01-16 23:57:49.7099 Debug Targets:
+2025-01-16 23:57:49.7112 Debug FileTarget(Name=logfile)
+2025-01-16 23:57:49.7112 Debug Rules:
+2025-01-16 23:57:49.7138 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] writeTo: [ logfile ]
+2025-01-16 23:57:49.7141 Debug --- End of NLog configuration dump ---
+2025-01-16 23:57:49.7163 Trace FindReachableObject<System.Object>:
+2025-01-16 23:57:49.7169 Trace Scanning LoggingRule 'logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] writeTo: [ logfile ]'
+2025-01-16 23:57:49.7169 Trace  Scanning Property Targets 'System.Collections.Generic.List`1[NLog.Targets.Target]' System.Collections.Generic.IList`1[NLog.Targets.Target]
+2025-01-16 23:57:49.7187 Trace  Scanning FileTarget 'FileTarget(Name=logfile)'
+2025-01-16 23:57:49.7195 Trace   Scanning Property FileName 'c:\temp\internallog.txt' NLog.Layouts.Layout
+2025-01-16 23:57:49.7195 Trace   Scanning SimpleLayout 'c:\temp\internallog.txt'
+2025-01-16 23:57:49.7201 Trace    Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-16 23:57:49.7201 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:57:49.7201 Trace   Scanning Property Layout '${longdate} ${level:uppercase=true} ${message}' NLog.Layouts.Layout
+2025-01-16 23:57:49.7201 Trace   Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2025-01-16 23:57:49.7211 Trace    Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-16 23:57:49.7211 Trace    Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-16 23:57:49.7211 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:57:49.7211 Trace    Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-16 23:57:49.7211 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:57:49.7211 Trace    Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-16 23:57:49.7220 Trace  Scanning Property ChildRules 'System.Collections.Generic.List`1[NLog.Config.LoggingRule]' System.Collections.Generic.IList`1[NLog.Config.LoggingRule]
+2025-01-16 23:57:49.7220 Trace  Scanning Property Filters 'System.Collections.Generic.List`1[NLog.Filters.Filter]' System.Collections.Generic.IList`1[NLog.Filters.Filter]
+2025-01-16 23:57:49.7237 Info Validating config: TargetNames=logfile, ConfigItems=10, FilePath=/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/nlog.config
+2025-01-16 23:57:49.7254 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2025-01-16 23:57:49.7296 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0
+2025-01-16 23:57:49.7311 Trace Initializing Layout Renderer: ${message}
+2025-01-16 23:57:49.7319 Trace Initializing Layout Renderer: ${literal}
+2025-01-16 23:57:49.7319 Trace Initializing Layout Renderer: ${level}
+2025-01-16 23:57:49.7319 Trace Initializing Layout Renderer: ${literal}
+2025-01-16 23:57:49.7319 Trace Initializing Layout Renderer: ${longdate}
+2025-01-16 23:57:49.7319 Trace Initializing ${longdate} ${level:uppercase=true} ${message}
+2025-01-16 23:57:49.7346 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:57:49.7346 Trace Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2025-01-16 23:57:49.7349 Trace  Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-16 23:57:49.7349 Trace  Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-16 23:57:49.7349 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:57:49.7349 Trace  Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-16 23:57:49.7349 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:57:49.7349 Trace  Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-16 23:57:49.7379 Trace Initializing Layout Renderer: ${literal}
+2025-01-16 23:57:49.7379 Trace Initializing c:\temp\internallog.txt
+2025-01-16 23:57:49.7379 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:57:49.7379 Trace Scanning SimpleLayout 'c:\temp\internallog.txt'
+2025-01-16 23:57:49.7379 Trace  Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-16 23:57:49.7379 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:57:49.7379 Trace Initializing FileTarget(Name=logfile)
+2025-01-16 23:57:49.7406 Trace FindReachableObject<NLog.Layouts.Layout>:
+2025-01-16 23:57:49.7406 Trace Scanning FileTarget 'FileTarget(Name=logfile)'
+2025-01-16 23:57:49.7409 Trace  Scanning Property FileName 'c:\temp\internallog.txt' NLog.Layouts.Layout
+2025-01-16 23:57:49.7409 Trace  Scanning Property Layout '${longdate} ${level:uppercase=true} ${message}' NLog.Layouts.Layout
+2025-01-16 23:57:49.7409 Trace FileTarget(Name=logfile) has 2 layouts
+2025-01-16 23:57:49.7435 Trace FileTarget(Name=logfile): Using appenderFactory: NLog.Internal.FileAppenders.SingleProcessFileAppender+Factory
+2025-01-16 23:57:49.7449 Info Configuration initialized.
+2025-01-16 23:57:49.7479 Debug Targets configured when LogLevel >= Debug for Logger: JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1
+2025-01-16 23:57:49.7479 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Debug] => logfile
+2025-01-16 23:57:49.7479 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Info] => logfile
+2025-01-16 23:57:49.7479 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Warn] => logfile
+2025-01-16 23:57:49.7479 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Error] => logfile
+2025-01-16 23:57:49.7489 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Fatal] => logfile
+2025-01-16 23:57:49.7617 Debug FileTarget(Name=logfile): Preparing for new file: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-16 23:57:49.7668 Debug FileTarget(Name=logfile): Creating file appender: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-16 23:57:49.7685 Trace FileTarget(Name=logfile): Opening /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt with allowFileSharedWriting=False
+2025-01-16 23:58:38.9091 Info AppDomain Shutting down. LogFactory closing...
+2025-01-16 23:58:38.9117 Debug Stop watching file-filter 'nlog.config' in directory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0
+2025-01-16 23:58:38.9126 Debug Targets not configured for Logger: JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1
+2025-01-16 23:58:38.9133 Debug Closing logging configuration...
+2025-01-16 23:58:38.9133 Trace Closing FileTarget(Name=logfile)
+2025-01-16 23:58:38.9141 Debug FileTarget(Name=logfile): Closing...
+2025-01-16 23:58:38.9158 Trace FileTarget(Name=logfile): FinalizeFile '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt, isArchiving: False'
+2025-01-16 23:58:38.9178 Debug FileTarget(Name=logfile): FileAppender Invalidate Closing File: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-16 23:58:38.9184 Trace FileTarget: Closing '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-16 23:58:38.9203 Debug FileTarget(Name=logfile): Closed.
+2025-01-16 23:58:38.9203 Trace Closing c:\temp\internallog.txt
+2025-01-16 23:58:38.9211 Trace Closing Layout Renderer: ${literal}
+2025-01-16 23:58:38.9211 Trace Closing ${longdate} ${level:uppercase=true} ${message}
+2025-01-16 23:58:38.9219 Trace Closing Layout Renderer: ${longdate}
+2025-01-16 23:58:38.9219 Trace Closing Layout Renderer: ${literal}
+2025-01-16 23:58:38.9219 Trace Closing Layout Renderer: ${level}
+2025-01-16 23:58:38.9219 Trace Closing Layout Renderer: ${literal}
+2025-01-16 23:58:38.9219 Trace Closing Layout Renderer: ${message}
+2025-01-16 23:58:38.9219 Debug Finished closing logging configuration.
+2025-01-16 23:58:38.9230 Info LogFactory has been closed.
+2025-01-16 23:59:09.5461 Debug Message Template Auto Format enabled
+2025-01-16 23:59:09.6157 Debug FileTarget FilePathLayout with FilePathKind.Relative using AppDomain.BaseDirectory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/
+2025-01-16 23:59:09.6230 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:59:09.6255 Trace Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-16 23:59:09.6279 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:59:09.6279 Trace Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-16 23:59:09.6279 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:59:09.6279 Trace Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-16 23:59:09.6293 Debug Adding target NLog.Targets.FileTarget(Name=logfile)
+2025-01-16 23:59:09.6300 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-01-16 23:59:09.6300 Trace ParseRulesElement
+2025-01-16 23:59:09.6467 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-01-16 23:59:09.6525 Debug Start watching file-filter 'nlog.config' in directory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0
+2025-01-16 23:59:09.6531 Debug --- NLog configuration dump ---
+2025-01-16 23:59:09.6531 Debug Targets:
+2025-01-16 23:59:09.6583 Debug FileTarget(Name=logfile)
+2025-01-16 23:59:09.6583 Debug Rules:
+2025-01-16 23:59:09.6599 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] writeTo: [ logfile ]
+2025-01-16 23:59:09.6599 Debug --- End of NLog configuration dump ---
+2025-01-16 23:59:09.6614 Trace FindReachableObject<System.Object>:
+2025-01-16 23:59:09.6620 Trace Scanning LoggingRule 'logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] writeTo: [ logfile ]'
+2025-01-16 23:59:09.6620 Trace  Scanning Property Targets 'System.Collections.Generic.List`1[NLog.Targets.Target]' System.Collections.Generic.IList`1[NLog.Targets.Target]
+2025-01-16 23:59:09.6638 Trace  Scanning FileTarget 'FileTarget(Name=logfile)'
+2025-01-16 23:59:09.6645 Trace   Scanning Property FileName 'c:\temp\internallog.txt' NLog.Layouts.Layout
+2025-01-16 23:59:09.6645 Trace   Scanning SimpleLayout 'c:\temp\internallog.txt'
+2025-01-16 23:59:09.6650 Trace    Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-16 23:59:09.6650 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:59:09.6650 Trace   Scanning Property Layout '${longdate} ${level:uppercase=true} ${message}' NLog.Layouts.Layout
+2025-01-16 23:59:09.6650 Trace   Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2025-01-16 23:59:09.6660 Trace    Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-16 23:59:09.6660 Trace    Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-16 23:59:09.6660 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:59:09.6660 Trace    Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-16 23:59:09.6660 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:59:09.6660 Trace    Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-16 23:59:09.6669 Trace  Scanning Property ChildRules 'System.Collections.Generic.List`1[NLog.Config.LoggingRule]' System.Collections.Generic.IList`1[NLog.Config.LoggingRule]
+2025-01-16 23:59:09.6669 Trace  Scanning Property Filters 'System.Collections.Generic.List`1[NLog.Filters.Filter]' System.Collections.Generic.IList`1[NLog.Filters.Filter]
+2025-01-16 23:59:09.6688 Info Validating config: TargetNames=logfile, ConfigItems=10, FilePath=/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/nlog.config
+2025-01-16 23:59:09.6711 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2025-01-16 23:59:09.6751 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0
+2025-01-16 23:59:09.6759 Trace Initializing Layout Renderer: ${message}
+2025-01-16 23:59:09.6759 Trace Initializing Layout Renderer: ${literal}
+2025-01-16 23:59:09.6759 Trace Initializing Layout Renderer: ${level}
+2025-01-16 23:59:09.6759 Trace Initializing Layout Renderer: ${literal}
+2025-01-16 23:59:09.6769 Trace Initializing Layout Renderer: ${longdate}
+2025-01-16 23:59:09.6769 Trace Initializing ${longdate} ${level:uppercase=true} ${message}
+2025-01-16 23:59:09.6786 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:59:09.6786 Trace Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2025-01-16 23:59:09.6786 Trace  Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-16 23:59:09.6790 Trace  Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-16 23:59:09.6790 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:59:09.6790 Trace  Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-16 23:59:09.6790 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:59:09.6790 Trace  Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-16 23:59:09.6853 Trace Initializing Layout Renderer: ${literal}
+2025-01-16 23:59:09.6853 Trace Initializing c:\temp\internallog.txt
+2025-01-16 23:59:09.6853 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-16 23:59:09.6853 Trace Scanning SimpleLayout 'c:\temp\internallog.txt'
+2025-01-16 23:59:09.6853 Trace  Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-16 23:59:09.6860 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-16 23:59:09.6860 Trace Initializing FileTarget(Name=logfile)
+2025-01-16 23:59:09.6884 Trace FindReachableObject<NLog.Layouts.Layout>:
+2025-01-16 23:59:09.6884 Trace Scanning FileTarget 'FileTarget(Name=logfile)'
+2025-01-16 23:59:09.6884 Trace  Scanning Property FileName 'c:\temp\internallog.txt' NLog.Layouts.Layout
+2025-01-16 23:59:09.6890 Trace  Scanning Property Layout '${longdate} ${level:uppercase=true} ${message}' NLog.Layouts.Layout
+2025-01-16 23:59:09.6890 Trace FileTarget(Name=logfile) has 2 layouts
+2025-01-16 23:59:09.6917 Trace FileTarget(Name=logfile): Using appenderFactory: NLog.Internal.FileAppenders.SingleProcessFileAppender+Factory
+2025-01-16 23:59:09.6936 Info Configuration initialized.
+2025-01-16 23:59:09.6962 Debug Targets configured when LogLevel >= Debug for Logger: JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1
+2025-01-16 23:59:09.6962 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Debug] => logfile
+2025-01-16 23:59:09.6962 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Info] => logfile
+2025-01-16 23:59:09.6962 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Warn] => logfile
+2025-01-16 23:59:09.6962 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Error] => logfile
+2025-01-16 23:59:09.6962 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Fatal] => logfile
+2025-01-16 23:59:09.7104 Debug FileTarget(Name=logfile): Preparing for new file: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-16 23:59:09.7154 Debug FileTarget(Name=logfile): Creating file appender: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-16 23:59:09.7169 Trace FileTarget(Name=logfile): Opening /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt with allowFileSharedWriting=False
+2025-01-17 00:02:59.4253 Debug Message Template Auto Format enabled
+2025-01-17 00:02:59.4920 Debug FileTarget FilePathLayout with FilePathKind.Relative using AppDomain.BaseDirectory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/
+2025-01-17 00:02:59.4990 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-17 00:02:59.5008 Trace Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-17 00:02:59.5028 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-17 00:02:59.5031 Trace Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-17 00:02:59.5031 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-17 00:02:59.5031 Trace Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-17 00:02:59.5045 Debug Adding target NLog.Targets.FileTarget(Name=logfile)
+2025-01-17 00:02:59.5059 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2025-01-17 00:02:59.5059 Trace ParseRulesElement
+2025-01-17 00:02:59.5237 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2025-01-17 00:02:59.5299 Debug Start watching file-filter 'nlog.config' in directory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0
+2025-01-17 00:02:59.5299 Debug --- NLog configuration dump ---
+2025-01-17 00:02:59.5299 Debug Targets:
+2025-01-17 00:02:59.5317 Debug FileTarget(Name=logfile)
+2025-01-17 00:02:59.5317 Debug Rules:
+2025-01-17 00:02:59.5334 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] writeTo: [ logfile ]
+2025-01-17 00:02:59.5334 Debug --- End of NLog configuration dump ---
+2025-01-17 00:02:59.5354 Trace FindReachableObject<System.Object>:
+2025-01-17 00:02:59.5364 Trace Scanning LoggingRule 'logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] writeTo: [ logfile ]'
+2025-01-17 00:02:59.5373 Trace  Scanning Property Targets 'System.Collections.Generic.List`1[NLog.Targets.Target]' System.Collections.Generic.IList`1[NLog.Targets.Target]
+2025-01-17 00:02:59.5390 Trace  Scanning FileTarget 'FileTarget(Name=logfile)'
+2025-01-17 00:02:59.5401 Trace   Scanning Property FileName 'c:\temp\internallog.txt' NLog.Layouts.Layout
+2025-01-17 00:02:59.5401 Trace   Scanning SimpleLayout 'c:\temp\internallog.txt'
+2025-01-17 00:02:59.5410 Trace    Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-17 00:02:59.5410 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-17 00:02:59.5410 Trace   Scanning Property Layout '${longdate} ${level:uppercase=true} ${message}' NLog.Layouts.Layout
+2025-01-17 00:02:59.5419 Trace   Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2025-01-17 00:02:59.5419 Trace    Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-17 00:02:59.5419 Trace    Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-17 00:02:59.5419 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-17 00:02:59.5419 Trace    Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-17 00:02:59.5419 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-17 00:02:59.5419 Trace    Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-17 00:02:59.5433 Trace  Scanning Property ChildRules 'System.Collections.Generic.List`1[NLog.Config.LoggingRule]' System.Collections.Generic.IList`1[NLog.Config.LoggingRule]
+2025-01-17 00:02:59.5433 Trace  Scanning Property Filters 'System.Collections.Generic.List`1[NLog.Filters.Filter]' System.Collections.Generic.IList`1[NLog.Filters.Filter]
+2025-01-17 00:02:59.5453 Info Validating config: TargetNames=logfile, ConfigItems=10, FilePath=/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/nlog.config
+2025-01-17 00:02:59.5471 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2025-01-17 00:02:59.5507 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0
+2025-01-17 00:02:59.5515 Trace Initializing Layout Renderer: ${message}
+2025-01-17 00:02:59.5524 Trace Initializing Layout Renderer: ${literal}
+2025-01-17 00:02:59.5524 Trace Initializing Layout Renderer: ${level}
+2025-01-17 00:02:59.5524 Trace Initializing Layout Renderer: ${literal}
+2025-01-17 00:02:59.5530 Trace Initializing Layout Renderer: ${longdate}
+2025-01-17 00:02:59.5530 Trace Initializing ${longdate} ${level:uppercase=true} ${message}
+2025-01-17 00:02:59.5554 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-17 00:02:59.5554 Trace Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2025-01-17 00:02:59.5559 Trace  Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-17 00:02:59.5559 Trace  Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2025-01-17 00:02:59.5559 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-17 00:02:59.5559 Trace  Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2025-01-17 00:02:59.5559 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-17 00:02:59.5559 Trace  Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2025-01-17 00:02:59.5593 Trace Initializing Layout Renderer: ${literal}
+2025-01-17 00:02:59.5593 Trace Initializing c:\temp\internallog.txt
+2025-01-17 00:02:59.5593 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2025-01-17 00:02:59.5593 Trace Scanning SimpleLayout 'c:\temp\internallog.txt'
+2025-01-17 00:02:59.5593 Trace  Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic.IEnumerable`1[NLog.LayoutRenderers.LayoutRenderer]
+2025-01-17 00:02:59.5599 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2025-01-17 00:02:59.5599 Trace Initializing FileTarget(Name=logfile)
+2025-01-17 00:02:59.5625 Trace FindReachableObject<NLog.Layouts.Layout>:
+2025-01-17 00:02:59.5625 Trace Scanning FileTarget 'FileTarget(Name=logfile)'
+2025-01-17 00:02:59.5625 Trace  Scanning Property FileName 'c:\temp\internallog.txt' NLog.Layouts.Layout
+2025-01-17 00:02:59.5630 Trace  Scanning Property Layout '${longdate} ${level:uppercase=true} ${message}' NLog.Layouts.Layout
+2025-01-17 00:02:59.5630 Trace FileTarget(Name=logfile) has 2 layouts
+2025-01-17 00:02:59.5655 Trace FileTarget(Name=logfile): Using appenderFactory: NLog.Internal.FileAppenders.SingleProcessFileAppender+Factory
+2025-01-17 00:02:59.5668 Info Configuration initialized.
+2025-01-17 00:02:59.5703 Debug Targets configured when LogLevel >= Debug for Logger: JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1
+2025-01-17 00:02:59.5703 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Debug] => logfile
+2025-01-17 00:02:59.5710 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Info] => logfile
+2025-01-17 00:02:59.5710 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Warn] => logfile
+2025-01-17 00:02:59.5710 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Error] => logfile
+2025-01-17 00:02:59.5710 Debug Logger JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1 [Fatal] => logfile
+2025-01-17 00:02:59.5853 Debug FileTarget(Name=logfile): Preparing for new file: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-17 00:02:59.5909 Debug FileTarget(Name=logfile): Creating file appender: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-17 00:02:59.5924 Trace FileTarget(Name=logfile): Opening /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt with allowFileSharedWriting=False
+2025-01-17 00:06:19.5632 Info AppDomain Shutting down. LogFactory closing...
+2025-01-17 00:06:19.5682 Debug Stop watching file-filter 'nlog.config' in directory: /home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0
+2025-01-17 00:06:19.5695 Debug Targets not configured for Logger: JobLeet.WebApi.JobLeet.Api.Logging.LoggerManagerV1
+2025-01-17 00:06:19.5702 Debug Closing logging configuration...
+2025-01-17 00:06:19.5702 Trace Closing FileTarget(Name=logfile)
+2025-01-17 00:06:19.5711 Debug FileTarget(Name=logfile): Closing...
+2025-01-17 00:06:19.5731 Trace FileTarget(Name=logfile): FinalizeFile '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt, isArchiving: False'
+2025-01-17 00:06:19.5748 Debug FileTarget(Name=logfile): FileAppender Invalidate Closing File: '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-17 00:06:19.5754 Trace FileTarget: Closing '/home/jobleet/Desktop/Job-Leet-core-api/JobLeet.WebApi/bin/Debug/net8.0/c:\temp\internallog.txt'
+2025-01-17 00:06:19.5769 Debug FileTarget(Name=logfile): Closed.
+2025-01-17 00:06:19.5769 Trace Closing c:\temp\internallog.txt
+2025-01-17 00:06:19.5769 Trace Closing Layout Renderer: ${literal}
+2025-01-17 00:06:19.5769 Trace Closing ${longdate} ${level:uppercase=true} ${message}
+2025-01-17 00:06:19.5769 Trace Closing Layout Renderer: ${longdate}
+2025-01-17 00:06:19.5779 Trace Closing Layout Renderer: ${literal}
+2025-01-17 00:06:19.5779 Trace Closing Layout Renderer: ${level}
+2025-01-17 00:06:19.5779 Trace Closing Layout Renderer: ${literal}
+2025-01-17 00:06:19.5779 Trace Closing Layout Renderer: ${message}
+2025-01-17 00:06:19.5779 Debug Finished closing logging configuration.
+2025-01-17 00:06:19.5779 Info LogFactory has been closed.

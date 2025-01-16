@@ -6,6 +6,7 @@ using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Employers.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
+using FluentValidation;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 {
@@ -13,8 +14,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
     [Route("api/v1/employers")]
     public class EmployerController : BaseApiController<Employer, EmployerModel, IEmployerRepository>
     {
-        public EmployerController(IEmployerRepository employerRepository, ILoggerManagerV1 logger)
-            : base(employerRepository, logger)
+        public EmployerController(IEmployerRepository employerRepository, ILoggerManagerV1 logger, IValidator<Employer> validator)
+            : base(employerRepository, logger, validator)
         {
             
         }

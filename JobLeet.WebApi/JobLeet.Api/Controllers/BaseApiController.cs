@@ -1,4 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
+﻿using FluentValidation;
+using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,12 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
     {
         protected readonly TRepository Repository;
         protected readonly ILoggerManagerV1 _logger;
-
-        protected BaseApiController(TRepository repository, ILoggerManagerV1 logger)
+        protected readonly IValidator<TEntity> _validator;
+        protected BaseApiController(TRepository repository, ILoggerManagerV1 logger, IValidator<TEntity> validator)
         {
-            Repository = repository;
-            _logger = logger;
+            Repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger =  logger ?? throw new ArgumentNullException(nameof(logger));
+            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
     
         }
 
@@ -82,6 +84,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
         /// <remarks>This method posts the record to the database using Entity Framework Core.</remarks>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public virtual async Task<IActionResult> CreateAsync([FromBody] TEntity entity)
         {
             try
@@ -90,7 +94,15 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                 {
                     return BadRequest();
                 }
-        
+                 var validationResult = _validator.Validate(entity);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(new
+                    {
+                        Message = "Validation failed.",
+                        Errors = validationResult.Errors.Select(e => new { e.PropertyName, e.ErrorMessage })
+                    });
+                }
                 var result = await Repository.AddAsync(entity);
                 
                 return Ok(result);

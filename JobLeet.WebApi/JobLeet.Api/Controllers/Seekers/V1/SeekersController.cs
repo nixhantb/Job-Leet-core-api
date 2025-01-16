@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using JobLeet.WebApi.JobLeet.Api.Exceptions;
+using FluentValidation;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 {
@@ -13,8 +14,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
     [Route("api/v1/seekers")]
     public class SeekersController : BaseApiController<Seeker, SeekerModel, ISeekerRepository>
     {
-        public SeekersController(ISeekerRepository seekerRepository, ILoggerManagerV1 logger)
-            : base(seekerRepository, logger)
+        public SeekersController(ISeekerRepository seekerRepository, ILoggerManagerV1 logger, IValidator<Seeker> validator)
+            : base(seekerRepository, logger, validator)
         {
             
         }

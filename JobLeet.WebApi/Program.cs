@@ -22,6 +22,21 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Companies.V1;
 using JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Employers.V1;
 using JobLeet.WebApi.JobLeetInfrastructure.Repositories.Employers.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
+using JobLeet.WebApi.JobLeet.Validator;
+using FluentValidation;
+using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
+using Microsoft.AspNetCore.Identity;
+using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
+using JobLeet.WebApi.JobLeet.Api.Validators;
+using JobLeet.WebApi.JobLeet.Core.Validators.Accounts;
+using JobLeet.WebApi.JobLeet.Validator.Accounts;
+using JobLeet.WebApi.JobLeet.Core.Validators.Seekers;
+using JobLeet.WebApi.JobLeet.Core.Validators.Jobs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -34,25 +49,59 @@ builder.Configuration
 // Register the Repository service
 builder.Services.AddControllers();
 builder.Services.AddScoped<DbContext, BaseDBContext>();
+
 builder.Services.AddScoped<IEmaiTypeRepository, EmailTypeRepository>();
+builder.Services.AddScoped<IValidator<Email>, EmailValidator>();
+
 builder.Services.AddSingleton<ILoggerManagerV1, LoggerManagerV1>();
+
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+builder.Services.AddScoped<IValidator<Skill>, SkillValidator>();
+
 builder.Services.AddScoped<IPersonNameRepository, PersonNameRepository>();
+builder.Services.AddScoped<IValidator<PersonName>, PersonNameValidator>();
+
 builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
+builder.Services.AddScoped<IValidator<Experience>, ExperienceValidator>();
+
 builder.Services.AddScoped<IQualificationTypeRepository, QualificationTypeRepository>();
+builder.Services.AddScoped<IValidator<Qualification>, QualificationValidator>();
+
 builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
+builder.Services.AddScoped<IValidator<Phone>, PhoneValidator>();
+
 builder.Services.AddScoped<IEducationRepository, EducationRepository>();
+builder.Services.AddScoped<IValidator<Education>, EducationValidator>();
+
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IValidator<Address>, AddressValidator>();
+
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IValidator<Role>, RoleValidator>();
+
 builder.Services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
+builder.Services.AddScoped<IValidator<RegisterUser>, RegisterUserValidator>();
+
 builder.Services.AddScoped<ILoginUserRepository, LoginUserRepository>();
+builder.Services.AddScoped<IValidator<LoginUser>, LoginUserValidator>();
+
 builder.Services.AddScoped<IJobRepository, JobRepository>();
+builder.Services.AddScoped<IValidator<JobEntity>, JobEntityValidator>();
+
 builder.Services.AddScoped<ISeekerRepository, SeekersRepository>();
+builder.Services.AddScoped<IValidator<Seeker>, SeekerValidator>();
 
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<IValidator<Company>, CompanyValidator>();
+
 builder.Services.AddScoped<IIndustryTypeRepository, IndustryTypeRepository>();
+
 builder.Services.AddScoped<IEmployerRepository, EmployersRepository>();
+builder.Services.AddScoped<IValidator<Employer>, EmployerValidator>();
+
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
+builder.Services.AddScoped<IValidator<Application>, ApplicationValidator>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

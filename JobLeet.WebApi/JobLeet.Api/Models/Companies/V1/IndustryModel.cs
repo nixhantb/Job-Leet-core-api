@@ -8,5 +8,10 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Companies.V1
         public IndustryCategory IndustryType {get; set;}
         [JsonIgnore]
         public override MetaDataModel MetaData { get => base.MetaData; set => base.MetaData = value; }
+
+        public static implicit operator IndustryModel?(Core.Entities.Companies.V1.Industry? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

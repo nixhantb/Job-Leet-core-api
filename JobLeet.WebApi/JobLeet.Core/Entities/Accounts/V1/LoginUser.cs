@@ -5,11 +5,9 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
 {
     public class LoginUser : BaseEntity
     {
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
         public string EmailAddress { get; set; }
         public string Password { get; set; }
-        public PersonName? PersonName {get; set;}
+        public PersonName? PersonName { get; set; }
         public AccountCategory AccountStatus { get; set; }
         public bool AccountCreated { get; set; } = false;
         public DateTime LoginTime { get; set; } = DateTime.UtcNow;
