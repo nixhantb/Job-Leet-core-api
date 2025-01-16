@@ -15,41 +15,48 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Build job
   build:
     runs-on: ubuntu-latest
     env:
       MDBOOK_VERSION: 0.4.36
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install Rust
         run: |
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           source $HOME/.cargo/env
           rustup update
-      
+
       - name: Install mdBook
         run: cargo install mdbook --version ${MDBOOK_VERSION}
-      
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-      
+        with:
+          enablement: "auto"
+
       - name: Build with mdBook
-        run: mdbook build
-      
-      - name: Create .nojekyll file
-        run: touch book/.nojekyll
-      
+        run: |
+          cd ../../documentation
+          mdbook build
+          mv book ${{ runner.temp }}/book
+
+      - name: Create .nojekyll
+        run: touch ${{ runner.temp }}/book/.nojekyll
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: book
+          path: ${{ runner.temp }}/book
 
+  # Deployment job
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.pages.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
