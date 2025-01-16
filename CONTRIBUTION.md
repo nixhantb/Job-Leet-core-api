@@ -1,41 +1,45 @@
-## Contributing
+## Contributing to Job Leet
 
-We welcome contributions to make Job Leet even better! If you'd like to contribute, please follow these steps:
+Thank you for considering contributing to Job Leet! We’re excited to have you help improve the project. To ensure that contributions are smooth and effective, please follow these guidelines:
 
-1. Fork the repository.
+### Steps to Contribute:
 
-2. Create a new branch for your feature or bug fix:
-
+1. **Fork the Repository**: Start by creating your own fork of the repository to work on.
+   
+2. **Create a New Branch**: Always create a new branch for each feature or bug fix. Name your branch according to the following convention:
+   
    ```bash
    git checkout -b feat/your-name/issue-number
+   ```
+   Example:
+   ```bash
+   git checkout -b feat/johndoe/42
+   ```
 
-- Example
-```git checkout -b feat/johndoe/42```
+3. **Make Your Changes**: Implement your changes, keeping the following guidelines in mind:
 
-Make your changes. Please adhere to the following guidelines:
+   ### Branch Naming Convention:
+   - Create branches from the `main` branch.
+   - Use the format: `feat/your-name/issue-number` for new features or `fix/your-name/issue-number` for bug fixes.
 
-### Branch Naming Convention:
+4. **Commit Your Changes**: Write clear and concise commit messages, following [Conventional Commit Standards](https://www.conventionalcommits.org/en/v1.0.0/).
 
-- Always create a new branch from the main branch.
-- Branch naming convention: ```feat/your-name/issue-number```.
+   Example commit message:
+   ```bash
+   git commit -m "feat: Add search functionality for job seekers #42"
+   ```
 
-### Commit your changes:
-Use proper git message conventions. [Read](https://www.conventionalcommits.org/en/v1.0.0/)
+   For bug fixes:
+   ```bash
+   git commit -m "fix: Handle 404 errors for job search API #21"
+   ```
 
+5. **Testing**: Ensure all new functionality is properly tested. Write tests for new features and bug fixes, and ensure existing tests continue to pass.
 
-```git commit -m "feat: Add Issue number here"```
+6. **Code Quality**: Before pushing your changes, make sure to:
+   - Follow clean code principles.
+   - Refactor when necessary to keep the codebase maintainable and efficient.
 
-Example 
+### Reporting Issues:
+If you encounter any issues or have suggestions for improvements, please open an issue [here](https://github.com/Nix-code/Job-Leet-core-api/issues) and provide clear details about the problem or enhancement.
 
-```git commit -m "fix: Bad request error using Exception Handling Middleware #21 ```
-
-### Issues
-If you encounter any issues or have suggestions, feel free to open an issue [here](https://github.com/Nix-code/Job-Leet-core-api/issues)
-
-Follow this steps before pushing the changes:
-- Clean code strategy
-- SOLID, DRY, KISS, YAGNI principle
-- Proper .Net Naming convention
-- Write tests 
-
-Happy coding! 

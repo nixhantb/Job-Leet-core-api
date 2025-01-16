@@ -1,21 +1,22 @@
-# Database container (Mysql-server: 8.0.3)
+version: '3.8'
+
 services:
   jobleet-database:
-    image: mysql/mysql-server:8.0.3
-    container_name: sql_server
+    image: postgres:13
+    container_name: postgresql_server
     ports:
-      - "3307:3307"
+      - "5432:5432"
     restart: always
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: leetadmin
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: leetadmin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/postgresql/data
     healthcheck:
-        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-        timeout: 20s
-        retries: 10    
+      test: ["CMD", "pg_isready", "-U", "leetadmin", "-d", "${POSTGRES_DB}"]
+      timeout: 20s
+      retries: 10    
     
   jobleet-api:
     build: .
