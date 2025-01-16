@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build job
+
   build:
     runs-on: ubuntu-latest
     env:
@@ -40,9 +40,14 @@ jobs:
 
       - name: Build with mdBook
         run: |
-          cd documentation
-          mdbook build
-          mv book ${{ runner.temp }}/book
+          
+          if [ -d "documentation" ]; then
+            mdbook build documentation
+            mv documentation/book ${{ runner.temp }}/book
+          else
+            echo "Error: 'documentation' directory not found"
+            exit 1
+          fi
 
       - name: Create .nojekyll
         run: touch ${{ runner.temp }}/book/.nojekyll
@@ -51,8 +56,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ runner.temp }}/book
-
-  # Deployment job
   deploy:
     environment:
       name: github-pages
