@@ -40,12 +40,9 @@ jobs:
 
       - name: Build with mdBook
         run: |
-          cd ../../documentation
+          cd documentation
           mdbook build
           mv book ${{ runner.temp }}/book
-
-      - name: Create .nojekyll
-        run: touch ${{ runner.temp }}/book/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
