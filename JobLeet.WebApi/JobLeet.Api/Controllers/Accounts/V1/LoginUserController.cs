@@ -1,4 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Logging;
+﻿using FluentValidation;
+using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
@@ -10,7 +11,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Accounts.V1
     [ApiController]
     public class LoginUserController : BaseApiController<LoginUser, LoginUserModel, ILoginUserRepository>
     {
-        public LoginUserController(ILoginUserRepository loginUserRepository, ILoggerManagerV1 logger)
-            : base(loginUserRepository, logger) { }
+        public LoginUserController(ILoginUserRepository loginUserRepository, ILoggerManagerV1 logger, IValidator<LoginUser> validator)
+            : base(loginUserRepository, logger, validator) { }
     }
 }
