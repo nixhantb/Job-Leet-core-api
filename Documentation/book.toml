@@ -1,0 +1,6 @@
+[book]
+authors = ["Nix-code"]
+language = "en"
+multilingual = false
+src = "src"
+title = "JobLeet Documentation"
