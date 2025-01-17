@@ -1,10 +1,10 @@
-![logo](assets/logo.png)
+![logo](docs/assets/logo.png)
 
 ## JobLeet - ERP
 **Job Leet** is the smart recruitment platform designed to transform how job seekers and recruiters and Companies connect.  
 
 
-![logo](assets/dashboard.png)
+![logo](docs/assets/dashboard.png)
 ## **Features**
 
 
