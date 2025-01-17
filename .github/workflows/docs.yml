@@ -37,18 +37,18 @@ jobs:
       
       - name: Build with mdBook
         run: |
-          cd documentation
+          cd docs
           mdbook build
       
       - name: Create .nojekyll file
         run: |
-          cd documentation/book
+          cd docs/book
           touch .nojekyll
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: documentation/book
+          path: docs/book
 
   deploy:
     environment:
