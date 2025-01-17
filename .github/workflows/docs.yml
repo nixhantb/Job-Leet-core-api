@@ -27,24 +27,24 @@ jobs:
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           source $HOME/.cargo/env
           rustup update
-          
+      
       - name: Install mdBook
         run: cargo install mdbook --version ${MDBOOK_VERSION}
-        
+      
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-        
+      
       - name: Build with mdBook
         run: |
           cd documentation
           mdbook build
-          
+      
       - name: Create .nojekyll file
         run: |
           cd documentation/book
           touch .nojekyll
-          
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
