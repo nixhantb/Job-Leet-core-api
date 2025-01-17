@@ -36,6 +36,8 @@ using JobLeet.WebApi.JobLeet.Core.Validators.Accounts;
 using JobLeet.WebApi.JobLeet.Validator.Accounts;
 using JobLeet.WebApi.JobLeet.Core.Validators.Seekers;
 using JobLeet.WebApi.JobLeet.Core.Validators.Jobs;
+using JobLeet.WebApi.JobLeet.Api.Middlewares.Exceptions;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -184,6 +186,8 @@ app.UseCors("AllowAll");
 // app.UseMiddleware<SecurityHeaders>();
 // app.UseMiddleware<TotalResponseHeaderCount>();
 // app.UseMiddleware<ResourceNotFoundException>();
+
+app.UseMiddleware<ExceptionMiddleware>();
 #endregion
 app.CreateDataBaseTableIfNotPresent();
 app.Run();
