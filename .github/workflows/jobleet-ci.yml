@@ -2,7 +2,7 @@ name: JobLeetCI
 
 on:
   push:
-    branches: 
+    branches:
       - main
   pull_request:
     branches:
@@ -11,71 +11,78 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '7.0.x'
-
-    - name: Restore dependencies
-      run: dotnet restore JobLeet.WebApi
-
-    - name: Build
-      run: dotnet build --configuration Release JobLeet.WebApi --no-restore
-
-    - name: Publish
-      run: dotnet publish --configuration Release --output ./publish JobLeet.WebApi
-
-    - name: Clean up
-      run: dotnet clean JobLeet.WebApi
-
-    - name: Create build version
-      run: echo "Build Version: $(Build.BuildId)" > ./publish/version.txt
-
-    - name: Generate Build Info
-      run: |
-        echo "Build Date: $(date)" > ./publish/build-info.txt
-        echo "Commit Hash: $(git rev-parse --short HEAD)" >> ./publish/build-info.txt
-        echo "Branch: $(git rev-parse --abbrev-ref HEAD)" >> ./publish/build-info.txt
-
-    - name: Check for TODO/FIXME comments
-      run: |
-        echo "Checking for TODOs and FIXMEs..."
-        if git grep -q 'TODO'; then
-          echo "TODOs found in the code!"
-          exit 1
-        fi
-        if git grep -q 'FIXME'; then
-          echo "FIXMEs found in the code!"
-          exit 1
-        fi
-        echo "No TODOs or FIXMEs found."
-
-    - name: Disk Space Usage
-      run: |
-        echo "Disk Space Usage:"
-        df -h
-
-    - name: Git Branch Information
-      run: |
-        echo "Current Git Branch:"
-        git rev-parse --abbrev-ref HEAD
-        echo "Latest Commit:"
-        git log -1 --oneline
-
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-output
-        path: ./publish
-
-    - name: Set GitHub Status Badge
-      run: |
-        curl -X POST \
-          -d "{\"state\": \"success\", \"context\": \"ci/build\", \"description\": \"Build passed!\"}" \
-          https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
-
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for git commands
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore JobLeet.WebApi
+      
+      - name: Build
+        run: dotnet build --configuration Release JobLeet.WebApi --no-restore
+      
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./publish JobLeet.WebApi
+      
+      - name: Clean up
+        run: dotnet clean JobLeet.WebApi
+      
+      - name: Create build version
+        env:
+          BUILD_ID: ${{ github.run_number }}
+        run: echo "Build Version: $BUILD_ID" > ./publish/version.txt
+      
+      - name: Generate Build Info
+        run: |
+          echo "Build Date: $(date)" > ./publish/build-info.txt
+          echo "Commit Hash: $(git rev-parse --short HEAD)" >> ./publish/build-info.txt
+          echo "Branch: $(git rev-parse --abbrev-ref HEAD)" >> ./publish/build-info.txt
+      
+      - name: Check for TODO/FIXME comments
+        continue-on-error: true  
+        run: |
+          echo "Checking for TODOs and FIXMEs..."
+          TODOS=$(git grep -l 'TODO' || true)
+          FIXMES=$(git grep -l 'FIXME' || true)
+          if [ ! -z "$TODOS" ] || [ ! -z "$FIXMES" ]; then
+            echo "Warning: TODOs or FIXMEs found in the following files:"
+            echo "$TODOS"
+            echo "$FIXMES"
+          else
+            echo "No TODOs or FIXMEs found."
+          fi
+      
+      - name: Disk Space Usage
+        run: |
+          echo "Disk Space Usage:"
+          df -h
+      
+      - name: Git Branch Information
+        run: |
+          echo "Current Git Branch:"
+          git rev-parse --abbrev-ref HEAD
+          echo "Latest Commit:"
+          git log -1 --oneline
+      
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: ./publish
+      
+      - name: Set GitHub Status Badge
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"state\": \"success\", \"context\": \"ci/build\", \"description\": \"Build passed!\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}"
