@@ -9,19 +9,24 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 {
     [Route("api/v1/applications")]
     [ApiController]
-    public class ApplicationController : BaseApiController<Application, ApplicationModel, IApplicationRepository>
+    public class ApplicationController : BaseApiController<Application, ApplicationModel, IApplicationService>
     {
-        public ApplicationController(IApplicationRepository applicationRepository, ILoggerManagerV1 logger, IValidator<Application> validator) : base(applicationRepository, logger, validator)
+        public ApplicationController(IApplicationService applicationService, ILoggerManagerV1 logger, IValidator<Application> validator) 
+            : base(applicationService, logger, validator)
         {
 
         }
+
         [HttpPost("apply")]
         public async Task<IActionResult> ApplyForJobAsync([FromQuery] int seekerId, [FromQuery] int jobId, [FromQuery] int companyId)
         {
             try
             {
                 _logger.LogInfo($"Seeker {seekerId} is applying for job {jobId} at company {companyId}.");
-                var application = await Repository.ApplyForJobAsync(seekerId, jobId, companyId);
+
+                
+                var application = await _service.ApplyForJobAsync(seekerId, jobId, companyId); 
+
                 return Ok(application);
             }
             catch (Exception ex)

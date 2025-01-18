@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
     [Route("api/v1/educations")]
-    public class EducationController : BaseApiController<Education,EducationModel, IEducationRepository>
+    public class EducationController : BaseApiController<Education,EducationModel, IEducationService>
     {
-        public EducationController(IEducationRepository educationRepository, ILoggerManagerV1 logger, IValidator<Education> validator)
-            :base(educationRepository, logger, validator) { }
+        public EducationController(IEducationService educationService, ILoggerManagerV1 logger, IValidator<Education> validator)
+            :base(educationService, logger, validator) { }
         
     }
 }

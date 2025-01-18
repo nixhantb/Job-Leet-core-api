@@ -9,7 +9,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Accounts.V1
 {
     [Route("api/v1/logins")]
     [ApiController]
-    public class LoginUserController : BaseApiController<LoginUser, LoginUserModel, ILoginUserRepository>
+    public class LoginUserController : BaseAccountsController<LoginUser, LoginUserModel, ILoginUserRepository>
     {
         public LoginUserController(ILoginUserRepository loginUserRepository, ILoggerManagerV1 logger, IValidator<LoginUser> validator)
             : base(loginUserRepository, logger, validator) { }

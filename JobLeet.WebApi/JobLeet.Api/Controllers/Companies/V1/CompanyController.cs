@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Companies.V1
 {
     [Route("api/v1/companies")]
-    public class CompanyController : BaseApiController<Company, CompanyModel, ICompanyRepository>
+    public class CompanyController : BaseApiController<Company, CompanyModel, ICompanyService>
     {
-        public CompanyController(ICompanyRepository companyRepository, ILoggerManagerV1 logger, IValidator<Company> validator) : base(companyRepository, logger, validator)
+        public CompanyController(ICompanyService companyService, ILoggerManagerV1 logger, IValidator<Company> validator)
+            : base(companyService, logger, validator)
         {
-
         }
     }
 }

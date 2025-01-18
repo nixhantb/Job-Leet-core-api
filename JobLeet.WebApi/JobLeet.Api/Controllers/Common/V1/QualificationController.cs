@@ -8,12 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
     [Route("api/v1/qualification-types")]
-    public class QualificationController : BaseApiController<Qualification, QualificationModel, IQualificationTypeRepository>
+    public class QualificationController : BaseApiController<Qualification, QualificationModel, IQualificationService>
     {
-        public QualificationController(IQualificationTypeRepository qualificationTypeRepository, ILoggerManagerV1 logger, IValidator<Qualification> validator)
-            : base(qualificationTypeRepository, logger, validator)
+        public QualificationController(IQualificationService qualificationService, ILoggerManagerV1 logger, IValidator<Qualification> validator)
+            : base(qualificationService, logger, validator)
         {
-            
         }
     }
 }

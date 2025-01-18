@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 {
     [Route("api/v1/jobs")]
-    public class JobController: BaseApiController<JobEntity,JobModel, IJobRepository>
+    [ApiController]
+    public class JobController : BaseApiController<JobEntity, JobModel, IJobService>
     {
-        public JobController(IJobRepository jobRepository, ILoggerManagerV1 logger, IValidator<JobEntity> validator) : base(jobRepository, logger, validator)
+        public JobController(IJobService jobService, ILoggerManagerV1 logger, IValidator<JobEntity> validator)
+            : base(jobService, logger, validator)
         { 
-
         }
     }
 }
