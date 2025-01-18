@@ -1,4 +1,3 @@
-using JobLeet.WebApi.JobLeet.Api.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +12,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
     [Route("api/v1/employers")]
     public class EmployerController : BaseApiController<Employer, EmployerModel, IEmployerService>
     {
-        public EmployerController(IEmployerService employerService, ILoggerManagerV1 logger, IValidator<Employer> validator)
-            : base(employerService, logger, validator)
+        public EmployerController(IEmployerService employerService, IValidator<Employer> validator)
+            : base(employerService, validator)
         {
             
         }

@@ -1,5 +1,4 @@
 using FluentValidation;
-using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Api.Models.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
@@ -11,8 +10,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
     [ApiController]
     public class JobController : BaseApiController<JobEntity, JobModel, IJobService>
     {
-        public JobController(IJobService jobService, ILoggerManagerV1 logger, IValidator<JobEntity> validator)
-            : base(jobService, logger, validator)
+        public JobController(IJobService jobService, IValidator<JobEntity> validator)
+            : base(jobService, validator)
         { 
         }
     }

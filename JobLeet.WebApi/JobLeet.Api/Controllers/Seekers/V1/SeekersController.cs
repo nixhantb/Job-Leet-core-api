@@ -12,8 +12,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
     [Route("api/v1/seekers")]
     public class SeekersController : BaseApiController<Seeker, SeekerModel, ISeekerService>
     {
-        public SeekersController(ISeekerService seekerService, ILoggerManagerV1 logger, IValidator<Seeker> validator)
-            : base(seekerService, logger, validator)
+        public SeekersController(ISeekerService seekerService,IValidator<Seeker> validator)
+            : base(seekerService, validator)
         {
         }
     }

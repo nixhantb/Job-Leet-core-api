@@ -14,12 +14,10 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         where TService : IService<TEntity, TModel>
     {
         protected readonly TService _service;
-        protected readonly ILoggerManagerV1 _logger;
         protected readonly IValidator<TEntity> _validator;
-        protected BaseApiController(TService service, ILoggerManagerV1 logger, IValidator<TEntity> validator)
+        protected BaseApiController(TService service, IValidator<TEntity> validator)
         {
             _service= service ?? throw new ArgumentNullException(nameof(service));
-            _logger =  logger ?? throw new ArgumentNullException(nameof(logger));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
     
         }
@@ -33,13 +31,11 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         {
             try
             {
-                _logger.LogInfo("Triggering HTTP GET request");
                 var entities = await _service.GetAllAsync();
                 return Ok(entities);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occurred while fetching all entities: {ex.Message}");
                 var errorResponse = new GlobalErrorResponse
                 {
                     Error = "Internal Server Error",
@@ -68,7 +64,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occurred while fetching the data: {ex.Message}");
                 var errorResponse = new GlobalErrorResponse
                 {
                     Error = "System Exception",
@@ -109,7 +104,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error occurred while creating the entity: {ex.Message}");
                 var errorResponse = new GlobalErrorResponse
                 {
                     Error = "System Exception",
