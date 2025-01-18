@@ -75,15 +75,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
 
                 var apiResponses = entities.Select(entity => JobsMapper.ToJobModel(entity)).ToList();
                 return apiResponses;
-
-
             }
             catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
             {
                 throw new Exception("Error while fetching data from the database. Please try again later.");
             }
-
-
         }
 
         public async Task<JobModel> GetByIdAsync(int id)
@@ -116,8 +112,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
 
                 var jobModel = JobsMapper.ToJobModel(jobEntry);
                 return jobModel;
-
-
 
             }
             catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
