@@ -8,13 +8,11 @@ using FluentValidation;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
     [Route("api/v1/email-types")]
-    
-    public class EmailController : BaseApiController<Email,EmailModel, IEmaiTypeRepository>
+    public class EmailController : BaseApiController<Email, EmailModel, IEmailService>
     {
-        public EmailController(IEmaiTypeRepository emailTypeRepository, ILoggerManagerV1 logger, IValidator<Email> validator)
-            : base(emailTypeRepository, logger, validator)
+        public EmailController(IEmailService emailService, ILoggerManagerV1 logger, IValidator<Email> validator)
+            : base(emailService, logger, validator)
         {
-
         }
     }
 }

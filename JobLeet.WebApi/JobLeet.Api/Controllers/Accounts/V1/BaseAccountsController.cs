@@ -8,17 +8,17 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public abstract class BaseApiController<TEntity, TModel, TService> : ControllerBase 
+    public abstract class BaseAccountsController<TEntity, TModel, TRepository> : ControllerBase 
         where TEntity : class 
         where TModel : class 
-        where TService : IService<TEntity, TModel>
+        where TRepository : IRepository<TEntity, TModel>
     {
-        protected readonly TService _service;
+        protected readonly TRepository Repository;
         protected readonly ILoggerManagerV1 _logger;
         protected readonly IValidator<TEntity> _validator;
-        protected BaseApiController(TService service, ILoggerManagerV1 logger, IValidator<TEntity> validator)
+        protected BaseAccountsController(TRepository repository, ILoggerManagerV1 logger, IValidator<TEntity> validator)
         {
-            _service= service ?? throw new ArgumentNullException(nameof(service));
+            Repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger =  logger ?? throw new ArgumentNullException(nameof(logger));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
     
@@ -34,7 +34,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
             try
             {
                 _logger.LogInfo("Triggering HTTP GET request");
-                var entities = await _service.GetAllAsync();
+                var entities = await Repository.GetAllAsync();
                 return Ok(entities);
             }
             catch (Exception ex)
@@ -59,7 +59,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         {
             try
             {
-                var entity = await _service.GetByIdAsync(id);
+                var entity = await Repository.GetByIdAsync(id);
 
                 if (entity == null)
                     return NotFound();
@@ -103,7 +103,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                         Errors = validationResult.Errors.Select(e => new { e.PropertyName, e.ErrorMessage })
                     });
                 }
-                var result = await _service.AddAsync(entity);
+                var result = await Repository.AddAsync(entity);
                 
                 return Ok(result);
             }

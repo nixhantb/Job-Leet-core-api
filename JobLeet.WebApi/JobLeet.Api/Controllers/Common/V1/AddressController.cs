@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
     [Route("api/v1/addresses")]
-    public class AddressController : BaseApiController<Address,AddressModel, IAddressRepository>
+    public class AddressController : BaseApiController<Address,AddressModel, IAddressService>
     {
-        public AddressController(IAddressRepository addressRepository, ILoggerManagerV1 logger, IValidator<Address> validator) : base(addressRepository, logger, validator)
+        public AddressController(IAddressService addressRepository, ILoggerManagerV1 logger, IValidator<Address> validator) : base(addressRepository, logger, validator)
         { 
 
         }

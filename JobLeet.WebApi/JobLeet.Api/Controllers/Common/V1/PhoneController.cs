@@ -8,12 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
     [Route("api/v1/phones")]
-    public class PhoneController : BaseApiController<Phone,PhoneModel, IPhoneRepository>
+    public class PhoneController : BaseApiController<Phone, PhoneModel, IPhoneService>
     {
-        public PhoneController(IPhoneRepository phoneRepository, ILoggerManagerV1 logger, IValidator<Phone> validator) : base(phoneRepository, logger, validator)
-        { 
-
+        public PhoneController(IPhoneService phoneService, ILoggerManagerV1 logger, IValidator<Phone> validator)
+            : base(phoneService, logger, validator)
+        {
         }
-
     }
 }

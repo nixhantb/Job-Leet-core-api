@@ -8,13 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
     [Route("api/v1/experiences")]
-    public class ExperienceController : BaseApiController<Experience,ExperienceModel, IExperienceRepository>
+    public class ExperienceController : BaseApiController<Experience, ExperienceModel, IExperienceService>
     {
-        public ExperienceController(IExperienceRepository experienceRepository, ILoggerManagerV1 logger, IValidator<Experience> validator)
-
-            : base(experienceRepository, logger, validator)
+        public ExperienceController(IExperienceService experienceService, ILoggerManagerV1 logger, IValidator<Experience> validator)
+            : base(experienceService, logger, validator)
         {
-            
         }
     }
 }
