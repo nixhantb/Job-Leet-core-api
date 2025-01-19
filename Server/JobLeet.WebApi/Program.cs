@@ -205,7 +205,7 @@ app.UseAuthorization();
 app.UseCors("AllowAll");
 // app.UseMiddleware<SecurityHeaders>();
 // app.UseMiddleware<TotalResponseHeaderCount>();
-// app.UseMiddleware<ResourceNotFoundException>();
+app.UseMiddleware<ResourceNotFoundException>();
 
 app.UseMiddleware<ExceptionMiddleware>();
 #endregion

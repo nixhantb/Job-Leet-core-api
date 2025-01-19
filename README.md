@@ -1,6 +1,13 @@
+
+![GitHub repo size](https://img.shields.io/github/repo-size/nixhantb/Job-Leet-core-recruitment-agency?style=flat-square)
+![GitHub top language](https://img.shields.io/github/languages/top/nixhantb/Job-Leet-core-recruitment-agency?color=orange&style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/nixhantb/Job-Leet-core-recruitment-agency?color=success&style=flat-square)
+![GitHub license](https://img.shields.io/badge/license-GPL%20%2B%20CE-FFFF00?style=flat-square)
+[![GitHub Stars](https://img.shields.io/github/stars/nixhantb/Job-Leet-core-recruitment-agency?label=GitHub%20stars&style=social)](https://github.com/nixhantb/Job-Leet-core-recruitment-agency/stargazers/)
 ![logo](docs/assets/logo.png)
 
-## JobLeet - ERP
+# Introduction
+
 **Job Leet** is the smart recruitment platform designed to transform how job seekers and recruiters and Companies connect.  
 
 
@@ -24,7 +31,6 @@
 - [ ] **Multi-Language Support**: Cater to a global audience with support for multiple languages.
 - [x] **Talent Pool Management**: Build and manage a database of potential candidates for future roles.
 
-## **Get Started Today**
+## Documentation
 
-Join the Job Leet revolution and experience the future of recruitment. Whether you’re looking to **hire smarter** or **get hired faster**, Job Leet has the tools and features to make it happen.  
-
+For a complete list of methods and their usage, please refer to the [Api Documentation](https://nixhantb.github.io/Job-Leet-core-recruitment-agency/)
