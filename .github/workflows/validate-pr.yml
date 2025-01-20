@@ -10,7 +10,11 @@ jobs:
     name: Check Formatting
     steps:
       - uses: actions/checkout@v2
+
       - name: Restore .NET tools
         run: dotnet tool restore
+
       - name: Check formatting with CSharpier
-        run: dotnet csharpier --check .
+        run: |
+          cd Server/JobLeet.WebApi
+          dotnet csharpier --check .
