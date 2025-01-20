@@ -10,7 +10,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
         public SkillService(ISkillRepository skillRepository)
         {
-            _skillRepository = skillRepository ?? throw new ArgumentNullException(nameof(skillRepository));
+            _skillRepository =
+                skillRepository ?? throw new ArgumentNullException(nameof(skillRepository));
         }
 
         public async Task<SkillModel> AddAsync(Skill entity)

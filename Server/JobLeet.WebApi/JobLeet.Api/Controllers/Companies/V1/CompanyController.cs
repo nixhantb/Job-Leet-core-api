@@ -10,8 +10,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Companies.V1
     public class CompanyController : BaseApiController<Company, CompanyModel, ICompanyService>
     {
         public CompanyController(ICompanyService companyService, IValidator<Company> validator)
-            : base(companyService, validator)
-        {
-        }
+            : base(companyService, validator) { }
     }
 }

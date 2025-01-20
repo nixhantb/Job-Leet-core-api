@@ -1,11 +1,11 @@
-﻿
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount
 {
     public class TotalResponseHeaderCount
     {
         private readonly RequestDelegate _next;
+
         public TotalResponseHeaderCount(RequestDelegate next)
         {
             _next = next;
@@ -23,23 +23,22 @@ namespace JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount
 
                     await _next(context);
 
-                    if(context.Response.StatusCode == StatusCodes.Status200OK)
+                    if (context.Response.StatusCode == StatusCodes.Status200OK)
                     {
                         int totalCount = CalculateTotalResponseCount(responseBody);
 
-                        
                         context.Response.Headers["X-Total-Count"] = totalCount.ToString();
                     }
                     responseBody.Seek(0, SeekOrigin.Begin);
                     await responseBody.CopyToAsync(originalBodyStream);
                 }
-                
             }
             catch (Exception ex)
             {
-                throw new Exception("Exception occured"+ ex.Message);
+                throw new Exception("Exception occured" + ex.Message);
             }
         }
+
         private int CalculateTotalResponseCount(MemoryStream responseBody)
         {
             try
@@ -48,11 +47,10 @@ namespace JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount
                 responseBody.Seek(0, SeekOrigin.Begin);
                 using (var document = JsonDocument.Parse(responseBody))
                 {
-                    if(document.RootElement.ValueKind == JsonValueKind.Array)
-                    
+                    if (document.RootElement.ValueKind == JsonValueKind.Array)
                     {
                         int count = 0;
-                        foreach(var element in document.RootElement.EnumerateArray())
+                        foreach (var element in document.RootElement.EnumerateArray())
                         {
                             count++;
                         }
@@ -71,6 +69,5 @@ namespace JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount
                 return 0;
             }
         }
-
     }
 }

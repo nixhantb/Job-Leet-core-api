@@ -4,7 +4,5 @@
     {
         public string? CompanyName { get; set; }
         public CompanyProfileModel? Profile { get; set; }
-        
-        
     }
 }

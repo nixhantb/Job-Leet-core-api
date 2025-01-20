@@ -13,19 +13,19 @@ namespace JobLeet.WebApi.JobLeet.Validator
 
             // RuleFor(x => x.CompanyAddress)
             //     .NotNull().WithMessage("Company Address is required.")
-            //     .SetValidator(new AddressValidator()); 
+            //     .SetValidator(new AddressValidator());
 
             // RuleFor(x => x.ContactPhone)
             //     .NotNull().WithMessage("Contact Phone is required.")
-            //     .SetValidator(new PhoneValidator()); 
+            //     .SetValidator(new PhoneValidator());
 
             // RuleFor(x => x.ContactEmail)
             //     .NotNull().WithMessage("Contact Email is required.")
-            //     .SetValidator(new EmailValidator()); 
+            //     .SetValidator(new EmailValidator());
 
             // RuleFor(x => x.Website)
             //     .Matches(@"^https?:\/\/[^\s/$.?#].[^\s]*$").WithMessage("Invalid website URL format.")
-            //     .When(x => x.Website != null); 
+            //     .When(x => x.Website != null);
 
             // RuleFor(x => x.IndustryTypes)
             //     .IsInEnum().WithMessage("Invalid Industry Type.");

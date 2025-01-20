@@ -18,26 +18,32 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = entity.Id,
                 CompanyName = entity.CompanyName,
-                Profile = entity.Profile == null ? null : new CompanyProfile
-                {
-                    Id = entity.Profile.Id,
-                    ProfileInfo = entity.Profile.ProfileInfo,
-                    ContactPhone = entity.Profile.ContactPhone != null
-                        ? PhoneMapper.ToPhoneDatabase(entity.Profile.ContactPhone)
-                        : null,
-                    CompanyAddress = entity.Profile.CompanyAddress != null
-                        ? AddressMapper.ToAddressDatabase(entity.Profile.CompanyAddress)
-                        : null,
-                    ContactEmail = entity.Profile.ContactEmail != null
-                        ? EmailMapper.ToEmailDatabase(entity.Profile.ContactEmail)
-                        : null,
-                    IndustryTypes = new(){
-                        Id = entity.Profile.IndustryTypes.Id,
-                        IndustryType = entity.Profile.IndustryTypes.IndustryType
-                    },
-                    Website = entity.Profile.Website,
-                   
-                }
+                Profile =
+                    entity.Profile == null
+                        ? null
+                        : new CompanyProfile
+                        {
+                            Id = entity.Profile.Id,
+                            ProfileInfo = entity.Profile.ProfileInfo,
+                            ContactPhone =
+                                entity.Profile.ContactPhone != null
+                                    ? PhoneMapper.ToPhoneDatabase(entity.Profile.ContactPhone)
+                                    : null,
+                            CompanyAddress =
+                                entity.Profile.CompanyAddress != null
+                                    ? AddressMapper.ToAddressDatabase(entity.Profile.CompanyAddress)
+                                    : null,
+                            ContactEmail =
+                                entity.Profile.ContactEmail != null
+                                    ? EmailMapper.ToEmailDatabase(entity.Profile.ContactEmail)
+                                    : null,
+                            IndustryTypes = new()
+                            {
+                                Id = entity.Profile.IndustryTypes.Id,
+                                IndustryType = entity.Profile.IndustryTypes.IndustryType,
+                            },
+                            Website = entity.Profile.Website,
+                        },
             };
         }
 
@@ -52,30 +58,40 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = entity.Id,
                 CompanyName = entity.CompanyName,
-                Profile = entity.Profile == null ? null : new CompanyProfileModel
-                {
-                    Id = entity.Profile.Id,
-                    ProfileInfo = entity.Profile.ProfileInfo,
-                    ContactPhone = entity.Profile.ContactPhone != null
-                        ? PhoneMapper.ToPhoneModel(entity.Profile.ContactPhone)
-                        : null,
-                    CompanyAddress = entity.Profile.CompanyAddress != null
-                        ? AddressMapper.ToAddressModel(entity.Profile.CompanyAddress)
-                        : null,
-                    ContactEmail = entity.Profile.ContactEmail != null
-                        ? EmailMapper.ToEmailModel(entity.Profile.ContactEmail)
-                        : null,
-                    IndustryType = entity.Profile.IndustryTypes != null 
-                        ? new Api.Models.Companies.V1.IndustryModel{
-                        Id = entity.Profile.IndustryTypes.Id,
-                        IndustryType = entity.Profile.IndustryTypes.IndustryType !=null 
-                            ? (Api.Models.Companies.V1.IndustryCategory)(entity.Profile.IndustryTypes.IndustryType)
-                            : default(Api.Models.Companies.V1.IndustryCategory)
-                            
-                        } :null,
-                    Website = entity.Profile.Website,
-                   
-                }
+                Profile =
+                    entity.Profile == null
+                        ? null
+                        : new CompanyProfileModel
+                        {
+                            Id = entity.Profile.Id,
+                            ProfileInfo = entity.Profile.ProfileInfo,
+                            ContactPhone =
+                                entity.Profile.ContactPhone != null
+                                    ? PhoneMapper.ToPhoneModel(entity.Profile.ContactPhone)
+                                    : null,
+                            CompanyAddress =
+                                entity.Profile.CompanyAddress != null
+                                    ? AddressMapper.ToAddressModel(entity.Profile.CompanyAddress)
+                                    : null,
+                            ContactEmail =
+                                entity.Profile.ContactEmail != null
+                                    ? EmailMapper.ToEmailModel(entity.Profile.ContactEmail)
+                                    : null,
+                            IndustryType =
+                                entity.Profile.IndustryTypes != null
+                                    ? new Api.Models.Companies.V1.IndustryModel
+                                    {
+                                        Id = entity.Profile.IndustryTypes.Id,
+                                        IndustryType =
+                                            entity.Profile.IndustryTypes.IndustryType != null
+                                                ? (Api.Models.Companies.V1.IndustryCategory)(
+                                                    entity.Profile.IndustryTypes.IndustryType
+                                                )
+                                                : default(Api.Models.Companies.V1.IndustryCategory),
+                                    }
+                                    : null,
+                            Website = entity.Profile.Website,
+                        },
             };
         }
     }

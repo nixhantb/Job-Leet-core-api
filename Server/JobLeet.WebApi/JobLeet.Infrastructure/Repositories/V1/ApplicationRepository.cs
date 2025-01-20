@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
 {
-
     public class ApplicationRepository : IApplicationRepository
     {
         #region Initialization
@@ -17,14 +16,13 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
 
         public ApplicationRepository(BaseDBContext dbContext)
         {
-
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
+
         public async Task<ApplicationModel> AddAsync(Application entity)
         {
             try
             {
-
                 if (entity == null)
                 {
                     throw new ArgumentNullException(nameof(entity));
@@ -52,8 +50,8 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                     throw new ArgumentException("Seeker ID and Job ID must be greater than zero.");
                 }
 
-                var seeker = await _dbContext.Seekers
-                    .Include(s => s.Phone)
+                var seeker = await _dbContext
+                    .Seekers.Include(s => s.Phone)
                     .Include(s => s.Education)
                     .Include(s => s.Address)
                     .Include(s => s.Skills)
@@ -63,20 +61,16 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                     throw new Exception($"Seeker with ID {seekerId} not found");
                 }
 
-
-                var company = await _dbContext.Companies
-                    .Include(c => c.Profile)
-
-
+                var company = await _dbContext
+                    .Companies.Include(c => c.Profile)
                     .FirstOrDefaultAsync(c => c.Id == companyId);
                 if (company == null)
                 {
                     throw new Exception($"Company with ID {companyId} not found");
                 }
 
-              
-                var job = await _dbContext.Jobs
-                    .Include(j => j.CompanyDescription)
+                var job = await _dbContext
+                    .Jobs.Include(j => j.CompanyDescription)
                     .Include(j => j.SkillsRequired) // Example if Jobs have RequiredSkills
                     .FirstOrDefaultAsync(j => j.Id == jobId);
                 if (job == null)
@@ -84,9 +78,9 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                     throw new Exception($"Job with ID {jobId} not found.");
                 }
 
-               
-                var existingApplication = await _dbContext.Applications
-                    .FirstOrDefaultAsync(a => a.SeekerId == seekerId && a.JobId == jobId);
+                var existingApplication = await _dbContext.Applications.FirstOrDefaultAsync(a =>
+                    a.SeekerId == seekerId && a.JobId == jobId
+                );
                 if (existingApplication != null)
                 {
                     throw new Exception("Seeker has already applied for this job.");
@@ -97,7 +91,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                     SeekerId = seekerId,
                     JobId = jobId,
                     CompanyId = companyId,
-                    Seekers = null, 
+                    Seekers = null,
                     Jobs = null,
                     Company = null,
                     ApplicationDate = new()
@@ -105,12 +99,12 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                         SubmitDate = DateTime.UtcNow,
                         ReviewDate = DateTime.UtcNow,
                         DecisionDate = DateTime.UtcNow,
-                        Comments = "Successfully Applied to the new Job"
+                        Comments = "Successfully Applied to the new Job",
                     },
                     Status = new Status
                     {
-                        StatusName = JobLeet.Core.Entities.Jobs.V1.StatusName.Active
-                    }
+                        StatusName = JobLeet.Core.Entities.Jobs.V1.StatusName.Active,
+                    },
                 };
 
                 _dbContext.Attach(application);
@@ -121,7 +115,10 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                 }
                 catch (DbUpdateException dbEx)
                 {
-                    throw new Exception("Database update error occurred.", dbEx.InnerException ?? dbEx);
+                    throw new Exception(
+                        "Database update error occurred.",
+                        dbEx.InnerException ?? dbEx
+                    );
                 }
 
                 return application;
@@ -132,7 +129,6 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             }
         }
 
-
         public Task DeleteAsync(int id)
         {
             throw new NotImplementedException();
@@ -142,7 +138,6 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
         {
             try
             {
-
                 var applications = await _dbContext.Applications.ToListAsync();
                 return applications.Select(ApplicationMapper.ToApplicationModel).ToList();
             }

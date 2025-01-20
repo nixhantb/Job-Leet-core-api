@@ -16,7 +16,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = entity.Id,
                 EmailAddress = entity.EmailAddress,
-                EmailType = entity.EmailType
+                EmailType = entity.EmailType,
             };
         }
 
@@ -31,7 +31,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = model.Id,
                 EmailAddress = model.EmailAddress,
-                EmailType = (Api.Models.Common.V1.EmailCategory)model.EmailType
+                EmailType = (Api.Models.Common.V1.EmailCategory)model.EmailType,
             };
         }
     }

@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
 {
-
     public class JobRepository : IJobRepository
     {
         #region Initialization
@@ -38,7 +37,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
 
                 #endregion
                 return apiResponses;
-
             }
             catch (Exception ex)
             {
@@ -53,32 +51,34 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
 
         public async Task<List<JobModel>> GetAllAsync()
         {
-
             try
             {
-                var entities = await _dbContext.Jobs
-                
-                .Include(j => j.CompanyDescription)
+                var entities = await _dbContext
+                    .Jobs.Include(j => j.CompanyDescription)
                     .ThenInclude(c => c.Profile)
-                        .ThenInclude(p => p.ContactEmail)
-                .Include(j => j.CompanyDescription)
+                    .ThenInclude(p => p.ContactEmail)
+                    .Include(j => j.CompanyDescription)
                     .ThenInclude(c => c.Profile)
-                        .ThenInclude(p => p.CompanyAddress)
-                .Include(j => j.CompanyDescription)
+                    .ThenInclude(p => p.CompanyAddress)
+                    .Include(j => j.CompanyDescription)
                     .ThenInclude(c => c.Profile)
-                        .ThenInclude(p => p.ContactPhone)
-                .Include(j => j.JobAddress)
-                .Include(j => j.SkillsRequired)
-                .Include(j => j.RequiredQualification)
-                .Include(j => j.RequiredExperience)
-                .ToListAsync();
+                    .ThenInclude(p => p.ContactPhone)
+                    .Include(j => j.JobAddress)
+                    .Include(j => j.SkillsRequired)
+                    .Include(j => j.RequiredQualification)
+                    .Include(j => j.RequiredExperience)
+                    .ToListAsync();
 
-                var apiResponses = entities.Select(entity => JobsMapper.ToJobModel(entity)).ToList();
+                var apiResponses = entities
+                    .Select(entity => JobsMapper.ToJobModel(entity))
+                    .ToList();
                 return apiResponses;
             }
             catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
             {
-                throw new Exception("Error while fetching data from the database. Please try again later.");
+                throw new Exception(
+                    "Error while fetching data from the database. Please try again later."
+                );
             }
         }
 
@@ -86,39 +86,37 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1
         {
             try
             {
-            var jobEntry = await _dbContext.Jobs
-                .Include(j => j.CompanyDescription)
+                var jobEntry = await _dbContext
+                    .Jobs.Include(j => j.CompanyDescription)
                     .ThenInclude(c => c.Profile)
-                        .ThenInclude(p => p.ContactEmail)
-                .Include(j => j.CompanyDescription)
+                    .ThenInclude(p => p.ContactEmail)
+                    .Include(j => j.CompanyDescription)
                     .ThenInclude(c => c.Profile)
-                        .ThenInclude(p => p.CompanyAddress)
-                .Include(j => j.CompanyDescription)
+                    .ThenInclude(p => p.CompanyAddress)
+                    .Include(j => j.CompanyDescription)
                     .ThenInclude(c => c.Profile)
-                        .ThenInclude(p => p.ContactPhone)
-                .Include(j => j.JobAddress)
-                .Include(j => j.SkillsRequired)
-                .Include(j => j.RequiredQualification)
-                .Include(j => j.RequiredExperience)
-                .FirstOrDefaultAsync(j => j.Id == id);
-
+                    .ThenInclude(p => p.ContactPhone)
+                    .Include(j => j.JobAddress)
+                    .Include(j => j.SkillsRequired)
+                    .Include(j => j.RequiredQualification)
+                    .Include(j => j.RequiredExperience)
+                    .FirstOrDefaultAsync(j => j.Id == id);
 
                 if (jobEntry == null)
                 {
-
                     throw new Exception($"The Job with ID {id} does not exist.");
-
                 }
 
                 var jobModel = JobsMapper.ToJobModel(jobEntry);
                 return jobModel;
-
             }
             catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
             {
-                throw new Exception("The Job with the requested ID doesn't exist or a database exception occurred.", ex);
+                throw new Exception(
+                    "The Job with the requested ID doesn't exist or a database exception occurred.",
+                    ex
+                );
             }
-
         }
 
         public async Task UpdateAsync(JobEntity entity)

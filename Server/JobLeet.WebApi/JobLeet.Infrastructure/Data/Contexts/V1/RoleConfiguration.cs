@@ -7,7 +7,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
     public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         public void Configure(EntityTypeBuilder<Role> builder)
-        
         {
             builder.ToTable("jblt_role");
             builder.HasKey(e => e.Id);

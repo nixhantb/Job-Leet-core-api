@@ -8,9 +8,12 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
     {
         private readonly IEmaiTypeRepository _emailTypeRepository;
 
-        public EmailService(IEmaiTypeRepository emaiTypeRepository){
-            _emailTypeRepository = emaiTypeRepository ?? throw new ArgumentNullException(nameof(emaiTypeRepository));
+        public EmailService(IEmaiTypeRepository emaiTypeRepository)
+        {
+            _emailTypeRepository =
+                emaiTypeRepository ?? throw new ArgumentNullException(nameof(emaiTypeRepository));
         }
+
         public async Task<EmailModel> AddAsync(Email entity)
         {
             var email = await _emailTypeRepository.AddAsync(entity);
@@ -31,7 +34,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
         public async Task<EmailModel> GetByIdAsync(int id)
         {
             var email = await _emailTypeRepository.GetByIdAsync(id);
-            if (email== null)
+            if (email == null)
             {
                 throw new Exception($"Job with ID {id} not found.");
             }
@@ -43,6 +46,4 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             await _emailTypeRepository.UpdateAsync(entity);
         }
     }
-
-
 }

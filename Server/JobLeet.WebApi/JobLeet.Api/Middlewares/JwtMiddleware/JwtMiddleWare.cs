@@ -19,7 +19,11 @@ namespace JobLeet.WebApi.JobLeet.Api.Middlewares.JwtMiddleware
         {
             try
             {
-                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                var token = context
+                    .Request.Headers["Authorization"]
+                    .FirstOrDefault()
+                    ?.Split(" ")
+                    .Last();
 
                 if (token != null)
                 {
@@ -32,7 +36,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Middlewares.JwtMiddleware
             {
                 throw new Exception("Error while Invoking the JWT Middleware ", ex);
             }
-
         }
 
         private void AttachUserToContext(HttpContext context, string token)
@@ -40,14 +43,18 @@ namespace JobLeet.WebApi.JobLeet.Api.Middlewares.JwtMiddleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(_key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
+                tokenHandler.ValidateToken(
+                    token,
+                    new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(_key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero,
+                    },
+                    out SecurityToken validatedToken
+                );
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
 
@@ -72,7 +79,5 @@ namespace JobLeet.WebApi.JobLeet.Api.Middlewares.JwtMiddleware
                 throw new Exception("Something went wrong", ex);
             }
         }
-
     }
-
 }

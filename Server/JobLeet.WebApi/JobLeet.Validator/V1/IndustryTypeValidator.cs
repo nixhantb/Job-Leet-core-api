@@ -7,10 +7,11 @@ namespace JobLeet.WebApi.JobLeet.Validator
     {
         public IndustryTypeValidator()
         {
-            
             RuleFor(industry => industry.IndustryCategory)
-                .IsInEnum().WithMessage("IndustryCategory must be a valid enum value of IndustryCategory.")
-                .NotEqual(IndustryCategory.Others).WithMessage("IndustryCategory cannot be 'Others' for certain use cases.");
+                .IsInEnum()
+                .WithMessage("IndustryCategory must be a valid enum value of IndustryCategory.")
+                .NotEqual(IndustryCategory.Others)
+                .WithMessage("IndustryCategory cannot be 'Others' for certain use cases.");
         }
     }
 }

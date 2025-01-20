@@ -8,30 +8,34 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 {
     [Route("api/v1/applications")]
     [ApiController]
-    public class ApplicationController : BaseApiController<Application, ApplicationModel, IApplicationService>
+    public class ApplicationController
+        : BaseApiController<Application, ApplicationModel, IApplicationService>
     {
-        public ApplicationController(IApplicationService applicationService, IValidator<Application> validator) 
-            : base(applicationService, validator)
-        {
-
-        }
+        public ApplicationController(
+            IApplicationService applicationService,
+            IValidator<Application> validator
+        )
+            : base(applicationService, validator) { }
 
         [HttpPost("apply")]
-        public async Task<IActionResult> ApplyForJobAsync([FromQuery] int seekerId, [FromQuery] int jobId, [FromQuery] int companyId)
+        public async Task<IActionResult> ApplyForJobAsync(
+            [FromQuery] int seekerId,
+            [FromQuery] int jobId,
+            [FromQuery] int companyId
+        )
         {
             try
             {
-                var application = await _service.ApplyForJobAsync(seekerId, jobId, companyId); 
+                var application = await _service.ApplyForJobAsync(seekerId, jobId, companyId);
 
                 return Ok(application);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new
-                {
-                    Error = "Internal Server Error",
-                    Message = ex.Message
-                });
+                return StatusCode(
+                    500,
+                    new { Error = "Internal Server Error", Message = ex.Message }
+                );
             }
         }
     }

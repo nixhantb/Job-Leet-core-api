@@ -5,11 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
 {
-
-    public class CompanyProfileConfiguration: IEntityTypeConfiguration<CompanyProfile>{
-
-        public void Configure(EntityTypeBuilder<CompanyProfile> builder){
-
+    public class CompanyProfileConfiguration : IEntityTypeConfiguration<CompanyProfile>
+    {
+        public void Configure(EntityTypeBuilder<CompanyProfile> builder)
+        {
             builder.ToTable("jblt_companyprofile");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id).HasColumnName("companyprofile_id");

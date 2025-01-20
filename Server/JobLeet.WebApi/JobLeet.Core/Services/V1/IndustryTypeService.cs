@@ -11,9 +11,13 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
     {
         private readonly IIndustryTypeRepository _industryTypeRepository;
 
-        public IndustryTypeService(IIndustryTypeRepository industryTypeRepository){
-            _industryTypeRepository = industryTypeRepository ?? throw new ArgumentNullException(nameof(industryTypeRepository));
+        public IndustryTypeService(IIndustryTypeRepository industryTypeRepository)
+        {
+            _industryTypeRepository =
+                industryTypeRepository
+                ?? throw new ArgumentNullException(nameof(industryTypeRepository));
         }
+
         public async Task<IndustryModel> AddAsync(Industry entity)
         {
             var industry = await _industryTypeRepository.AddAsync(entity);
@@ -34,8 +38,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
         public async Task<IndustryModel> GetByIdAsync(int id)
         {
             var industry = await _industryTypeRepository.GetByIdAsync(id);
-            if(industry == null){
-
+            if (industry == null)
+            {
                 throw new Exception($"Job with ID {id} not found.");
             }
             return industry;
@@ -46,6 +50,4 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             await _industryTypeRepository.UpdateAsync(entity);
         }
     }
-
-
 }

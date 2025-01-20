@@ -4,12 +4,13 @@
     {
         public StatusName StatusName { get; set; }
     }
+
     public enum StatusName
     {
         Active,
         Inactive,
         Pending,
         Completed,
-        Cancelled
+        Cancelled,
     }
 }

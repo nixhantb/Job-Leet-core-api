@@ -7,13 +7,14 @@ namespace JobLeet.WebApi.JobLeet.Validator
     {
         public QualificationValidator()
         {
-            RuleFor(x => x.QualificationType)
-                .IsInEnum().WithMessage("Invalid Qualification Type");
+            RuleFor(x => x.QualificationType).IsInEnum().WithMessage("Invalid Qualification Type");
 
             RuleFor(x => x.QualificationInformation)
-                .NotNull().WithMessage("Qualification Information cannot be null") 
-                .NotEmpty().WithMessage("Qualification Information cannot be empty") 
-                .When(x => x.QualificationInformation != null); 
+                .NotNull()
+                .WithMessage("Qualification Information cannot be null")
+                .NotEmpty()
+                .WithMessage("Qualification Information cannot be empty")
+                .When(x => x.QualificationInformation != null);
         }
     }
 }

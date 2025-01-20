@@ -2,15 +2,17 @@ using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 
-
 namespace JobLeet.WebApi.JobLeet.Core.Services
 {
     public class QualificationService : IQualificationService
     {
         private readonly IQualificationTypeRepository _qualificationTypeRepository;
+
         public QualificationService(IQualificationTypeRepository qualificationTypeRepository)
         {
-            _qualificationTypeRepository= qualificationTypeRepository ?? throw new ArgumentNullException(nameof(qualificationTypeRepository));
+            _qualificationTypeRepository =
+                qualificationTypeRepository
+                ?? throw new ArgumentNullException(nameof(qualificationTypeRepository));
         }
 
         public async Task<QualificationModel> AddAsync(Qualification entity)

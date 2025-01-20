@@ -2,7 +2,6 @@ using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 
-
 namespace JobLeet.WebApi.JobLeet.Core.Services
 {
     public class PhoneService : IPhoneService
@@ -11,7 +10,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
         public PhoneService(IPhoneRepository phoneRepository)
         {
-            _phoneRepository = phoneRepository ?? throw new ArgumentNullException(nameof(phoneRepository));
+            _phoneRepository =
+                phoneRepository ?? throw new ArgumentNullException(nameof(phoneRepository));
         }
 
         public async Task<PhoneModel> AddAsync(Phone entity)
@@ -29,7 +29,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
         public async Task<List<PhoneModel>> GetAllAsync()
         {
-            var phone= await _phoneRepository.GetAllAsync();
+            var phone = await _phoneRepository.GetAllAsync();
             return phone;
         }
 

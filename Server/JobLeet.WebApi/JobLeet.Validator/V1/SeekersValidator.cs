@@ -8,72 +8,72 @@ namespace JobLeet.WebApi.JobLeet.Core.Validators.Seekers
     {
         public SeekerValidator()
         {
-          
             RuleFor(seeker => seeker.Phone)
-                .NotNull().WithMessage("Phone information is required.")
+                .NotNull()
+                .WithMessage("Phone information is required.")
                 .When(seeker => seeker.Phone != null)
                 .SetValidator(new PhoneValidator());
 
-          
             RuleFor(seeker => seeker.Address)
-                .NotNull().WithMessage("Address is required.")
+                .NotNull()
+                .WithMessage("Address is required.")
                 .When(seeker => seeker.Address != null)
                 .SetValidator(new AddressValidator());
 
-            
             RuleFor(seeker => seeker.Skills)
-                .NotNull().WithMessage("Skills information is required.")
+                .NotNull()
+                .WithMessage("Skills information is required.")
                 .When(seeker => seeker.Skills != null)
                 .SetValidator(new SkillValidator());
 
-           
             RuleFor(seeker => seeker.Education)
-                .NotNull().WithMessage("Education information is required.")
+                .NotNull()
+                .WithMessage("Education information is required.")
                 .When(seeker => seeker.Education != null)
                 .SetValidator(new EducationValidator());
 
-            
             RuleFor(seeker => seeker.Experience)
-                .NotNull().WithMessage("Experience information is required.")
+                .NotNull()
+                .WithMessage("Experience information is required.")
                 .When(seeker => seeker.Experience != null)
                 .SetValidator(new ExperienceValidator());
 
-           
             RuleFor(seeker => seeker.DateOfBirth)
-                .NotNull().WithMessage("Date of birth is required.")
-                .LessThan(DateTime.UtcNow).WithMessage("Date of birth cannot be in the future.")
-                .GreaterThan(DateTime.UtcNow.AddYears(-100)).WithMessage("Date of birth must be within the last 100 years.");
+                .NotNull()
+                .WithMessage("Date of birth is required.")
+                .LessThan(DateTime.UtcNow)
+                .WithMessage("Date of birth cannot be in the future.")
+                .GreaterThan(DateTime.UtcNow.AddYears(-100))
+                .WithMessage("Date of birth must be within the last 100 years.");
 
-           
             RuleFor(seeker => seeker.Qualifications)
-                .NotNull().WithMessage("Qualifications are required.")
+                .NotNull()
+                .WithMessage("Qualifications are required.")
                 .When(seeker => seeker.Qualifications != null)
                 .SetValidator(new QualificationValidator());
 
-           
             RuleFor(seeker => seeker.ProfileSummary)
-                .MaximumLength(500).WithMessage("Profile summary cannot exceed 500 characters.");
+                .MaximumLength(500)
+                .WithMessage("Profile summary cannot exceed 500 characters.");
 
-           
             RuleFor(seeker => seeker.LinkedInProfile)
                 .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute))
                 .WithMessage("LinkedIn profile must be a valid URL.")
                 .When(seeker => !string.IsNullOrEmpty(seeker.LinkedInProfile));
 
-            
             RuleFor(seeker => seeker.Portfolio)
                 .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute))
                 .WithMessage("Portfolio must be a valid URL.")
                 .When(seeker => !string.IsNullOrEmpty(seeker.Portfolio));
 
-           
             RuleFor(seeker => seeker.Interests)
-                .NotEmpty().WithMessage("Interests cannot be empty.")
+                .NotEmpty()
+                .WithMessage("Interests cannot be empty.")
                 .When(seeker => seeker.Interests != null);
 
-           
             RuleFor(seeker => seeker.Achievements)
-                .NotEmpty().WithMessage("Achievements cannot be empty.")
+                .NotEmpty()
+                .WithMessage("Achievements cannot be empty.")
                 .When(seeker => seeker.Achievements != null);
         }
     }

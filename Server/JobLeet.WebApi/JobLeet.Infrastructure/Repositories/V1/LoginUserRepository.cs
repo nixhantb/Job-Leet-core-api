@@ -2,12 +2,12 @@
 using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+using JobLeet.WebApi.JobLeet.Api.Security.Jwt;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities;
 using Microsoft.EntityFrameworkCore;
-using JobLeet.WebApi.JobLeet.Api.Security.Jwt;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 {
@@ -20,7 +20,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
         public LoginUserRepository(BaseDBContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _configuration =
+                configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
         #endregion
 
@@ -38,9 +39,12 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     throw new Exception("PersonName not found.");
                 }
 
-                string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
-                
-                var loginUserId = registrationUser.Id; 
+                string hashedPassword = GenerateHashedPassword.HashedPassword(
+                    entity.Password,
+                    registrationUser.Salt
+                );
+
+                var loginUserId = registrationUser.Id;
 
                 #endregion
 
@@ -56,7 +60,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     IPAddress = entity.IPAddress,
                     Role = Core.Entities.Accounts.V1.RoleCategory.Users,
                     AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active,
-                    AccountCreated = true
+                    AccountCreated = true,
                 };
 
                 // Handle existing users to override the things that are necessary
@@ -69,7 +73,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     existingLoginUser.LoginTime = entity.LoginTime;
                     existingLoginUser.IPAddress = entity.IPAddress;
                     existingLoginUser.Role = Core.Entities.Accounts.V1.RoleCategory.Users;
-                    existingLoginUser.AccountStatus = Core.Entities.Accounts.V1.AccountCategory.Active;
+                    existingLoginUser.AccountStatus = Core.Entities
+                        .Accounts
+                        .V1
+                        .AccountCategory
+                        .Active;
                     existingLoginUser.AccountCreated = true;
 
                     _dbContext.LoginUsers.Update(existingLoginUser);
@@ -83,7 +91,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
                 #endregion
 
-                
+
                 #region Convert to API Response Model
 
                 var loginUserResponse = new LoginUserModel
@@ -95,14 +103,13 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                         Id = personName.Id,
                         FirstName = personName.FirstName,
                         MiddleName = personName.MiddleName,
-                        LastName = personName.LastName
+                        LastName = personName.LastName,
                     },
                     LoginTime = loginUser.LoginTime,
                     Role = Api.Models.Accounts.V1.RoleCategory.Users,
                     AccountCreated = true,
                     AccountStatus = Api.Models.Accounts.V1.AccountCategory.Active,
-                    Token = token
-                    
+                    Token = token,
                 };
                 return loginUserResponse;
 
@@ -139,8 +146,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
         private async Task<RegisterUser> ValidateUserAsync(LoginUser entity)
         {
             bool validatePassword = PasswordValidation.ValidatePassword(entity.Password);
-            var registrationUser = await _dbContext.RegisterUsers
-                .Include(u => u.PersonName)
+            var registrationUser = await _dbContext
+                .RegisterUsers.Include(u => u.PersonName)
                 .Include(u => u.UserEmail)
                 .FirstOrDefaultAsync(u => u.UserEmail.EmailAddress == entity.EmailAddress);
 
@@ -151,18 +158,27 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
             if (entity.Role == Core.Entities.Accounts.V1.RoleCategory.Admin)
             {
-                throw new ArgumentException(ErrorMessageManager.GetErrorMessage("Invalid_Admin_Access"));
+                throw new ArgumentException(
+                    ErrorMessageManager.GetErrorMessage("Invalid_Admin_Access")
+                );
             }
 
             if (!validatePassword)
             {
-                throw new ArgumentException(ErrorMessageManager.GetErrorMessage("Invalid_Password_Format"));
+                throw new ArgumentException(
+                    ErrorMessageManager.GetErrorMessage("Invalid_Password_Format")
+                );
             }
 
-            string hashedPassword = GenerateHashedPassword.HashedPassword(entity.Password, registrationUser.Salt);
+            string hashedPassword = GenerateHashedPassword.HashedPassword(
+                entity.Password,
+                registrationUser.Salt
+            );
             if (hashedPassword != registrationUser.Password)
             {
-                throw new Exception(ErrorMessageManager.GetErrorMessage("Invalid_Credentials_Error"));
+                throw new Exception(
+                    ErrorMessageManager.GetErrorMessage("Invalid_Credentials_Error")
+                );
             }
 
             return registrationUser;

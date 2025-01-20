@@ -6,14 +6,19 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
     public class Email : BaseEntity
     {
         public EmailCategory EmailType { get; set; }
+
         public Email()
         {
             EmailType = EmailCategory.Personal;
         }
+
         public string? EmailAddress { get; set; }
 
         [JsonIgnore]
-        public override MetaData MetaData { get => base.MetaData; set => base.MetaData = value; }
+        public override MetaData MetaData
+        {
+            get => base.MetaData;
+            set => base.MetaData = value;
+        }
     }
-    
 }

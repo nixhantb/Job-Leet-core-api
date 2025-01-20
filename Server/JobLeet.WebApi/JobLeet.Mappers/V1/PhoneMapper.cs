@@ -16,7 +16,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = entity.Id,
                 CountryCode = entity.CountryCode,
-                PhoneNumber = entity.PhoneNumber
+                PhoneNumber = entity.PhoneNumber,
             };
         }
 
@@ -31,7 +31,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = model.Id,
                 CountryCode = model.CountryCode,
-                PhoneNumber = model.PhoneNumber
+                PhoneNumber = model.PhoneNumber,
             };
         }
     }

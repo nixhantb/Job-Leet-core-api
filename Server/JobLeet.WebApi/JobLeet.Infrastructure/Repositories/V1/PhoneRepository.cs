@@ -1,9 +1,10 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+﻿using System.Data.Common;
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
+
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
     public class PhoneRepository : IPhoneRepository
@@ -11,7 +12,8 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         #region Initialization
         // <returns>The list of initializations</returns>
         private readonly BaseDBContext _dbContext;
-        public PhoneRepository (BaseDBContext dbContext)
+
+        public PhoneRepository(BaseDBContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -25,6 +27,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             throw new NotImplementedException();
         }
+
         #region Retrieve Phones Asynchronously
         /// <returns>The list of phones.</returns>
         /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
@@ -33,18 +36,21 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             try
             {
-                var result = await _dbContext.Phones
-                    .Select(e => new PhoneModel
+                var result = await _dbContext
+                    .Phones.Select(e => new PhoneModel
                     {
                         Id = e.Id,
                         CountryCode = e.CountryCode,
-                        PhoneNumber = e.PhoneNumber
-                    }).ToListAsync();
+                        PhoneNumber = e.PhoneNumber,
+                    })
+                    .ToListAsync();
                 return result;
             }
             catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
             {
-                throw new Exception("Error while fetching data from the database. Please try again later.");
+                throw new Exception(
+                    "Error while fetching data from the database. Please try again later."
+                );
             }
         }
         #endregion
@@ -56,19 +62,24 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             try
             {
-                var phone = await _dbContext.Phones
-                    .Where(e => e.Id == id)
+                var phone = await _dbContext
+                    .Phones.Where(e => e.Id == id)
                     .Select(e => new PhoneModel
                     {
                         Id = e.Id,
                         CountryCode = e.CountryCode,
-                        PhoneNumber = e.PhoneNumber
-                    }).FirstOrDefaultAsync();
-                return phone == null ? throw new KeyNotFoundException($"Phone with id {id} not found") : phone;
+                        PhoneNumber = e.PhoneNumber,
+                    })
+                    .FirstOrDefaultAsync();
+                return phone == null
+                    ? throw new KeyNotFoundException($"Phone with id {id} not found")
+                    : phone;
             }
             catch (Exception ex)
             {
-                throw new Exception($"An Error occured while fetching a phone with id: {id}: {ex.Message}");
+                throw new Exception(
+                    $"An Error occured while fetching a phone with id: {id}: {ex.Message}"
+                );
             }
         }
         #endregion

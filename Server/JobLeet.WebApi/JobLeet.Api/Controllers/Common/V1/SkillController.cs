@@ -10,8 +10,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
     public class SkillController : BaseApiController<Skill, SkillModel, ISkillService>
     {
         public SkillController(ISkillService skillService, IValidator<Skill> validator)
-            : base(skillService, validator)
-        {
-        }
+            : base(skillService, validator) { }
     }
 }

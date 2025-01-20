@@ -1,9 +1,9 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
+﻿using System.Data.Common;
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
@@ -12,6 +12,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         #region Initialization
         // <returns>The list of initializations</returns>
         private readonly BaseDBContext _dbContext;
+
         public PersonNameRepository(BaseDBContext dbContext)
         {
             _dbContext = dbContext;
@@ -26,19 +27,22 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             try
             {
-                var result = await _dbContext.PersonNames
-                     .Select(e => new PersonNameModel
-                     {
-                       Id = e.Id,
-                       FirstName = e.FirstName,
-                       MiddleName = e.MiddleName,
-                       LastName = e.LastName
-                     }).ToListAsync();
+                var result = await _dbContext
+                    .PersonNames.Select(e => new PersonNameModel
+                    {
+                        Id = e.Id,
+                        FirstName = e.FirstName,
+                        MiddleName = e.MiddleName,
+                        LastName = e.LastName,
+                    })
+                    .ToListAsync();
                 return result;
             }
             catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
             {
-                throw new Exception("Error while fetching data from the database. Please try again later.");
+                throw new Exception(
+                    "Error while fetching data from the database. Please try again later."
+                );
             }
         }
         #endregion
@@ -51,19 +55,25 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             try
             {
-                var person = await _dbContext.PersonNames
-                     .Where(e => e.Id == id).Select(e => new PersonNameModel
-                     {
-                         Id = e.Id,
-                         FirstName = e.FirstName,
-                         MiddleName = e.MiddleName,
-                         LastName = e.LastName
-                     }).FirstOrDefaultAsync();
-                return person == null ? throw new KeyNotFoundException($"PersonName with id {id} not found") : person;
+                var person = await _dbContext
+                    .PersonNames.Where(e => e.Id == id)
+                    .Select(e => new PersonNameModel
+                    {
+                        Id = e.Id,
+                        FirstName = e.FirstName,
+                        MiddleName = e.MiddleName,
+                        LastName = e.LastName,
+                    })
+                    .FirstOrDefaultAsync();
+                return person == null
+                    ? throw new KeyNotFoundException($"PersonName with id {id} not found")
+                    : person;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception($"An Error occured while fetching a person with id: {id}: {ex.Message}");
+                throw new Exception(
+                    $"An Error occured while fetching a person with id: {id}: {ex.Message}"
+                );
             }
         }
         #endregion

@@ -10,7 +10,9 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
         public ApplicationService(IApplicationRepository applicationRepository)
         {
-            _applicationRepository = applicationRepository ?? throw new ArgumentNullException(nameof(applicationRepository));
+            _applicationRepository =
+                applicationRepository
+                ?? throw new ArgumentNullException(nameof(applicationRepository));
         }
 
         public async Task<ApplicationModel> AddAsync(Application entity)
@@ -52,7 +54,10 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return application;
         }
 
-        public async Task<Application> UpdateApplicationStatusAsync(int applicationId, Status status)
+        public async Task<Application> UpdateApplicationStatusAsync(
+            int applicationId,
+            Status status
+        )
         {
             if (status == null)
                 throw new ArgumentNullException(nameof(status));

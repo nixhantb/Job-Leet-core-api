@@ -4,6 +4,7 @@
     {
         public StatusName StatusName { get; set; }
     }
+
     public enum StatusName
     {
         Active,
@@ -13,7 +14,6 @@
         Cancelled,
         Accepted,
         Rejected,
-        Interview
-        
+        Interview,
     }
 }

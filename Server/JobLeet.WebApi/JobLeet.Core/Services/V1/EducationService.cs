@@ -1,5 +1,4 @@
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
-
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 
@@ -8,10 +7,13 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
     public class EducationService : IEducationService
     {
         private readonly IEducationRepository _educationRepository;
-        public EducationService(IEducationRepository educationRepository){
-            _educationRepository = educationRepository ?? throw new ArgumentNullException(nameof(educationRepository));
+
+        public EducationService(IEducationRepository educationRepository)
+        {
+            _educationRepository =
+                educationRepository ?? throw new ArgumentNullException(nameof(educationRepository));
         }
-        
+
         public async Task<EducationModel> AddAsync(Education entity)
         {
             var education = await _educationRepository.AddAsync(entity);
@@ -31,7 +33,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
         public async Task<EducationModel> GetByIdAsync(int id)
         {
-           var education = await _educationRepository.GetByIdAsync(id);
+            var education = await _educationRepository.GetByIdAsync(id);
             if (education == null)
             {
                 throw new Exception($"Job with ID {id} not found.");

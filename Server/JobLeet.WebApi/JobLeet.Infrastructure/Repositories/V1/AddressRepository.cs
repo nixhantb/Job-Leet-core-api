@@ -1,11 +1,11 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Caching;
+﻿using System.Data.Common;
+using JobLeet.WebApi.JobLeet.Api.Caching;
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System.Data.Common;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
@@ -39,32 +39,38 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         public async Task<List<AddressModel>> GetAllAsync()
         {
             var cacheKey = CacheHelper.CacheKey("RandomKey");
-            MemoryCacheEntryOptions cacheOptions = CacheHelper.GetCacheOptions(TimeSpan.FromMinutes(1));
-            return await _cacheHelper.GetCachedResponse(cacheKey, async () =>
-            {
-                try
+            MemoryCacheEntryOptions cacheOptions = CacheHelper.GetCacheOptions(
+                TimeSpan.FromMinutes(1)
+            );
+            return await _cacheHelper.GetCachedResponse(
+                cacheKey,
+                async () =>
                 {
-                    var results = await _dbContext.Addresses
-                    .Select(e => new AddressModel
+                    try
                     {
-                        Id = e.Id,
-                        Street = e.Street,
-                        City = e.City,
-                        State = e.State,
-                        PostalCode = e.PostalCode,
-                        Country = e.Country
-                        
-                    }).ToListAsync();
+                        var results = await _dbContext
+                            .Addresses.Select(e => new AddressModel
+                            {
+                                Id = e.Id,
+                                Street = e.Street,
+                                City = e.City,
+                                State = e.State,
+                                PostalCode = e.PostalCode,
+                                Country = e.Country,
+                            })
+                            .ToListAsync();
 
-                    return results;
-
-                }
-                catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
-                {
-                    throw new Exception("Error while fetching data from the database. Please try again later.");
-                }
-
-            }, cacheOptions);
+                        return results;
+                    }
+                    catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
+                    {
+                        throw new Exception(
+                            "Error while fetching data from the database. Please try again later."
+                        );
+                    }
+                },
+                cacheOptions
+            );
         }
         #endregion
         public Task<AddressModel> GetByIdAsync(int id)

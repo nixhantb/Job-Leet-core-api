@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
 {
     public class EducationConfiguration : IEntityTypeConfiguration<Education>

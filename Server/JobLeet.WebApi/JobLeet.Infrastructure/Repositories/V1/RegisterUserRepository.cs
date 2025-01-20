@@ -1,4 +1,5 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
+﻿using JobLeet.WebApi.JobLeet.Api.Exceptions;
+using JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
@@ -6,9 +7,7 @@ using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities;
 using JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1;
-using JobLeet.WebApi.JobLeet.Api.Exceptions;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 {
@@ -21,7 +20,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
         public RegisterUserRepository(BaseDBContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-
         }
         #endregion
         public async Task<RegisterUserModel> AddAsync(RegisterUser entity)
@@ -49,11 +47,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     {
                         Id = entity.UserEmail.Id,
                         EmailAddress = entity.UserEmail.EmailAddress,
-                        EmailType = Core.Entities.Common.V1.EmailCategory.Personal
+                        EmailType = Core.Entities.Common.V1.EmailCategory.Personal,
                     },
                     Password = hashedPasscode,
                     ConfirmPassword = hashedPasscode,
-                    Salt = saltString
+                    Salt = saltString,
                 };
 
                 _dbContext.RegisterUsers.Add(newUser);
@@ -62,7 +60,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                 #endregion
 
                 #region ToAPIResponse
-                // Not exposing Salt for security concerns. 
+                // Not exposing Salt for security concerns.
                 var responseEntity = new RegisterUserModel
                 {
                     PersonName = new PersonNameModel
@@ -76,19 +74,21 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
                     {
                         Id = newUser.UserEmail.Id,
                         EmailAddress = newUser.UserEmail.EmailAddress,
-                        EmailType = Api.Models.Common.V1.EmailCategory.Personal
+                        EmailType = Api.Models.Common.V1.EmailCategory.Personal,
                     },
                     // Password = hashedPasscode,
                     // ConfirmPassword = hashedPasscode,
-                    Id = newUser.Id
+                    Id = newUser.Id,
                 };
 
                 return responseEntity;
             }
-            #endregion
+                #endregion
             catch (DbUpdateException ex)
             {
-                throw new DbUpdateException($"{ErrorMessageManager.GetErrorMessage("User_Registration_Error")}{ex.Message}");
+                throw new DbUpdateException(
+                    $"{ErrorMessageManager.GetErrorMessage("User_Registration_Error")}{ex.Message}"
+                );
             }
             catch (Exception ex)
             {
@@ -116,26 +116,33 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             throw new NotImplementedException();
         }
 
-
         #region  Utility Methods
 
         private async Task ValidateUserAsync(RegisterUser entity)
         {
-            bool emailExists = await _dbContext.RegisterUsers.AnyAsync(u => u.UserEmail.EmailAddress == entity.UserEmail.EmailAddress);
+            bool emailExists = await _dbContext.RegisterUsers.AnyAsync(u =>
+                u.UserEmail.EmailAddress == entity.UserEmail.EmailAddress
+            );
             bool emailValidator = EmailAddressValidator.IsValidEmail(entity.UserEmail.EmailAddress);
             bool passwordValidator = PasswordValidation.ValidatePassword(entity.Password);
 
             var checkFirstName = PersonNameValidator.IsValidUsername(entity.PersonName.FirstName);
-            var checkMiddleName = PersonNameValidator.IsValidMiddleName(entity.PersonName.MiddleName);
+            var checkMiddleName = PersonNameValidator.IsValidMiddleName(
+                entity.PersonName.MiddleName
+            );
             var checkLastName = PersonNameValidator.IsValidUsername(entity.PersonName.LastName);
 
             if (!checkFirstName || !checkLastName || !checkMiddleName)
             {
-                throw new Exception(ErrorMessageManager.GetErrorMessage("PersonName_Exception_Message"));
+                throw new Exception(
+                    ErrorMessageManager.GetErrorMessage("PersonName_Exception_Message")
+                );
             }
             if (emailExists)
             {
-                throw new Exception(ErrorMessageManager.GetErrorMessage("Email_Duplication_Exception"));
+                throw new Exception(
+                    ErrorMessageManager.GetErrorMessage("Email_Duplication_Exception")
+                );
             }
 
             if (!emailValidator)
@@ -145,7 +152,9 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
 
             if (!passwordValidator)
             {
-                throw new ArgumentException(ErrorMessageManager.GetErrorMessage("Invalid_Password_Format"));
+                throw new ArgumentException(
+                    ErrorMessageManager.GetErrorMessage("Invalid_Password_Format")
+                );
             }
         }
 
@@ -157,6 +166,5 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1
             return (hashedPassword, saltString);
         }
         #endregion
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NLog;
+
 namespace JobLeet.WebApi.JobLeet.Api.Logging
 {
     public class LoggerManagerV1 : ILoggerManagerV1

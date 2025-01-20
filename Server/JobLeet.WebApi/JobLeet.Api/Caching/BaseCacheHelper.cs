@@ -2,7 +2,7 @@
 
 namespace JobLeet.WebApi.JobLeet.Api.Caching
 {
-    public  class BaseCacheHelper<T>
+    public class BaseCacheHelper<T>
     {
         protected readonly SemaphoreSlim Semaphore = new SemaphoreSlim(1, 1);
         protected readonly IMemoryCache Cache;
@@ -12,24 +12,28 @@ namespace JobLeet.WebApi.JobLeet.Api.Caching
             Cache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
         }
 
-        public async Task<T> GetCachedResponse(string cacheKey, Func<Task<T>> dataRetrivalFunction, MemoryCacheEntryOptions cacheOptions)
+        public async Task<T> GetCachedResponse(
+            string cacheKey,
+            Func<Task<T>> dataRetrivalFunction,
+            MemoryCacheEntryOptions cacheOptions
+        )
         {
-            if(string.IsNullOrWhiteSpace(cacheKey))
+            if (string.IsNullOrWhiteSpace(cacheKey))
             {
                 throw new ArgumentException("Cache key cannot be null or empty");
             }
 
-            if(dataRetrivalFunction == null)
-            {
-                throw new ArgumentNullException(nameof(cacheOptions));
-            }
-            
-            if(cacheOptions == null)
+            if (dataRetrivalFunction == null)
             {
                 throw new ArgumentNullException(nameof(cacheOptions));
             }
 
-            if(Cache.TryGetValue(cacheKey, out T cachedData))
+            if (cacheOptions == null)
+            {
+                throw new ArgumentNullException(nameof(cacheOptions));
+            }
+
+            if (Cache.TryGetValue(cacheKey, out T cachedData))
             {
                 return cachedData;
             }
@@ -37,27 +41,22 @@ namespace JobLeet.WebApi.JobLeet.Api.Caching
             await Semaphore.WaitAsync();
             try
             {
-                if(Cache.TryGetValue(cacheKey, out cachedData))
+                if (Cache.TryGetValue(cacheKey, out cachedData))
                 {
                     return cachedData;
                 }
                 cachedData = await dataRetrivalFunction();
-                if(cachedData != null)
+                if (cachedData != null)
                 {
                     Cache.Set(cacheKey, cachedData, cacheOptions);
                 }
-               
-
             }
             finally
             {
                 Semaphore.Release();
             }
 
-            return cachedData; 
+            return cachedData;
         }
-
     }
 }
-
-

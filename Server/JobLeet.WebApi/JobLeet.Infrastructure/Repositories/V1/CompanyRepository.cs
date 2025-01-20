@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
 {
-
     public class CompanyRepository : ICompanyRepository
     {
         #region Initialization
@@ -17,14 +16,13 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
 
         public CompanyRepository(BaseDBContext dbContext)
         {
-
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
+
         public async Task<CompanyModel> AddAsync(Company entity)
         {
             try
             {
-
                 if (entity == null)
                 {
                     throw new ArgumentNullException(nameof(entity));
@@ -52,19 +50,18 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
         {
             try
             {
-                var companies = await _dbContext.Companies
-                 .Include(c => c.Profile)
-                     .ThenInclude(p => p.ContactEmail)
-                 .Include(c => c.Profile)
-                     .ThenInclude(p => p.CompanyAddress)
-                 .Include(c => c.Profile)
-                     .ThenInclude(p => p.ContactPhone)
-                 .Include(c => c.Profile)
-                     .ThenInclude(p => p.IndustryTypes)
-                 .ToListAsync();
+                var companies = await _dbContext
+                    .Companies.Include(c => c.Profile)
+                    .ThenInclude(p => p.ContactEmail)
+                    .Include(c => c.Profile)
+                    .ThenInclude(p => p.CompanyAddress)
+                    .Include(c => c.Profile)
+                    .ThenInclude(p => p.ContactPhone)
+                    .Include(c => c.Profile)
+                    .ThenInclude(p => p.IndustryTypes)
+                    .ToListAsync();
 
                 return companies.Select(CompanyMapper.ToCompanyModel).ToList();
-
             }
             catch (Exception ex)
             {
@@ -76,17 +73,17 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
         {
             try
             {
-                var company = await _dbContext.Companies
-                 .Where(c => c.Id == id)
-                 .Include(c => c.Profile)
-                     .ThenInclude(p => p.ContactEmail)
-                 .Include(c => c.Profile)
-                     .ThenInclude(p => p.CompanyAddress)
-                 .Include(c => c.Profile)
-                     .ThenInclude(p => p.ContactPhone)
-                .Include(c => c.Profile)
-                     .ThenInclude(p => p.IndustryTypes)
-                 .FirstOrDefaultAsync();
+                var company = await _dbContext
+                    .Companies.Where(c => c.Id == id)
+                    .Include(c => c.Profile)
+                    .ThenInclude(p => p.ContactEmail)
+                    .Include(c => c.Profile)
+                    .ThenInclude(p => p.CompanyAddress)
+                    .Include(c => c.Profile)
+                    .ThenInclude(p => p.ContactPhone)
+                    .Include(c => c.Profile)
+                    .ThenInclude(p => p.IndustryTypes)
+                    .FirstOrDefaultAsync();
 
                 if (company == null)
                 {
@@ -99,7 +96,6 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             {
                 throw new Exception("Error retrieving company by id", ex);
             }
-
         }
 
         public Task UpdateAsync(Company entity)

@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
 {
     [Route("api/v1/person-names")]
-    public class PersonNameController : BaseApiController<PersonName, PersonNameModel, IPersonNameService>
+    public class PersonNameController
+        : BaseApiController<PersonName, PersonNameModel, IPersonNameService>
     {
-        public PersonNameController(IPersonNameService personNameService, IValidator<PersonName> validator)
-            : base(personNameService, validator)
-        {
-        }
+        public PersonNameController(
+            IPersonNameService personNameService,
+            IValidator<PersonName> validator
+        )
+            : base(personNameService, validator) { }
     }
 }

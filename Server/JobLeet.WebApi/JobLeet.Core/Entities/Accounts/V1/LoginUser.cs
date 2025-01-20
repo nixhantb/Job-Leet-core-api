@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using Newtonsoft.Json;
+
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
 {
     public class LoginUser : BaseEntity
@@ -19,13 +20,17 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
     {
         [Display(Name = "Active")]
         Active = 1,
+
         [Display(Name = "Inactive")]
         Inactive = 2,
+
         [Display(Name = "Suspended")]
         Suspended = 3,
+
         [Display(Name = "Locked")]
         Locked = 4,
+
         [Display(Name = "Pending")]
-        Pending = 5
+        Pending = 5,
     }
 }

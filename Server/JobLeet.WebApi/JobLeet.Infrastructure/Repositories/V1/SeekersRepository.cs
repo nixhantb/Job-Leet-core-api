@@ -19,11 +19,11 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
+
         public async Task<SeekerModel> AddAsync(Seeker entity)
         {
             try
             {
-
                 var seekersEntity = SeekersMapper.ToSeekerDataBase(entity);
                 await _dbContext.AddAsync(seekersEntity);
                 await _dbContext.SaveChangesAsync();
@@ -35,46 +35,46 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
             {
                 throw new Exception($"Error occurred while logging in: {ex.Message}");
             }
-
         }
+
         public async Task<SeekerModel> GetByIdAsync(int id)
         {
             try
             {
-
-                var seeker = await _dbContext.Seekers
-                .Where(c => c.Id == id)
-                .Include(c => c.Phone)
-                .Include(c => c.Address)
-                .Include(c => c.Skills)
-                .Include(c => c.Education)
-                .Include(c => c.Qualifications)
-                .Include(c => c.Experience)
-               
+                var seeker = await _dbContext
+                    .Seekers.Where(c => c.Id == id)
+                    .Include(c => c.Phone)
+                    .Include(c => c.Address)
+                    .Include(c => c.Skills)
+                    .Include(c => c.Education)
+                    .Include(c => c.Qualifications)
+                    .Include(c => c.Experience)
                     .ThenInclude(e => e.Company)
-                        .ThenInclude(c => c.Profile)
-                            .ThenInclude(p => p.ContactEmail)
-                .Include(e => e.Experience)
+                    .ThenInclude(c => c.Profile)
+                    .ThenInclude(p => p.ContactEmail)
+                    .Include(e => e.Experience)
                     .ThenInclude(c => c.Company)
-                        .ThenInclude(p => p.Profile)
-                            .ThenInclude(a => a.CompanyAddress)
-                .Include(e => e.Experience)
+                    .ThenInclude(p => p.Profile)
+                    .ThenInclude(a => a.CompanyAddress)
+                    .Include(e => e.Experience)
                     .ThenInclude(c => c.Company)
-                        .ThenInclude(p => p.Profile)
-                            .ThenInclude(p => p.ContactPhone)
-                .Include(e => e.Experience)
+                    .ThenInclude(p => p.Profile)
+                    .ThenInclude(p => p.ContactPhone)
+                    .Include(e => e.Experience)
                     .ThenInclude(c => c.Company)
-                        .ThenInclude(p => p.Profile)
-                            .ThenInclude(it => it.IndustryTypes)
-                .FirstOrDefaultAsync();
-
+                    .ThenInclude(p => p.Profile)
+                    .ThenInclude(it => it.IndustryTypes)
+                    .FirstOrDefaultAsync();
 
                 var seekerModel = SeekersMapper.ToSeekerModel(seeker);
                 return seekerModel;
             }
             catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
             {
-                throw new Exception("The Seekers with the requested ID doesn't exist or a database exception occurred.", ex);
+                throw new Exception(
+                    "The Seekers with the requested ID doesn't exist or a database exception occurred.",
+                    ex
+                );
             }
         }
 
@@ -87,8 +87,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
         {
             throw new NotImplementedException();
         }
-
-
 
         public async Task UpdateAsync(Seeker entity)
         {

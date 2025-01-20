@@ -16,7 +16,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
             builder.Property(e => e.State).HasColumnName("address_state");
             builder.Property(e => e.PostalCode).HasColumnName("address_postalCode");
             builder.Property(e => e.Country).HasColumnName("address_country");
-
         }
     }
 }

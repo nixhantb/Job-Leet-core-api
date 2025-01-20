@@ -9,9 +9,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Common.V1
     [Route("api/v1/phones")]
     public class PhoneController : BaseApiController<Phone, PhoneModel, IPhoneService>
     {
-        public PhoneController(IPhoneService phoneService,IValidator<Phone> validator)
-            : base(phoneService, validator)
-        {
-        }
+        public PhoneController(IPhoneService phoneService, IValidator<Phone> validator)
+            : base(phoneService, validator) { }
     }
 }

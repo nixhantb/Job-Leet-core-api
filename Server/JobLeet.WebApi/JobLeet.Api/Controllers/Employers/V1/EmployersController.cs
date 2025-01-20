@@ -1,10 +1,9 @@
+using FluentValidation;
+using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
+using JobLeet.WebApi.JobLeet.Core.Interfaces.Employers.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-using JobLeet.WebApi.JobLeet.Core.Interfaces.Employers.V1;
-using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
-using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
-using FluentValidation;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 {
@@ -13,10 +12,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
     public class EmployerController : BaseApiController<Employer, EmployerModel, IEmployerService>
     {
         public EmployerController(IEmployerService employerService, IValidator<Employer> validator)
-            : base(employerService, validator)
-        {
-            
-        }
+            : base(employerService, validator) { }
         // [HttpPost]
         // public override async Task<IActionResult> CreateAsync([FromBody] Employer entity)
         // {
@@ -28,7 +24,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
         //         }
 
         //         var result = await Repository.AddAsync(entity);
-        
+
 
         //         return Ok(result);
         //     }
@@ -43,6 +39,5 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
         //         return StatusCode(400, errorResponse);
         //     }
         // }
-
     }
 }

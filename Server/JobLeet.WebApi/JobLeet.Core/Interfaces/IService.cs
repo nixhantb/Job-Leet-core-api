@@ -5,8 +5,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Interfaces
     /// </summary>
     /// <typeparam name="TEntity">The entity class representation.</typeparam>
     /// <typeparam name="TModel">The model class representation.</typeparam>
-    public interface IService<TEntity, TModel> 
-        where TEntity : class 
+    public interface IService<TEntity, TModel>
+        where TEntity : class
         where TModel : class
     {
         Task<TModel> GetByIdAsync(int id);

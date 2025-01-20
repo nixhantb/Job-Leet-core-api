@@ -1,11 +1,11 @@
-﻿using JobLeet.WebApi.JobLeet.Api.Caching;
+﻿using System.Data.Common;
+using JobLeet.WebApi.JobLeet.Api.Caching;
 using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System.Data.Common;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 {
@@ -15,6 +15,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         // <returns>The list of initializations</returns>
         private readonly BaseDBContext _dbContext;
         private readonly BaseCacheHelper<List<ExperienceModel>> _cacheHelper;
+
         public ExperienceRepository(BaseDBContext dbContext, IMemoryCache memoryCache)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
@@ -28,7 +29,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
 
         public Task DeleteAsync(int id)
         {
-
             throw new NotImplementedException();
         }
 
@@ -39,26 +39,35 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         public async Task<List<ExperienceModel>> GetAllAsync()
         {
             var cacheKey = CacheHelper.CacheKey("RandomKey");
-            MemoryCacheEntryOptions cacheOptions = CacheHelper.GetCacheOptions(TimeSpan.FromMinutes(1));
-            return await _cacheHelper.GetCachedResponse(cacheKey, async () =>
-            {
-                try
+            MemoryCacheEntryOptions cacheOptions = CacheHelper.GetCacheOptions(
+                TimeSpan.FromMinutes(1)
+            );
+            return await _cacheHelper.GetCachedResponse(
+                cacheKey,
+                async () =>
                 {
-                    var results = await _dbContext.Experiences
-                        .Select(e => new ExperienceModel
-                        {
-                            Id = e.Id,
-                            ExperienceLevel = (Api.Models.Common.V1.ExperienceLevel)e.ExperienceLevel
-                        }).ToListAsync();
+                    try
+                    {
+                        var results = await _dbContext
+                            .Experiences.Select(e => new ExperienceModel
+                            {
+                                Id = e.Id,
+                                ExperienceLevel = (Api.Models.Common.V1.ExperienceLevel)
+                                    e.ExperienceLevel,
+                            })
+                            .ToListAsync();
 
-                    return results;
-                }
-                catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
-                {
-                    throw new Exception("Error while fetching data from the database. Please try again later.");
-                }
-            }, cacheOptions);
-
+                        return results;
+                    }
+                    catch (Exception ex) when (ex is DbUpdateException || ex is DbException)
+                    {
+                        throw new Exception(
+                            "Error while fetching data from the database. Please try again later."
+                        );
+                    }
+                },
+                cacheOptions
+            );
         }
         #endregion
 

@@ -8,20 +8,24 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public abstract class BaseAccountsController<TEntity, TModel, TRepository> : ControllerBase 
-        where TEntity : class 
-        where TModel : class 
+    public abstract class BaseAccountsController<TEntity, TModel, TRepository> : ControllerBase
+        where TEntity : class
+        where TModel : class
         where TRepository : IRepository<TEntity, TModel>
     {
         protected readonly TRepository Repository;
         protected readonly ILoggerManagerV1 _logger;
         protected readonly IValidator<TEntity> _validator;
-        protected BaseAccountsController(TRepository repository, ILoggerManagerV1 logger, IValidator<TEntity> validator)
+
+        protected BaseAccountsController(
+            TRepository repository,
+            ILoggerManagerV1 logger,
+            IValidator<TEntity> validator
+        )
         {
             Repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _logger =  logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
-    
         }
 
         #region Retrieve record GET request
@@ -43,7 +47,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                 var errorResponse = new GlobalErrorResponse
                 {
                     Error = "Internal Server Error",
-                    Message = ex.Message
+                    Message = ex.Message,
                 };
                 return StatusCode(500, errorResponse);
             }
@@ -72,7 +76,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                 var errorResponse = new GlobalErrorResponse
                 {
                     Error = "System Exception",
-                    Message = ex.Message
+                    Message = ex.Message,
                 };
                 return StatusCode(400, errorResponse);
             }
@@ -94,17 +98,23 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                 {
                     return BadRequest();
                 }
-                 var validationResult = _validator.Validate(entity);
+                var validationResult = _validator.Validate(entity);
                 if (!validationResult.IsValid)
                 {
-                    return BadRequest(new
-                    {
-                        Message = "Validation failed.",
-                        Errors = validationResult.Errors.Select(e => new { e.PropertyName, e.ErrorMessage })
-                    });
+                    return BadRequest(
+                        new
+                        {
+                            Message = "Validation failed.",
+                            Errors = validationResult.Errors.Select(e => new
+                            {
+                                e.PropertyName,
+                                e.ErrorMessage,
+                            }),
+                        }
+                    );
                 }
                 var result = await Repository.AddAsync(entity);
-                
+
                 return Ok(result);
             }
             catch (Exception ex)
@@ -113,7 +123,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
                 var errorResponse = new GlobalErrorResponse
                 {
                     Error = "System Exception",
-                    Message = ex.Message
+                    Message = ex.Message,
                 };
                 return StatusCode(400, errorResponse);
             }

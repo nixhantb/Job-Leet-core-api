@@ -8,13 +8,15 @@ namespace JobLeet.WebApi.JobLeet.Validator
         public CompanyValidator()
         {
             RuleFor(x => x.CompanyName)
-                .NotEmpty().WithMessage("Company Name is required.")
-                .MaximumLength(100).WithMessage("Company Name must not exceed 100 characters.");
+                .NotEmpty()
+                .WithMessage("Company Name is required.")
+                .MaximumLength(100)
+                .WithMessage("Company Name must not exceed 100 characters.");
 
-            
             RuleFor(x => x.Profile)
-                .NotNull().WithMessage("Company Profile is required.")
-                .SetValidator(new CompanyProfileValidator()); 
+                .NotNull()
+                .WithMessage("Company Profile is required.")
+                .SetValidator(new CompanyProfileValidator());
         }
     }
 }

@@ -4,7 +4,6 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
 {
     public class Education : BaseEntity
     {
-
         public string Degree { get; set; }
 
         public string Major { get; set; }

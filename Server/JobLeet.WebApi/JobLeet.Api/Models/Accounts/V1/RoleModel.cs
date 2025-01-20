@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+
 namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
 {
     public class RoleModel : BaseModel
@@ -12,9 +13,8 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Accounts.V1
     {
         [Display(Name = "Admin")]
         Admin = 1,
+
         [Display(Name = "Users")]
-        Users = 2
+        Users = 2,
     }
-
 }
-

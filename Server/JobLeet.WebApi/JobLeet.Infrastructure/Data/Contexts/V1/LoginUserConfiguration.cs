@@ -22,4 +22,3 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
         }
     }
 }
-

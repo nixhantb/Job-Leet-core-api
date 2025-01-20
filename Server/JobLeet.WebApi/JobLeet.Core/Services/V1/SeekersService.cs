@@ -7,9 +7,13 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
     public class SeekersService : ISeekerService
     {
         private readonly ISeekerRepository _seekerRepository;
-        public SeekersService(ISeekerRepository seekerRepository){
-            _seekerRepository = seekerRepository ?? throw new ArgumentNullException(nameof(seekerRepository));
+
+        public SeekersService(ISeekerRepository seekerRepository)
+        {
+            _seekerRepository =
+                seekerRepository ?? throw new ArgumentNullException(nameof(seekerRepository));
         }
+
         public Task<SeekerModel> AddAsync(Seeker entity)
         {
             var seeker = _seekerRepository.AddAsync(entity);
@@ -30,7 +34,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
         public Task<SeekerModel> GetByIdAsync(int id)
         {
             var seeker = _seekerRepository.GetByIdAsync(id);
-            if(seeker == null){
+            if (seeker == null)
+            {
                 throw new Exception($"seeker with ID {id} not found.");
             }
             return seeker;

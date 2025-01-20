@@ -11,8 +11,6 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
     public class JobController : BaseApiController<JobEntity, JobModel, IJobService>
     {
         public JobController(IJobService jobService, IValidator<JobEntity> validator)
-            : base(jobService, validator)
-        { 
-        }
+            : base(jobService, validator) { }
     }
 }

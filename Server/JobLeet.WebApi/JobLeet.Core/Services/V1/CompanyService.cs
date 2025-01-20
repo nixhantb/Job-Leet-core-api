@@ -2,7 +2,6 @@ using JobLeet.WebApi.JobLeet.Api.Models.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Companies.V1;
 
-
 namespace JobLeet.WebApi.JobLeet.Core.Services
 {
     public class CompanyService : ICompanyService
@@ -11,7 +10,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
         public CompanyService(ICompanyRepository companyRepository)
         {
-            _companyRepository = companyRepository ?? throw new ArgumentNullException(nameof(companyRepository));
+            _companyRepository =
+                companyRepository ?? throw new ArgumentNullException(nameof(companyRepository));
         }
 
         public async Task<CompanyModel> AddAsync(Company entity)
@@ -21,7 +21,6 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
             return await _companyRepository.AddAsync(entity);
         }
-
 
         public async Task DeleteAsync(int id)
         {
@@ -45,8 +44,6 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
             return company;
         }
-
-
 
         public async Task UpdateAsync(Company entity)
         {

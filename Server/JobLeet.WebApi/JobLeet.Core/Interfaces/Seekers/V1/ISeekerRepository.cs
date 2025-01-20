@@ -3,8 +3,5 @@ using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
 
 namespace JobLeet.WebApi.JobLeet.Core.Interfaces.Seekers.V1
 {
-    public interface ISeekerRepository : IRepository<Seeker, SeekerModel>
-    {
-
-    }
+    public interface ISeekerRepository : IRepository<Seeker, SeekerModel> { }
 }

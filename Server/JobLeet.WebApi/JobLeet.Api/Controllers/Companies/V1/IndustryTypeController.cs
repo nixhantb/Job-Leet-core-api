@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Companies.V1
 {
     [Route("api/v1/industry-types")]
-    public class IndustryTypeController : BaseApiController<Industry, IndustryModel, IIndustryTypeService>
+    public class IndustryTypeController
+        : BaseApiController<Industry, IndustryModel, IIndustryTypeService>
     {
-        public IndustryTypeController(IIndustryTypeService industryTypeService, IValidator<Industry> validator)
-            : base(industryTypeService, validator)
-        {
-        }
+        public IndustryTypeController(
+            IIndustryTypeService industryTypeService,
+            IValidator<Industry> validator
+        )
+            : base(industryTypeService, validator) { }
     }
 }

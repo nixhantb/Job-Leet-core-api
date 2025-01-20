@@ -6,8 +6,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
     {
         [NotMapped]
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+
         [NotMapped]
         public DateTime? ModifiedOn { get; set; } = DateTime.UtcNow;
-       
     }
 }

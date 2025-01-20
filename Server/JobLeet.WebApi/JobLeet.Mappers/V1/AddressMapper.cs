@@ -19,7 +19,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 State = entity.State,
                 City = entity.City,
                 PostalCode = entity.PostalCode,
-                Country = entity.Country
+                Country = entity.Country,
             };
         }
 
@@ -37,7 +37,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 State = model.State,
                 City = model.City,
                 PostalCode = model.PostalCode,
-                Country = model.Country
+                Country = model.Country,
             };
         }
     }

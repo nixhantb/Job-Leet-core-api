@@ -11,6 +11,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         #region Initialization
         // <returns>The list of initializations</returns>
         private readonly BaseDBContext _dbContext;
+
         public SkillRepository(BaseDBContext dbContext)
         {
             _dbContext = dbContext;
@@ -25,18 +26,21 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         {
             try
             {
-                var result = await _dbContext.Skills.
-                    Select(e => new SkillModel
+                var result = await _dbContext
+                    .Skills.Select(e => new SkillModel
                     {
                         Id = e.Id,
                         Title = e.Title,
-                        Description = e.Description
-                    }).ToListAsync();
+                        Description = e.Description,
+                    })
+                    .ToListAsync();
                 return result;
             }
             catch (DbUpdateException ex)
             {
-                throw new Exception("Error while updating the database. Please try again later."+ex.Message);
+                throw new Exception(
+                    "Error while updating the database. Please try again later." + ex.Message
+                );
             }
         }
         #endregion

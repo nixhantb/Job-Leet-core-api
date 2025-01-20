@@ -5,8 +5,8 @@
     /// </summary>
     /// <typeparam name="TEntity">The entity class representation.</typeparam>
     /// <typeparam name="TModel">The model class representation.</typeparam>
-    public interface IRepository<TEntity, TModel> 
-        where TEntity : class 
+    public interface IRepository<TEntity, TModel>
+        where TEntity : class
         where TModel : class
     {
         Task<TModel> GetByIdAsync(int id);

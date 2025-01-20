@@ -3,7 +3,5 @@ using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 
 namespace JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1
 {
-    public interface IAddressService : IService<Address,AddressModel>
-    {
-    }
+    public interface IAddressService : IService<Address, AddressModel> { }
 }

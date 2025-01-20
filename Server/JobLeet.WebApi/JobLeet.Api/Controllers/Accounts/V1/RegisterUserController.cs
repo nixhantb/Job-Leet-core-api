@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Accounts.V1
 {
     [Route("api/v1/registrations")]
-    public class RegisterUserController : BaseAccountsController<RegisterUser,RegisterUserModel, IRegisterUserRepository>
+    public class RegisterUserController
+        : BaseAccountsController<RegisterUser, RegisterUserModel, IRegisterUserRepository>
     {
-        public RegisterUserController(IRegisterUserRepository registerUserRepository, ILoggerManagerV1 logger, IValidator<RegisterUser> validator)
-            : base(registerUserRepository, logger, validator)
-        {
-            
-        }
+        public RegisterUserController(
+            IRegisterUserRepository registerUserRepository,
+            ILoggerManagerV1 logger,
+            IValidator<RegisterUser> validator
+        )
+            : base(registerUserRepository, logger, validator) { }
     }
 }

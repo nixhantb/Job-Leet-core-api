@@ -8,9 +8,13 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
     {
         private readonly IExperienceRepository _experienceRepository;
 
-        public ExperienceService(IExperienceRepository experienceRepository){
-            _experienceRepository = experienceRepository ?? throw new ArgumentNullException(nameof(experienceRepository));
+        public ExperienceService(IExperienceRepository experienceRepository)
+        {
+            _experienceRepository =
+                experienceRepository
+                ?? throw new ArgumentNullException(nameof(experienceRepository));
         }
+
         public async Task<ExperienceModel> AddAsync(Experience entity)
         {
             var experience = await _experienceRepository.AddAsync(entity);
@@ -31,8 +35,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
         public async Task<ExperienceModel> GetByIdAsync(int id)
         {
             var experience = await _experienceRepository.GetByIdAsync(id);
-            if(experience == null){
-
+            if (experience == null)
+            {
                 throw new Exception($"Job with ID {id} not found.");
             }
             return experience;
@@ -43,6 +47,4 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             await _experienceRepository.UpdateAsync(entity);
         }
     }
-
-
 }

@@ -2,7 +2,6 @@ using JobLeet.WebApi.JobLeet.Api.Models.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
 
-
 namespace JobLeet.WebApi.JobLeet.Core.Services
 {
     public class JobService : IJobService
@@ -11,7 +10,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
 
         public JobService(IJobRepository jobRepository)
         {
-            _jobRepository = jobRepository ?? throw new ArgumentNullException(nameof(jobRepository));
+            _jobRepository =
+                jobRepository ?? throw new ArgumentNullException(nameof(jobRepository));
         }
 
         public async Task<JobModel> AddAsync(JobEntity entity)

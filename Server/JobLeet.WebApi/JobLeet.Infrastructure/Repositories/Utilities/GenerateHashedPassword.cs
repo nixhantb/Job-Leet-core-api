@@ -43,7 +43,14 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Utilities
         // Hash password with salt using PBKDF2
         private static byte[] HashPasswordWithSalt(string password, byte[] salt)
         {
-            using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 100000, HashAlgorithmName.SHA256))
+            using (
+                var pbkdf2 = new Rfc2898DeriveBytes(
+                    password,
+                    salt,
+                    100000,
+                    HashAlgorithmName.SHA256
+                )
+            )
             {
                 return pbkdf2.GetBytes(256 / 8); // 256 bits
             }

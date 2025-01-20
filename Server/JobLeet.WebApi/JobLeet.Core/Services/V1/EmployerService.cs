@@ -2,15 +2,16 @@ using JobLeet.WebApi.JobLeet.Api.Models.Employers.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Employers.V1;
 
-
 namespace JobLeet.WebApi.JobLeet.Core.Services
 {
     public class EmployerService : IEmployerService
     {
         private readonly IEmployerRepository _employerRepository;
+
         public EmployerService(IEmployerRepository employerRepository)
         {
-            _employerRepository= employerRepository ?? throw new ArgumentNullException(nameof(employerRepository));
+            _employerRepository =
+                employerRepository ?? throw new ArgumentNullException(nameof(employerRepository));
         }
 
         public async Task<EmployerModel> AddAsync(Employer entity)
@@ -35,7 +36,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
         public async Task<EmployerModel> GetByIdAsync(int id)
         {
             var employer = await _employerRepository.GetByIdAsync(id);
-            if (employer  == null)
+            if (employer == null)
             {
                 throw new Exception($"Job with ID {id} not found.");
             }

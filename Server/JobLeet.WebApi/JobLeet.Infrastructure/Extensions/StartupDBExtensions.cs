@@ -1,10 +1,8 @@
-
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Extensions
 {
-
     public static class StartupDBExtensions
     {
         public static async void CreateDataBaseTableIfNotPresent(this IHost host)
@@ -22,9 +20,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Extensions
             }
             catch (Exception ex)
             {
-
                 logger.LogError($"There is something wrong with the Migration{ex.Message}");
-
             }
         }
     }

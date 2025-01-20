@@ -13,8 +13,13 @@ namespace JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1
             try
             {
                 // Normalize the domain
-                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
-                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+                email = Regex.Replace(
+                    email,
+                    @"(@)(.+)$",
+                    DomainMapper,
+                    RegexOptions.None,
+                    TimeSpan.FromMilliseconds(200)
+                );
 
                 // Examines the domain part of the email and normalizes it.
                 string DomainMapper(Match match)
@@ -39,9 +44,12 @@ namespace JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1
 
             try
             {
-                return Regex.IsMatch(email,
+                return Regex.IsMatch(
+                    email,
                     @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
-                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+                    RegexOptions.IgnoreCase,
+                    TimeSpan.FromMilliseconds(250)
+                );
             }
             catch (RegexMatchTimeoutException)
             {

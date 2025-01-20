@@ -16,7 +16,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = entity.Id,
                 Title = entity.Title,
-                Description = entity.Description
+                Description = entity.Description,
             };
         }
 
@@ -31,7 +31,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = model.Id,
                 Title = model.Title,
-                Description = model.Description
+                Description = model.Description,
             };
         }
     }

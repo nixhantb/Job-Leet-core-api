@@ -20,13 +20,19 @@
             {
                 await _next(context);
 
-                if (context.Response.StatusCode == StatusCodes.Status404NotFound && !context.Response.HasStarted)
+                if (
+                    context.Response.StatusCode == StatusCodes.Status404NotFound
+                    && !context.Response.HasStarted
+                )
                 {
                     var requestPath = context.Request.Path;
-                    var requestUri = $"{context.Request.Scheme}://{context.Request.Host}{requestPath}";
+                    var requestUri =
+                        $"{context.Request.Scheme}://{context.Request.Host}{requestPath}";
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = StatusCodes.Status404NotFound;
-                    await context.Response.WriteAsync($"{{\"Message\": \"No HTTP resource was found that matches the request URI '{requestUri}'\"}}");
+                    await context.Response.WriteAsync(
+                        $"{{\"Message\": \"No HTTP resource was found that matches the request URI '{requestUri}'\"}}"
+                    );
                 }
             }
             finally

@@ -3,7 +3,5 @@ using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 
 namespace JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1
 {
-    public interface ILoginUserRepository : IRepository<LoginUser, LoginUserModel>
-    {
-    }
+    public interface ILoginUserRepository : IRepository<LoginUser, LoginUserModel> { }
 }

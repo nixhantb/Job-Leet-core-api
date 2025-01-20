@@ -11,18 +11,19 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Employers.V1
     {
         #region Initialization
         // <returns>The list of initializations</returns>
-       private readonly BaseDBContext _dbContext;
+        private readonly BaseDBContext _dbContext;
 
         public EmployersRepository(BaseDBContext dbContext)
         {
-            _dbContext = dbContext?? throw new ArgumentNullException(nameof(dbContext));
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
         #endregion
         public async Task<EmployerModel> AddAsync(Employer entity)
         {
-            try{
-
-                if(entity == null){
+            try
+            {
+                if (entity == null)
+                {
                     throw new ArgumentNullException(nameof(entity));
                 }
 
@@ -34,7 +35,8 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Employers.V1
 
                 return apiResponse;
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 throw new Exception("Error adding employers ", ex);
             }
         }
@@ -46,11 +48,13 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Employers.V1
 
         public async Task<List<EmployerModel>> GetAllAsync()
         {
-            try {
+            try
+            {
                 var employers = await _dbContext.Employers.ToListAsync();
                 return employers.Select(EmployerMapper.ToEmployerModel).ToList();
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 throw new Exception("Error Retriving Employers", ex);
             }
         }

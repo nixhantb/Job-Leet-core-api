@@ -4,7 +4,11 @@ namespace JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1
 {
     public static class PersonNameValidator
     {
-        private static readonly Regex _nameRegex = new Regex(@"^[\p{L}\p{M}'\- ]+$", RegexOptions.Compiled);
+        private static readonly Regex _nameRegex = new Regex(
+            @"^[\p{L}\p{M}'\- ]+$",
+            RegexOptions.Compiled
+        );
+
         /*
         \p{L}: Matches any kind of letter from any language.
         \p{M}: Matches a combining mark (accent).
@@ -22,10 +26,10 @@ namespace JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1
             }
 
             return _nameRegex.IsMatch(username);
-
         }
 
-        public static bool IsValidMiddleName(string username){
+        public static bool IsValidMiddleName(string username)
+        {
             if (string.IsNullOrWhiteSpace(username))
             {
                 return true;
@@ -33,5 +37,4 @@ namespace JobLeet.WebApi.JobLeet.Validator.EntityValidator.V1
             return _nameRegex.IsMatch(username);
         }
     }
-
 }

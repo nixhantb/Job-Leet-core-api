@@ -1,10 +1,10 @@
+using System.Text.Json;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Text.Json;
 
 namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
 {
@@ -37,39 +37,46 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
                 v => JsonSerializer.Deserialize<BasicPay>(v, (JsonSerializerOptions)null)
             );
 
-            builder.Property(e => e.PreferredQualifications)
-                   .HasColumnName("preferred_qualifications")
-                   .HasConversion(
-                        v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                        v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null))
-                   .Metadata.SetValueComparer(valueComparer);
+            builder
+                .Property(e => e.PreferredQualifications)
+                .HasColumnName("preferred_qualifications")
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null)
+                )
+                .Metadata.SetValueComparer(valueComparer);
 
-            builder.Property(e => e.BasicPay)
-                   .HasColumnName("job_basic_pay")
-                   .HasConversion(basicPayConverter);
+            builder
+                .Property(e => e.BasicPay)
+                .HasColumnName("job_basic_pay")
+                .HasConversion(basicPayConverter);
 
-            builder.Property(e => e.JobResponsibilities)
-                  .HasColumnName("job_responsibility")
-                  .HasConversion(
-                       v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                       v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null))
-                  .Metadata.SetValueComparer(valueComparer);
+            builder
+                .Property(e => e.JobResponsibilities)
+                .HasColumnName("job_responsibility")
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null)
+                )
+                .Metadata.SetValueComparer(valueComparer);
 
-            builder.Property(e => e.Benefits)
-                 .HasColumnName("job_benefits")
-                 .HasConversion(
-                      v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                      v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null))
-                 .Metadata.SetValueComparer(valueComparer);
+            builder
+                .Property(e => e.Benefits)
+                .HasColumnName("job_benefits")
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null)
+                )
+                .Metadata.SetValueComparer(valueComparer);
 
-            builder.Property(e => e.Tags)
+            builder
+                .Property(e => e.Tags)
                 .HasColumnName("job_tags")
                 .HasConversion(
                     v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
                     v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null)
-                ).Metadata.SetValueComparer(valueComparer);
-
-
+                )
+                .Metadata.SetValueComparer(valueComparer);
         }
     }
 }

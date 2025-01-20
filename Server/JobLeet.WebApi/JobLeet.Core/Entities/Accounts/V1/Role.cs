@@ -11,9 +11,10 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum RoleCategory
     {
-        [Display(Name ="Admin")]
+        [Display(Name = "Admin")]
         Admin = 1,
-        [Display(Name ="Users")]
-        Users = 2
+
+        [Display(Name = "Users")]
+        Users = 2,
     }
 }
