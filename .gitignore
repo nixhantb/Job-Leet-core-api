@@ -51,4 +51,3 @@ artifacts/
 
 #Ignore File holding secrects
 jwtkey.key
-Migrations

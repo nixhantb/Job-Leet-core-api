@@ -1,37 +1,32 @@
+using System.Text;
 using FluentValidation;
 using JobLeet.WebApi.JobLeet.Api.Caching;
 using JobLeet.WebApi.JobLeet.Api.Exceptions.CustomExceptionWrappers.V1;
 using JobLeet.WebApi.JobLeet.Api.Logging;
 using JobLeet.WebApi.JobLeet.Api.Middlewares.Exceptions;
-using JobLeet.WebApi.JobLeet.Api.Middlewares.JwtMiddleware;
 using JobLeet.WebApi.JobLeet.Api.Middlewares.TotalXCount;
 using JobLeet.WebApi.JobLeet.Api.Security.Headers;
-using JobLeet.WebApi.JobLeet.Api.Security.Jwt;
 using JobLeet.WebApi.JobLeet.Api.Validators;
-using JobLeet.WebApi.JobLeet.Core.Entities.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
-using JobLeet.WebApi.JobLeet.Core.Interfaces.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Employers.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Core.Services;
-using JobLeet.WebApi.JobLeet.Core.Validators.Accounts;
 using JobLeet.WebApi.JobLeet.Core.Validators.Jobs;
 using JobLeet.WebApi.JobLeet.Core.Validators.Seekers;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
+using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1.Identity;
 using JobLeet.WebApi.JobLeet.Infrastructure.Extensions;
-using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Accounts.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Validator;
-using JobLeet.WebApi.JobLeet.Validator.Accounts;
 using JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1;
 using JobLeet.WebApi.JobLeetInfrastructure.Repositories.Employers.V1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -86,17 +81,7 @@ builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IValidator<Address>, AddressValidator>();
 
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-
 builder.Services.AddScoped<IQualificationService, QualificationService>();
-
-builder.Services.AddScoped<IValidator<Role>, RoleValidator>();
-
-builder.Services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
-builder.Services.AddScoped<IValidator<RegisterUser>, RegisterUserValidator>();
-
-builder.Services.AddScoped<ILoginUserRepository, LoginUserRepository>();
-builder.Services.AddScoped<IValidator<LoginUser>, LoginUserValidator>();
 
 builder.Services.AddScoped<IJobRepository, JobRepository>();
 builder.Services.AddScoped<IJobService, JobService>();
@@ -121,6 +106,11 @@ builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IApplicationService, ApplicationService>();
 builder.Services.AddScoped<IValidator<Application>, ApplicationValidator>();
 
+builder
+    .Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -128,14 +118,11 @@ builder.Services.AddMemoryCache(); // Register IMemoryCache
 
 // Register BaseCacheHelper<T> for caching
 builder.Services.AddScoped(typeof(BaseCacheHelper<>));
-#endregion
-
-#region  JWT Configurations
-var jwtKey = JwtHelper.GetOrCreateJwtKey();
-var jwtKeyBase64 = Convert.ToBase64String(jwtKey);
-
-var configuration = builder.Configuration;
-builder.Configuration["Jwt:Key"] = jwtKeyBase64;
+var key = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrEmpty(key))
+{
+    throw new ArgumentNullException("Jwt:Key cannot be null or empty");
+}
 
 builder
     .Services.AddAuthentication(options =>
@@ -151,22 +138,41 @@ builder
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = configuration["Jwt:Issuer"],
-            ValidAudience = configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Convert.FromBase64String(builder.Configuration["Jwt:Key"])
-            ),
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
         };
     });
 
 #endregion
 
-#region Database configuration Services
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
 
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+
+    options.User.AllowedUserNameCharacters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = false;
+});
+
+#region Database configuration Services
 builder.Services.AddDbContext<BaseDBContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("jobleetconnect"));
 });
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("jobleetconnect"))
+);
+
 #endregion
 
 builder.Services.AddCors(options =>
@@ -179,6 +185,7 @@ builder.Services.AddCors(options =>
         }
     );
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -194,9 +201,11 @@ app.MapControllers();
 
 #region Middleware Configurations
 app.UseHsts();
-app.UseHttpsRedirection();
-app.UseMiddleware<JwtMiddleware>();
+app.UseAuthentication();
 app.UseAuthorization();
+
+// Enable CORS
+app.UseCors("AllowAll");
 
 // app.UseAuthentication();
 // Enable CORS
