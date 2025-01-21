@@ -1,6 +1,10 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using JobLeet.WebApi.JobLeet.Api.Models.Identity.Accounts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace JobLeet.WebApi.JobLeet.Api.Controllers.Identity.Accounts
 {
@@ -11,16 +15,19 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Identity.Accounts
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
+        private readonly IConfiguration _configuration;
 
         public AccountController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            ILogger<AccountController> logger
+            ILogger<AccountController> logger,
+            IConfiguration configuration
         )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _configuration = configuration;
         }
 
         [HttpPost("register")]
@@ -64,7 +71,9 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Identity.Accounts
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return Ok(new { message = "Login successful" });
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    var token = GenerateJwtToken(user);
+                    return Ok(new { message = "Login successful", token = token });
                 }
 
                 if (result.IsLockedOut)
@@ -84,6 +93,28 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Identity.Accounts
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             return Ok(new { message = "Logout successful" });
+        }
+
+        private string GenerateJwtToken(IdentityUser user)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
