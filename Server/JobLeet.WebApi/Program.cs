@@ -36,10 +36,8 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder
-    .Configuration.SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+DotNetEnv.Env.Load();
+builder.Configuration.AddEnvironmentVariables();
 
 #region Register the repository services
 // Add the required Configurations
@@ -58,7 +56,6 @@ builder.Services.AddScoped<ISkillService, SkillService>();
 builder.Services.AddScoped<IValidator<Skill>, SkillValidator>();
 
 builder.Services.AddScoped<IPersonNameRepository, PersonNameRepository>();
-builder.Services.AddScoped<ISkillService, SkillService>();
 builder.Services.AddScoped<IValidator<PersonName>, PersonNameValidator>();
 
 builder.Services.AddScoped<IExperienceRepository, ExperienceRepository>();
@@ -118,7 +115,8 @@ builder.Services.AddMemoryCache(); // Register IMemoryCache
 
 // Register BaseCacheHelper<T> for caching
 builder.Services.AddScoped(typeof(BaseCacheHelper<>));
-var key = builder.Configuration["Jwt:Key"];
+var key = Environment.GetEnvironmentVariable("JWT_KEY");
+
 if (string.IsNullOrEmpty(key))
 {
     throw new ArgumentNullException("Jwt:Key cannot be null or empty");
@@ -138,8 +136,8 @@ builder
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = builder.Configuration["Issuer"],
+            ValidAudience = builder.Configuration["Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
         };
     });
@@ -166,11 +164,22 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 #region Database configuration Services
 builder.Services.AddDbContext<BaseDBContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("jobleetconnect"));
-});
+    options.UseNpgsql(
+        $"Host={Environment.GetEnvironmentVariable("DB_HOST")};"
+            + $"Database={Environment.GetEnvironmentVariable("DB_NAME")};"
+            + $"Username={Environment.GetEnvironmentVariable("DB_USER")};"
+            + $"Password={Environment.GetEnvironmentVariable("DB_PASSWORD")};"
+            + $"Port={Environment.GetEnvironmentVariable("DB_PORT")}"
+    )
+);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("jobleetconnect"))
+    options.UseNpgsql(
+        $"Host={Environment.GetEnvironmentVariable("DB_HOST")};"
+            + $"Database={Environment.GetEnvironmentVariable("DB_NAME")};"
+            + $"Username={Environment.GetEnvironmentVariable("DB_USER")};"
+            + $"Password={Environment.GetEnvironmentVariable("DB_PASSWORD")};"
+            + $"Port={Environment.GetEnvironmentVariable("DB_PORT")}"
+    )
 );
 
 #endregion
