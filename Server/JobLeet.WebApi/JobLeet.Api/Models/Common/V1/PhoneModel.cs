@@ -13,12 +13,5 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
             ErrorMessage = "Invalid Phone Number format. Use only digits."
         )]
         public string? PhoneNumber { get; set; }
-
-        [JsonIgnore]
-        public override MetaDataModel MetaData
-        {
-            get => base.MetaData;
-            set => base.MetaData = value;
-        }
     }
 }

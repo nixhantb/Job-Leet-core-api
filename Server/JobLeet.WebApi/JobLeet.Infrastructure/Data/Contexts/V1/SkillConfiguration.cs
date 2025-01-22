@@ -35,7 +35,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
                     v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null)
                 )
                 .Metadata.SetValueComparer(valueComparer);
-            builder.OwnsOne(skill => skill.MetaData);
         }
     }
 }

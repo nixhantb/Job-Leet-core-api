@@ -15,12 +15,5 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Companies.V1
         /// </summary>
         public string? Website { get; set; }
         public IndustryModel? IndustryType { get; set; }
-
-        [JsonIgnore]
-        public override MetaDataModel MetaData
-        {
-            get => base.MetaData;
-            set => base.MetaData = value;
-        }
     }
 }

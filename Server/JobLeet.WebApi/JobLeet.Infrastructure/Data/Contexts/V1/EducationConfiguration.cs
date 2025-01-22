@@ -16,7 +16,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
             builder.Property(e => e.Institution).HasColumnName("education_nstitution");
             builder.Property(e => e.GraduationDate).HasColumnName("education_graduationdate");
             builder.Property(e => e.Cgpa).HasColumnName("education_cgpa");
-            builder.OwnsOne(education => education.MetaData);
         }
     }
 }

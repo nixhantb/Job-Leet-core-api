@@ -13,7 +13,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1
             builder.Property(e => e.Id).HasColumnName("jblt_phoneid");
             builder.Property(e => e.CountryCode).HasColumnName("jblt_countrycode");
             builder.Property(e => e.PhoneNumber).HasColumnName("jblt_phonenumber");
-            builder.OwnsOne(phone => phone.MetaData);
         }
     }
 }

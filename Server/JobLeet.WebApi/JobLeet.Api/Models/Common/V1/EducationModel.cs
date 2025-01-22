@@ -20,12 +20,5 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Common.V1
 
         [Range(0, 4.0, ErrorMessage = "CGPA must be between 0.0 and 4.0")]
         public decimal Cgpa { get; set; }
-
-        [JsonIgnore]
-        public override MetaDataModel MetaData
-        {
-            get => base.MetaData;
-            set => base.MetaData = value;
-        }
     }
 }
