@@ -1,0 +1,77 @@
+{
+    "phone": {
+        "countryCode": 1,
+        "phoneNumber": "1234567890"
+    },
+    "address": {
+        "street": "123 Main Street",
+        "city": "Sample City",
+        "state": "Sample State",
+        "postalCode": "12345",
+        "country": "Sample Country"
+    },
+    "skills": {
+        "title": [
+            "Programming",
+            "Problem Solving"
+        ],
+        "description": [
+            "Proficient in C#, .NET, and SQL.",
+            "Experienced in debugging and optimization."
+        ]
+    },
+    "education": {
+        "degree": "Bachelor of Science",
+        "major": "Computer Science",
+        "institution": "Sample University",
+        "graduationDate": "2024-05-15",
+        "cgpa": 3.8
+    },
+    "experience": {
+        "experienceLevel": "EntryLevel",
+        "company": {
+            "companyName": "Sample Tech Inc.",
+            "profile": {
+                "profileInfo": "Leading provider of software solutions.",
+                "companyAddress": {
+                    "street": "456 Innovation Avenue",
+                    "city": "Tech City",
+                    "state": "Tech State",
+                    "postalCode": "67890",
+                    "country": "Tech Country"
+                },
+                "contactPhone": {
+                    "countryCode": 1,
+                    "phoneNumber": "+9876543210"
+                },
+                "contactEmail": {
+                    "emailType": "Work",
+                    "emailAddress": "contact@sampletech.com"
+                },
+                "website": "https://www.sampletech.com",
+                "industryTypes": {
+                    "industryType": "Technology"
+                }
+            }
+        }
+    },
+    "dateOfBirth": "1995-06-20T00:00:00Z",
+    "qualifications": {
+        "qualificationType": "Certification",
+        "qualificationInformation": [
+            "Certified Kubernetes Administrator",
+            "AWS Certified Solutions Architect"
+        ]
+    },
+    "profileSummary": "A passionate software engineer with a focus on backend development and system design.",
+    "linkedInProfile": "https://www.linkedin.com/in/sampleprofile",
+    "portfolio": "https://portfolio.sample.com",
+    "interests": [
+        "Reading technical blogs",
+        "Contributing to open-source projects"
+    ],
+    "achievements": [
+        "Employee of the Month (2023)",
+        "Developed a custom load balancer in C#"
+    ]
+}
