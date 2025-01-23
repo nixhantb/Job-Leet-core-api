@@ -1,12 +1,17 @@
 
 ![logo](docs/assets/logo.png)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/m3tg2p3igoppg3eq?svg=true)](https://ci.appveyor.com/project/nixhantb/Recruitment-erp)
+[![CodeQL](https://github.com/nixhantb/Recruitment-erp/actions/workflows/codeql.yml/badge.svg)](https://github.com/nixhantb/Recruitment-erp)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/nixhantb/Job-Leet-core-recruitment-agency?style=flat-square)
-![GitHub top language](https://img.shields.io/github/languages/top/nixhantb/Job-Leet-core-recruitment-agency?color=orange&style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/nixhantb/Job-Leet-core-recruitment-agency?color=success&style=flat-square)
+![GitHub top language](https://img.shields.io/github/languages/top/nixhantb/Recruitment-erp?color=orange&style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/nixhantb/Recruitment-erp?color=success&style=flat-square)
 ![GitHub license](https://img.shields.io/badge/license-GPL%20%2B%20CE-FFFF00?style=flat-square)
 [![GitHub Stars](https://img.shields.io/github/stars/nixhantb/Job-Leet-core-recruitment-agency?label=GitHub%20stars&style=social)](https://github.com/nixhantb/Job-Leet-core-recruitment-agency/stargazers/)
+
+
+
 
 # Introduction
 
