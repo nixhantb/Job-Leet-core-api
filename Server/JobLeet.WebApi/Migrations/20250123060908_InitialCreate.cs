@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -7,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobLeet.WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class CRUD : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,6 +36,10 @@ namespace JobLeet.WebApi.Migrations
                         nullable: false
                     ),
                     Comments = table.Column<string>(type: "text", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -54,6 +59,10 @@ namespace JobLeet.WebApi.Migrations
                         ),
                     EmailType = table.Column<int>(type: "integer", nullable: false),
                     EmailAddress = table.Column<string>(type: "text", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -96,6 +105,10 @@ namespace JobLeet.WebApi.Migrations
                         type: "numeric",
                         nullable: false
                     ),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -116,6 +129,10 @@ namespace JobLeet.WebApi.Migrations
                     industrytype = table.Column<int>(
                         name: "industry_type",
                         type: "integer",
+                        nullable: false
+                    ),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
                         nullable: false
                     ),
                 },
@@ -150,6 +167,10 @@ namespace JobLeet.WebApi.Migrations
                         type: "text",
                         nullable: true
                     ),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -176,6 +197,10 @@ namespace JobLeet.WebApi.Migrations
                         name: "jblt_phonenumber",
                         type: "text",
                         nullable: true
+                    ),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
                     ),
                 },
                 constraints: table =>
@@ -204,6 +229,10 @@ namespace JobLeet.WebApi.Migrations
                         type: "text",
                         nullable: true
                     ),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -223,6 +252,10 @@ namespace JobLeet.WebApi.Migrations
                         ),
                     title = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -265,6 +298,10 @@ namespace JobLeet.WebApi.Migrations
                         type: "text",
                         nullable: true
                     ),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -283,6 +320,10 @@ namespace JobLeet.WebApi.Migrations
                             NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
                         ),
                     StatusName = table.Column<int>(type: "integer", nullable: false),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -310,6 +351,10 @@ namespace JobLeet.WebApi.Migrations
                         nullable: true
                     ),
                     IndustryTypesId = table.Column<int>(type: "integer", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -357,6 +402,10 @@ namespace JobLeet.WebApi.Migrations
                         nullable: true
                     ),
                     ProfileId = table.Column<int>(type: "integer", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -385,6 +434,10 @@ namespace JobLeet.WebApi.Migrations
                     PhoneId = table.Column<int>(type: "integer", nullable: true),
                     CompanyId = table.Column<int>(type: "integer", nullable: true),
                     IndustryTypeId = table.Column<int>(type: "integer", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -438,6 +491,10 @@ namespace JobLeet.WebApi.Migrations
                         nullable: false
                     ),
                     CompanyId = table.Column<int>(type: "integer", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -523,6 +580,10 @@ namespace JobLeet.WebApi.Migrations
                         type: "timestamp with time zone",
                         nullable: true
                     ),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
@@ -575,32 +636,19 @@ namespace JobLeet.WebApi.Migrations
                     SkillsId = table.Column<int>(type: "integer", nullable: true),
                     EducationId = table.Column<int>(type: "integer", nullable: true),
                     ExperienceId = table.Column<int>(type: "integer", nullable: true),
-                    seekerdob = table.Column<DateTime>(
-                        name: "seeker_dob",
+                    DateOfBirth = table.Column<DateTime>(
                         type: "timestamp with time zone",
                         nullable: true
                     ),
                     QualificationsId = table.Column<int>(type: "integer", nullable: true),
-                    seekerprofilesummary = table.Column<string>(
-                        name: "seeker_profilesummary",
-                        type: "text",
-                        nullable: true
-                    ),
-                    seekerlinkedin = table.Column<string>(
-                        name: "seeker_linkedin",
-                        type: "text",
-                        nullable: true
-                    ),
+                    ProfileSummary = table.Column<string>(type: "text", nullable: true),
+                    LinkedInProfile = table.Column<string>(type: "text", nullable: true),
                     Portfolio = table.Column<string>(type: "text", nullable: true),
-                    jobinterests = table.Column<string>(
-                        name: "job_interests",
-                        type: "text",
-                        nullable: true
-                    ),
-                    jobachievements = table.Column<string>(
-                        name: "job_achievements",
-                        type: "text",
-                        nullable: true
+                    Interests = table.Column<List<string>>(type: "text[]", nullable: true),
+                    Achievements = table.Column<List<string>>(type: "text[]", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
                     ),
                 },
                 constraints: table =>
@@ -660,6 +708,10 @@ namespace JobLeet.WebApi.Migrations
                     JobId = table.Column<int>(type: "integer", nullable: false),
                     ApplicationDateId = table.Column<int>(type: "integer", nullable: true),
                     StatusId = table.Column<int>(type: "integer", nullable: true),
+                    CreatedOn = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
