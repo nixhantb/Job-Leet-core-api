@@ -23,15 +23,16 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return await _applicationRepository.AddAsync(entity);
         }
 
-        public async Task<Application> ApplyForJobAsync(int seekerId, int jobId, int companyId)
+        public async Task<Application> ApplyForJobAsync(
+            string seekerId,
+            string jobId,
+            string companyId
+        )
         {
-            if (seekerId <= 0 || jobId <= 0)
-                throw new ArgumentException("Seeker ID and Job ID must be greater than zero.");
-
             return await _applicationRepository.ApplyForJobAsync(seekerId, jobId, companyId);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
             var application = await _applicationRepository.GetByIdAsync(id);
             if (application == null)
@@ -45,7 +46,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return await _applicationRepository.GetAllAsync();
         }
 
-        public async Task<ApplicationModel> GetByIdAsync(int id)
+        public async Task<ApplicationModel> GetByIdAsync(string id)
         {
             var application = await _applicationRepository.GetByIdAsync(id);
             if (application == null)
@@ -55,7 +56,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
         }
 
         public async Task<Application> UpdateApplicationStatusAsync(
-            int applicationId,
+            string applicationId,
             Status status
         )
         {

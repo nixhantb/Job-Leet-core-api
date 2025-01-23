@@ -20,7 +20,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return education;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
             await _educationRepository.DeleteAsync(id);
         }
@@ -31,7 +31,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return education;
         }
 
-        public async Task<EducationModel> GetByIdAsync(int id)
+        public async Task<EducationModel> GetByIdAsync(string id)
         {
             var education = await _educationRepository.GetByIdAsync(id);
             if (education == null)

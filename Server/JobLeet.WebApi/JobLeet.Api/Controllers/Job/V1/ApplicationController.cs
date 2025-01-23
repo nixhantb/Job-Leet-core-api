@@ -19,9 +19,9 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers.Job.V1
 
         [HttpPost("apply")]
         public async Task<IActionResult> ApplyForJobAsync(
-            [FromQuery] int seekerId,
-            [FromQuery] int jobId,
-            [FromQuery] int companyId
+            [FromQuery] string seekerId,
+            [FromQuery] string jobId,
+            [FromQuery] string companyId
         )
         {
             try

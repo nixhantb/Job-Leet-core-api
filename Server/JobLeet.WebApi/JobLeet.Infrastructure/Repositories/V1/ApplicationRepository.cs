@@ -41,15 +41,14 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             }
         }
 
-        public async Task<Application> ApplyForJobAsync(int seekerId, int jobId, int companyId)
+        public async Task<Application> ApplyForJobAsync(
+            string seekerId,
+            string jobId,
+            string companyId
+        )
         {
             try
             {
-                if (seekerId <= 0 || jobId <= 0)
-                {
-                    throw new ArgumentException("Seeker ID and Job ID must be greater than zero.");
-                }
-
                 var seeker = await _dbContext
                     .Seekers.Include(s => s.Phone)
                     .Include(s => s.Education)
@@ -129,7 +128,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             }
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -147,12 +146,12 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             }
         }
 
-        public Task<ApplicationModel> GetByIdAsync(int id)
+        public Task<ApplicationModel> GetByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Application> UpdateApplicationStatusAsync(int applicationId, Status status)
+        public Task<Application> UpdateApplicationStatusAsync(string applicationId, Status status)
         {
             throw new NotImplementedException();
         }

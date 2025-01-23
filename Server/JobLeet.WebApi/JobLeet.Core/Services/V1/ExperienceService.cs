@@ -21,7 +21,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return experience;
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return experience;
         }
 
-        public async Task<ExperienceModel> GetByIdAsync(int id)
+        public async Task<ExperienceModel> GetByIdAsync(string id)
         {
             var experience = await _experienceRepository.GetByIdAsync(id);
             if (experience == null)

@@ -23,7 +23,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return result;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
             await _qualificationTypeRepository.DeleteAsync(id);
         }
@@ -34,7 +34,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return qualification;
         }
 
-        public async Task<QualificationModel> GetByIdAsync(int id)
+        public async Task<QualificationModel> GetByIdAsync(string id)
         {
             var qualification = await _qualificationTypeRepository.GetByIdAsync(id);
             if (qualification == null)

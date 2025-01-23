@@ -27,7 +27,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -75,7 +75,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         /// <returns>The list of experience Id's.</returns>
         /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
         /// <remarks>This method fetches all experience Id's from the database using Entity Framework Core.</remarks>
-        public Task<ExperienceModel> GetByIdAsync(int id)
+        public Task<ExperienceModel> GetByIdAsync(string id)
         {
             throw new NotImplementedException();
         }

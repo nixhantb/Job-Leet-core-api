@@ -22,7 +22,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return result;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
             await _addressRepository.DeleteAsync(id);
         }
@@ -33,7 +33,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return address;
         }
 
-        public async Task<AddressModel> GetByIdAsync(int id)
+        public async Task<AddressModel> GetByIdAsync(string id)
         {
             var address = await _addressRepository.GetByIdAsync(id);
 

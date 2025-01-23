@@ -24,7 +24,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +52,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             }
         }
 
-        public Task<IndustryModel> GetByIdAsync(int id)
+        public Task<IndustryModel> GetByIdAsync(string id)
         {
             throw new NotImplementedException();
         }

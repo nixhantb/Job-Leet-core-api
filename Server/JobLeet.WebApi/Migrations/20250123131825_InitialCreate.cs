@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -17,12 +16,7 @@ namespace JobLeet.WebApi.Migrations
                 name: "ApplicationDate",
                 columns: table => new
                 {
-                    Id = table
-                        .Column<int>(type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     SubmitDate = table.Column<DateTime>(
                         type: "timestamp with time zone",
                         nullable: false
@@ -51,12 +45,7 @@ namespace JobLeet.WebApi.Migrations
                 name: "Emails",
                 columns: table => new
                 {
-                    Id = table
-                        .Column<int>(type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     EmailType = table.Column<int>(type: "integer", nullable: false),
                     EmailAddress = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(
@@ -74,12 +63,11 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_education",
                 columns: table => new
                 {
-                    educationid = table
-                        .Column<int>(name: "education_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    educationid = table.Column<string>(
+                        name: "education_id",
+                        type: "text",
+                        nullable: false
+                    ),
                     educationdegree = table.Column<string>(
                         name: "education_degree",
                         type: "text",
@@ -120,12 +108,11 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_industryType",
                 columns: table => new
                 {
-                    industryid = table
-                        .Column<int>(name: "industry_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    industryid = table.Column<string>(
+                        name: "industry_id",
+                        type: "text",
+                        nullable: false
+                    ),
                     industrytype = table.Column<int>(
                         name: "industry_type",
                         type: "integer",
@@ -146,12 +133,11 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_personName",
                 columns: table => new
                 {
-                    personnameid = table
-                        .Column<int>(name: "personname_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    personnameid = table.Column<string>(
+                        name: "personname_id",
+                        type: "text",
+                        nullable: false
+                    ),
                     personNamefirstname = table.Column<string>(
                         name: "personName_firstname",
                         type: "text",
@@ -182,12 +168,11 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_phone",
                 columns: table => new
                 {
-                    jbltphoneid = table
-                        .Column<int>(name: "jblt_phoneid", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    jbltphoneid = table.Column<string>(
+                        name: "jblt_phoneid",
+                        type: "text",
+                        nullable: false
+                    ),
                     jbltcountrycode = table.Column<int>(
                         name: "jblt_countrycode",
                         type: "integer",
@@ -213,12 +198,11 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_qualification",
                 columns: table => new
                 {
-                    qualificationid = table
-                        .Column<int>(name: "qualification_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    qualificationid = table.Column<string>(
+                        name: "qualification_id",
+                        type: "text",
+                        nullable: false
+                    ),
                     qualificationtype = table.Column<int>(
                         name: "qualification_type",
                         type: "integer",
@@ -244,12 +228,7 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_skill",
                 columns: table => new
                 {
-                    skillid = table
-                        .Column<int>(name: "skill_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    skillid = table.Column<string>(name: "skill_id", type: "text", nullable: false),
                     title = table.Column<string>(type: "text", nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(
@@ -267,12 +246,11 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_userAddress",
                 columns: table => new
                 {
-                    addressid = table
-                        .Column<int>(name: "address_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    addressid = table.Column<string>(
+                        name: "address_id",
+                        type: "text",
+                        nullable: false
+                    ),
                     addressstreet = table.Column<string>(
                         name: "address_street",
                         type: "text",
@@ -313,12 +291,7 @@ namespace JobLeet.WebApi.Migrations
                 name: "Status",
                 columns: table => new
                 {
-                    Id = table
-                        .Column<int>(type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     StatusName = table.Column<int>(type: "integer", nullable: false),
                     CreatedOn = table.Column<DateTime>(
                         type: "timestamp with time zone",
@@ -335,22 +308,21 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_companyprofile",
                 columns: table => new
                 {
-                    companyprofileid = table
-                        .Column<int>(name: "companyprofile_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    companyprofileid = table.Column<string>(
+                        name: "companyprofile_id",
+                        type: "text",
+                        nullable: false
+                    ),
                     ProfileInfo = table.Column<string>(type: "text", nullable: true),
-                    CompanyAddressId = table.Column<int>(type: "integer", nullable: true),
-                    ContactPhoneId = table.Column<int>(type: "integer", nullable: true),
-                    ContactEmailId = table.Column<int>(type: "integer", nullable: true),
+                    CompanyAddressId = table.Column<string>(type: "text", nullable: true),
+                    ContactPhoneId = table.Column<string>(type: "text", nullable: true),
+                    ContactEmailId = table.Column<string>(type: "text", nullable: true),
                     companywebsite = table.Column<string>(
                         name: "company_website",
                         type: "text",
                         nullable: true
                     ),
-                    IndustryTypesId = table.Column<int>(type: "integer", nullable: true),
+                    IndustryTypesId = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(
                         type: "timestamp with time zone",
                         nullable: false
@@ -390,18 +362,17 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_company",
                 columns: table => new
                 {
-                    companyid = table
-                        .Column<int>(name: "company_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    companyid = table.Column<string>(
+                        name: "company_id",
+                        type: "text",
+                        nullable: false
+                    ),
                     companyname = table.Column<string>(
                         name: "company_name",
                         type: "text",
                         nullable: true
                     ),
-                    ProfileId = table.Column<int>(type: "integer", nullable: true),
+                    ProfileId = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(
                         type: "timestamp with time zone",
                         nullable: false
@@ -423,17 +394,16 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_employer",
                 columns: table => new
                 {
-                    employerid = table
-                        .Column<int>(name: "employer_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
-                    NameId = table.Column<int>(type: "integer", nullable: true),
-                    AddressId = table.Column<int>(type: "integer", nullable: true),
-                    PhoneId = table.Column<int>(type: "integer", nullable: true),
-                    CompanyId = table.Column<int>(type: "integer", nullable: true),
-                    IndustryTypeId = table.Column<int>(type: "integer", nullable: true),
+                    employerid = table.Column<string>(
+                        name: "employer_id",
+                        type: "text",
+                        nullable: false
+                    ),
+                    NameId = table.Column<string>(type: "text", nullable: true),
+                    AddressId = table.Column<string>(type: "text", nullable: true),
+                    PhoneId = table.Column<string>(type: "text", nullable: true),
+                    CompanyId = table.Column<string>(type: "text", nullable: true),
+                    IndustryTypeId = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(
                         type: "timestamp with time zone",
                         nullable: false
@@ -479,18 +449,17 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_experience",
                 columns: table => new
                 {
-                    experienceid = table
-                        .Column<int>(name: "experience_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
+                    experienceid = table.Column<string>(
+                        name: "experience_id",
+                        type: "text",
+                        nullable: false
+                    ),
                     experiencetype = table.Column<int>(
                         name: "experience_type",
                         type: "integer",
                         nullable: false
                     ),
-                    CompanyId = table.Column<int>(type: "integer", nullable: true),
+                    CompanyId = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(
                         type: "timestamp with time zone",
                         nullable: false
@@ -512,13 +481,8 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_job",
                 columns: table => new
                 {
-                    jobid = table
-                        .Column<int>(name: "job_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
-                    CompanyDescriptionId = table.Column<int>(type: "integer", nullable: true),
+                    jobid = table.Column<string>(name: "job_id", type: "text", nullable: false),
+                    CompanyDescriptionId = table.Column<string>(type: "text", nullable: true),
                     jobtitle = table.Column<string>(
                         name: "job_title",
                         type: "text",
@@ -530,7 +494,7 @@ namespace JobLeet.WebApi.Migrations
                         nullable: true
                     ),
                     jobtype = table.Column<string>(name: "job_type", type: "text", nullable: true),
-                    JobAddressId = table.Column<int>(type: "integer", nullable: true),
+                    JobAddressId = table.Column<string>(type: "text", nullable: true),
                     jobvacancies = table.Column<int>(
                         name: "job_vacancies",
                         type: "integer",
@@ -546,9 +510,9 @@ namespace JobLeet.WebApi.Migrations
                         type: "text",
                         nullable: true
                     ),
-                    SkillsRequiredId = table.Column<int>(type: "integer", nullable: true),
-                    RequiredQualificationId = table.Column<int>(type: "integer", nullable: true),
-                    RequiredExperienceId = table.Column<int>(type: "integer", nullable: true),
+                    SkillsRequiredId = table.Column<string>(type: "text", nullable: true),
+                    RequiredQualificationId = table.Column<string>(type: "text", nullable: true),
+                    RequiredExperienceId = table.Column<string>(type: "text", nullable: true),
                     preferredqualifications = table.Column<string>(
                         name: "preferred_qualifications",
                         type: "text",
@@ -625,22 +589,21 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_seeker",
                 columns: table => new
                 {
-                    seekerid = table
-                        .Column<int>(name: "seeker_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
-                    PhoneId = table.Column<int>(type: "integer", nullable: true),
-                    AddressId = table.Column<int>(type: "integer", nullable: true),
-                    SkillsId = table.Column<int>(type: "integer", nullable: true),
-                    EducationId = table.Column<int>(type: "integer", nullable: true),
-                    ExperienceId = table.Column<int>(type: "integer", nullable: true),
+                    seekerid = table.Column<string>(
+                        name: "seeker_id",
+                        type: "text",
+                        nullable: false
+                    ),
+                    PhoneId = table.Column<string>(type: "text", nullable: true),
+                    AddressId = table.Column<string>(type: "text", nullable: true),
+                    SkillsId = table.Column<string>(type: "text", nullable: true),
+                    EducationId = table.Column<string>(type: "text", nullable: true),
+                    ExperienceId = table.Column<string>(type: "text", nullable: true),
                     DateOfBirth = table.Column<DateTime>(
                         type: "timestamp with time zone",
                         nullable: true
                     ),
-                    QualificationsId = table.Column<int>(type: "integer", nullable: true),
+                    QualificationsId = table.Column<string>(type: "text", nullable: true),
                     ProfileSummary = table.Column<string>(type: "text", nullable: true),
                     LinkedInProfile = table.Column<string>(type: "text", nullable: true),
                     Portfolio = table.Column<string>(type: "text", nullable: true),
@@ -697,17 +660,16 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_application",
                 columns: table => new
                 {
-                    applicationid = table
-                        .Column<int>(name: "application_id", type: "integer", nullable: false)
-                        .Annotation(
-                            "Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
-                        ),
-                    SeekerId = table.Column<int>(type: "integer", nullable: false),
-                    CompanyId = table.Column<int>(type: "integer", nullable: false),
-                    JobId = table.Column<int>(type: "integer", nullable: false),
-                    ApplicationDateId = table.Column<int>(type: "integer", nullable: true),
-                    StatusId = table.Column<int>(type: "integer", nullable: true),
+                    applicationid = table.Column<string>(
+                        name: "application_id",
+                        type: "text",
+                        nullable: false
+                    ),
+                    SeekerId = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    JobId = table.Column<string>(type: "text", nullable: false),
+                    ApplicationDateId = table.Column<string>(type: "text", nullable: true),
+                    StatusId = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(
                         type: "timestamp with time zone",
                         nullable: false

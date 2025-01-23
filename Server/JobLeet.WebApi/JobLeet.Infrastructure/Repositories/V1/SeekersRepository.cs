@@ -37,12 +37,12 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
             }
         }
 
-        public async Task<SeekerModel> GetByIdAsync(int id)
+        public async Task<SeekerModel> GetByIdAsync(string id)
         {
             try
             {
                 var seeker = await _dbContext
-                    .Seekers.Where(c => c.Id == id)
+                    .Seekers.Where(c => c.Id.Equals(id))
                     .Include(c => c.Phone)
                     .Include(c => c.Address)
                     .Include(c => c.Skills)
@@ -78,7 +78,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
             }
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }

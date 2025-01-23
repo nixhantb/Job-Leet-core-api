@@ -51,7 +51,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Controllers
         /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
         /// <remarks>This method fetches the record by ID from the database using Entity Framework Core.</remarks>
         [HttpGet("{id}")]
-        public virtual async Task<IActionResult> GetByIdAsync(int id)
+        public virtual async Task<IActionResult> GetByIdAsync(string id)
         {
             try
             {
