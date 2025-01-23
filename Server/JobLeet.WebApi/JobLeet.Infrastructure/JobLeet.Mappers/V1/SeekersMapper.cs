@@ -5,7 +5,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
 {
     public static class SeekersMapper
     {
-        public static Seeker ToSeekerDataBase(Seeker entity)
+        public static Seeker ToSeekerDataBase(Seeker entity, string UserId)
         {
             if (entity == null)
             {
@@ -14,7 +14,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
 
             return new Seeker
             {
-                Id = entity.Id,
+                Id = UserId,
                 Phone = PhoneMapper.ToPhoneDatabase(entity.Phone),
                 Address = AddressMapper.ToAddressDatabase(entity.Address),
                 Skills = SkillsMapper.ToSkillsDB(entity.Skills),

@@ -10,6 +10,7 @@ using JobLeet.WebApi.JobLeet.Api.Validators;
 using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
+using JobLeet.WebApi.JobLeet.Core.Entities.Identity;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;

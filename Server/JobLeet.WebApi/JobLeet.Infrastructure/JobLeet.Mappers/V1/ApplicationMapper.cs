@@ -5,7 +5,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
 {
     public static class ApplicationMapper
     {
-        public static Application ToApplicationDataBase(Application entity)
+        public static Application ToApplicationDataBase(Application entity, string userId)
         {
             if (entity == null)
             {
@@ -14,7 +14,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
 
             return new Application
             {
-                Seekers = SeekersMapper.ToSeekerDataBase(entity.Seekers),
+                Seekers = SeekersMapper.ToSeekerDataBase(entity.Seekers, userId),
                 Company = CompanyMapper.ToCompanyDataBase(entity.Company),
                 Jobs = JobsMapper.ToJobDatabase(entity.Jobs),
                 ApplicationDate = new()

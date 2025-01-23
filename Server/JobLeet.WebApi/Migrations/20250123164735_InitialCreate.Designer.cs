@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20250123131825_InitialCreate")]
+    [Migration("20250123164735_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -2,6 +2,7 @@ using JobLeet.WebApi.JobLeet.Api.Models.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
+using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1.Identity;
 using JobLeet.WebApi.JobLeet.Mappers.V1;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,12 +12,14 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
     {
         #region Initialization
         private readonly BaseDBContext _dbContext;
+        private readonly ApplicationDbContext _authContext;
 
         #endregion
 
-        public ApplicationRepository(BaseDBContext dbContext)
+        public ApplicationRepository(BaseDBContext dbContext, ApplicationDbContext authContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _authContext = authContext ?? throw new ArgumentNullException(nameof(authContext));
         }
 
         public async Task<ApplicationModel> AddAsync(Application entity)
@@ -27,8 +30,9 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                 {
                     throw new ArgumentNullException(nameof(entity));
                 }
+                var userId = _authContext.Users.FirstOrDefault()?.Id;
 
-                var saveToDb = ApplicationMapper.ToApplicationDataBase(entity);
+                var saveToDb = ApplicationMapper.ToApplicationDataBase(entity, userId);
                 await _dbContext.Applications.AddAsync(saveToDb);
                 await _dbContext.SaveChangesAsync();
 
