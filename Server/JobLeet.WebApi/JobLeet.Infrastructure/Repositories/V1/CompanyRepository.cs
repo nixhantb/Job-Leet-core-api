@@ -41,7 +41,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             }
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -69,12 +69,12 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
             }
         }
 
-        public async Task<CompanyModel> GetByIdAsync(int id)
+        public async Task<CompanyModel> GetByIdAsync(string id)
         {
             try
             {
                 var company = await _dbContext
-                    .Companies.Where(c => c.Id == id)
+                    .Companies.Where(c => c.Id.Equals(id))
                     .Include(c => c.Profile)
                     .ThenInclude(p => p.ContactEmail)
                     .Include(c => c.Profile)

@@ -1,8 +1,5 @@
-using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Companies.V1;
-using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
-using JobLeet.WebApi.JobLeet.Core.Interfaces.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Companies.V1;
 
 namespace JobLeet.WebApi.JobLeet.Core.Services
@@ -24,7 +21,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return industry;
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +32,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return industry;
         }
 
-        public async Task<IndustryModel> GetByIdAsync(int id)
+        public async Task<IndustryModel> GetByIdAsync(string id)
         {
             var industry = await _industryTypeRepository.GetByIdAsync(id);
             if (industry == null)

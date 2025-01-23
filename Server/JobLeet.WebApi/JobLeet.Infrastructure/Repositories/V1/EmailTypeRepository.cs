@@ -22,7 +22,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         /// <returns>The list of email-types by Id.</returns>
         /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
         /// <remarks>This method fetches all email-types by Id from the database using Entity Framework Core.</remarks>
-        public async Task<EmailModel> GetByIdAsync(int id)
+        public async Task<EmailModel> GetByIdAsync(string id)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             throw new NotSupportedException();
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotSupportedException();
         }

@@ -9,10 +9,10 @@ namespace JobLeet.WebApi.JobLeet.Core.Interfaces
         where TEntity : class
         where TModel : class
     {
-        Task<TModel> GetByIdAsync(int id);
+        Task<TModel> GetByIdAsync(string id);
         Task<List<TModel>> GetAllAsync();
         Task<TModel> AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(string id);
     }
 }

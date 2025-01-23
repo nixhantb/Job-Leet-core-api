@@ -7,13 +7,13 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1
 {
     public class Application : BaseEntity
     {
-        public int SeekerId { get; set; }
+        public string SeekerId { get; set; }
         public Seeker? Seekers { get; set; }
 
-        public int CompanyId { get; set; }
+        public string CompanyId { get; set; }
         public Company? Company { get; set; }
 
-        public int JobId { get; set; }
+        public string JobId { get; set; }
 
         [ForeignKey(nameof(JobId))]
         public JobEntity? Jobs { get; set; }

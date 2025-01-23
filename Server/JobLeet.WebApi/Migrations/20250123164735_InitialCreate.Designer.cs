@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20250123060908_InitialCreate")]
+    [Migration("20250123164735_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -28,12 +28,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Address", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("address_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("City")
                         .HasColumnType("text")
@@ -66,12 +63,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Education", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("education_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Cgpa")
                         .HasColumnType("numeric")
@@ -107,11 +101,8 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Email", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -130,15 +121,12 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Experience", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("experience_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("integer");
+                    b.Property<string>("CompanyId")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -157,12 +145,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("personname_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -187,12 +172,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Phone", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("jblt_phoneid");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CountryCode")
                         .HasColumnType("integer")
@@ -213,12 +195,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Qualification", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("qualification_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -239,12 +218,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Skill", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("skill_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -265,12 +241,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Company", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("company_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CompanyName")
                         .HasColumnType("text")
@@ -280,8 +253,8 @@ namespace JobLeet.WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("ProfileId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ProfileId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -292,28 +265,25 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.CompanyProfile", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("companyprofile_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("CompanyAddressId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("CompanyAddressId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ContactEmailId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("ContactEmailId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ContactPhoneId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ContactPhoneId")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("IndustryTypesId")
-                        .HasColumnType("integer");
+                    b.Property<string>("IndustryTypesId")
+                        .HasColumnType("text");
 
                     b.Property<string>("ProfileInfo")
                         .HasColumnType("text");
@@ -337,12 +307,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1.Industry", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("industry_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -359,31 +326,28 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1.Employer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("employer_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("AddressId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("integer");
+                    b.Property<string>("CompanyId")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("IndustryTypeId")
-                        .HasColumnType("integer");
+                    b.Property<string>("IndustryTypeId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("NameId")
-                        .HasColumnType("integer");
+                    b.Property<string>("NameId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("PhoneId")
-                        .HasColumnType("integer");
+                    b.Property<string>("PhoneId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -402,31 +366,31 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Application", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("application_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("ApplicationDateId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("ApplicationDateId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("JobId")
-                        .HasColumnType("integer");
+                    b.Property<string>("JobId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int>("SeekerId")
-                        .HasColumnType("integer");
+                    b.Property<string>("SeekerId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<int?>("StatusId")
-                        .HasColumnType("integer");
+                    b.Property<string>("StatusId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -445,11 +409,8 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.ApplicationDate", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Comments")
                         .HasColumnType("text");
@@ -474,12 +435,9 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("job_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("ApplicationDeadline")
                         .HasColumnType("timestamp with time zone")
@@ -493,8 +451,8 @@ namespace JobLeet.WebApi.Migrations
                         .HasColumnType("text")
                         .HasColumnName("job_benefits");
 
-                    b.Property<int?>("CompanyDescriptionId")
-                        .HasColumnType("integer");
+                    b.Property<string>("CompanyDescriptionId")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -504,8 +462,8 @@ namespace JobLeet.WebApi.Migrations
                         .HasColumnType("text")
                         .HasColumnName("job_functional_area");
 
-                    b.Property<int?>("JobAddressId")
-                        .HasColumnType("integer");
+                    b.Property<string>("JobAddressId")
+                        .HasColumnType("text");
 
                     b.Property<string>("JobDescription")
                         .HasColumnType("text")
@@ -531,14 +489,14 @@ namespace JobLeet.WebApi.Migrations
                         .HasColumnType("text")
                         .HasColumnName("preferred_qualifications");
 
-                    b.Property<int?>("RequiredExperienceId")
-                        .HasColumnType("integer");
+                    b.Property<string>("RequiredExperienceId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("RequiredQualificationId")
-                        .HasColumnType("integer");
+                    b.Property<string>("RequiredQualificationId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("SkillsRequiredId")
-                        .HasColumnType("integer");
+                    b.Property<string>("SkillsRequiredId")
+                        .HasColumnType("text");
 
                     b.Property<string>("Tags")
                         .HasColumnType("text")
@@ -569,11 +527,8 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.Status", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -589,18 +544,15 @@ namespace JobLeet.WebApi.Migrations
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.Seeker", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
                         .HasColumnName("seeker_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<List<string>>("Achievements")
                         .HasColumnType("text[]");
 
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("integer");
+                    b.Property<string>("AddressId")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
@@ -609,11 +561,11 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("EducationId")
-                        .HasColumnType("integer");
+                    b.Property<string>("EducationId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("ExperienceId")
-                        .HasColumnType("integer");
+                    b.Property<string>("ExperienceId")
+                        .HasColumnType("text");
 
                     b.Property<List<string>>("Interests")
                         .HasColumnType("text[]");
@@ -621,8 +573,8 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<string>("LinkedInProfile")
                         .HasColumnType("text");
 
-                    b.Property<int?>("PhoneId")
-                        .HasColumnType("integer");
+                    b.Property<string>("PhoneId")
+                        .HasColumnType("text");
 
                     b.Property<string>("Portfolio")
                         .HasColumnType("text");
@@ -630,11 +582,11 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<string>("ProfileSummary")
                         .HasColumnType("text");
 
-                    b.Property<int?>("QualificationsId")
-                        .HasColumnType("integer");
+                    b.Property<string>("QualificationsId")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("SkillsId")
-                        .HasColumnType("integer");
+                    b.Property<string>("SkillsId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

@@ -23,7 +23,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -58,7 +58,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         /// <returns>The list of phones by ID.</returns>
         /// <exception cref="Exception">Thrown when there is an error while fetching data from the database.</exception>
         /// <remarks>This method fetches the Phone from the database using Entity Framework Core.</remarks>
-        public async Task<PhoneModel> GetByIdAsync(int id)
+        public async Task<PhoneModel> GetByIdAsync(string id)
         {
             try
             {

@@ -9,29 +9,17 @@ namespace JobLeet.WebApi.JobLeet.Core.Validators.Jobs
     {
         public ApplicationValidator()
         {
-            RuleFor(application => application.SeekerId)
-                .GreaterThan(0)
-                .WithMessage("SeekerId must be greater than 0.");
-
             RuleFor(application => application.Seekers)
                 .NotNull()
                 .WithMessage("Seeker information is required.")
                 .When(application => application.Seekers != null)
                 .SetValidator(new SeekerValidator());
 
-            RuleFor(application => application.CompanyId)
-                .GreaterThan(0)
-                .WithMessage("CompanyId must be greater than 0.");
-
             RuleFor(application => application.Company)
                 .NotNull()
                 .WithMessage("Company information is required.")
                 .When(application => application.Company != null)
                 .SetValidator(new CompanyValidator());
-
-            RuleFor(application => application.JobId)
-                .GreaterThan(0)
-                .WithMessage("JobId must be greater than 0.");
 
             RuleFor(application => application.Jobs)
                 .NotNull()

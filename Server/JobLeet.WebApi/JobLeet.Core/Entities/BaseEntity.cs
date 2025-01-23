@@ -7,7 +7,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities;
 public class BaseEntity
 {
     [JsonIgnore]
-    public int Id { get; set; }
+    public string Id { get; set; } = Guid.NewGuid().ToString();
 
     [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -20,7 +20,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return email;
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -31,7 +31,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return email;
         }
 
-        public async Task<EmailModel> GetByIdAsync(int id)
+        public async Task<EmailModel> GetByIdAsync(string id)
         {
             var email = await _emailTypeRepository.GetByIdAsync(id);
             if (email == null)

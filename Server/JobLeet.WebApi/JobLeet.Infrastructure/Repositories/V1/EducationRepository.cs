@@ -27,7 +27,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(int id)
+        public Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -74,7 +74,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Common.V1
         }
         #endregion
 
-        public Task<EducationModel> GetByIdAsync(int id)
+        public Task<EducationModel> GetByIdAsync(string id)
         {
             throw new NotImplementedException();
         }

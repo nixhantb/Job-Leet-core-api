@@ -20,7 +20,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return seeker;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
             await _seekerRepository.DeleteAsync(id);
         }
@@ -31,7 +31,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return seeker;
         }
 
-        public Task<SeekerModel> GetByIdAsync(int id)
+        public Task<SeekerModel> GetByIdAsync(string id)
         {
             var seeker = _seekerRepository.GetByIdAsync(id);
             if (seeker == null)
