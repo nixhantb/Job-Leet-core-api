@@ -15,6 +15,13 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             return new Seeker
             {
                 Id = UserId,
+                PersonName = new()
+                {
+                    Id = entity.PersonName.Id,
+                    FirstName = entity.PersonName.FirstName,
+                    MiddleName = entity.PersonName.MiddleName,
+                    LastName = entity.PersonName.LastName,
+                },
                 Phone = PhoneMapper.ToPhoneDatabase(entity.Phone),
                 Address = AddressMapper.ToAddressDatabase(entity.Address),
                 Skills = SkillsMapper.ToSkillsDB(entity.Skills),
@@ -46,6 +53,13 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             return new SeekerModel
             {
                 Id = model.Id,
+                personNameModel = new()
+                {
+                    Id = model.PersonName.Id,
+                    FirstName = model.PersonName.FirstName,
+                    MiddleName = model.PersonName.MiddleName,
+                    LastName = model.PersonName.LastName,
+                },
                 Phone = model.Phone != null ? PhoneMapper.ToPhoneModel(model.Phone) : null,
                 Address =
                     model.Address != null ? AddressMapper.ToAddressModel(model.Address) : null,

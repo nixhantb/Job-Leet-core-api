@@ -8,6 +8,11 @@ namespace JobLeet.WebApi.JobLeet.Core.Validators.Seekers
     {
         public SeekerValidator()
         {
+            RuleFor(seeker => seeker.PersonName)
+                .NotNull()
+                .WithMessage("Person Name is required.")
+                .When(seeker => seeker.Phone != null)
+                .SetValidator(new PersonNameValidator());
             RuleFor(seeker => seeker.Phone)
                 .NotNull()
                 .WithMessage("Phone information is required.")

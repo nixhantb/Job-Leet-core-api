@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace JobLeet.WebApi.Migrations
+namespace JobLeet.WebApi.Migrations.BaseDB
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class BaseDBCreate9892 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -337,6 +337,7 @@ namespace JobLeet.WebApi.Migrations
                 columns: table => new
                 {
                     seekerid = table.Column<string>(name: "seeker_id", type: "text", nullable: false),
+                    PersonNameId = table.Column<string>(type: "text", nullable: true),
                     PhoneId = table.Column<string>(type: "text", nullable: true),
                     AddressId = table.Column<string>(type: "text", nullable: true),
                     SkillsId = table.Column<string>(type: "text", nullable: true),
@@ -364,6 +365,11 @@ namespace JobLeet.WebApi.Migrations
                         column: x => x.ExperienceId,
                         principalTable: "jblt_experience",
                         principalColumn: "experience_id");
+                    table.ForeignKey(
+                        name: "FK_jblt_seeker_jblt_personName_PersonNameId",
+                        column: x => x.PersonNameId,
+                        principalTable: "jblt_personName",
+                        principalColumn: "personname_id");
                     table.ForeignKey(
                         name: "FK_jblt_seeker_jblt_phone_PhoneId",
                         column: x => x.PhoneId,
@@ -552,6 +558,11 @@ namespace JobLeet.WebApi.Migrations
                 column: "ExperienceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_jblt_seeker_PersonNameId",
+                table: "jblt_seeker",
+                column: "PersonNameId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_jblt_seeker_PhoneId",
                 table: "jblt_seeker",
                 column: "PhoneId");
@@ -589,13 +600,13 @@ namespace JobLeet.WebApi.Migrations
                 name: "jblt_seeker");
 
             migrationBuilder.DropTable(
-                name: "jblt_personName");
-
-            migrationBuilder.DropTable(
                 name: "jblt_education");
 
             migrationBuilder.DropTable(
                 name: "jblt_experience");
+
+            migrationBuilder.DropTable(
+                name: "jblt_personName");
 
             migrationBuilder.DropTable(
                 name: "jblt_qualification");

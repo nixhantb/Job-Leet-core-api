@@ -4,6 +4,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1
 {
     public class Seeker : BaseEntity
     {
+        public PersonName PersonName { get; set; }
         public Phone? Phone { get; set; }
         public Address? Address { get; set; }
         public Skill? Skills { get; set; }

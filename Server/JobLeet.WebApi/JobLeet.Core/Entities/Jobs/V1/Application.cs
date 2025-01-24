@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
-using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
 
 namespace JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1

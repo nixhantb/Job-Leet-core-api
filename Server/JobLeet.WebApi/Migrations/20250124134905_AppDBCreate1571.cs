@@ -4,10 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace JobLeet.WebApi.Migrations.ApplicationDb
+namespace JobLeet.WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Authentication : Migration
+    public partial class AppDBCreate1571 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

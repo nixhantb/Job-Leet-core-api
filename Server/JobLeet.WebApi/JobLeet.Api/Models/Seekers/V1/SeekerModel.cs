@@ -4,6 +4,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Seekers.V1
 {
     public class SeekerModel : BaseModel
     {
+        public PersonNameModel personNameModel { get; set; }
         public PhoneModel? Phone { get; set; }
         public AddressModel? Address { get; set; }
         public SkillModel? Skills { get; set; }

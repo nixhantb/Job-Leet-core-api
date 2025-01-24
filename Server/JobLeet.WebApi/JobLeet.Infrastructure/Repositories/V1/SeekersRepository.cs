@@ -45,21 +45,17 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
                     throw new Exception("Unable to retrieve the logged-in user ID.");
                 }
 
-                // Check if the user exists in the AspNetUsers table
                 var user = await _authContext.Users.FirstOrDefaultAsync(e => e.Id == userId);
                 if (user == null)
                 {
                     throw new Exception("User not found in the identity database.");
                 }
 
-                // Map the Seeker entity to the database model, using the logged-in user's ID
                 var seekersEntity = SeekersMapper.ToSeekerDataBase(entity, userId);
 
-                // Add and save the Seekers entity to the database
                 await _dbContext.AddAsync(seekersEntity);
                 await _dbContext.SaveChangesAsync();
 
-                // Map the database entity back to the response model
                 var seekersResponse = SeekersMapper.ToSeekerModel(seekersEntity);
                 return seekersResponse;
             }
@@ -75,6 +71,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
             {
                 var seeker = await _dbContext
                     .Seekers.Where(c => c.Id.Equals(id))
+                    .Include(p => p.PersonName)
                     .Include(c => c.Phone)
                     .Include(c => c.Address)
                     .Include(c => c.Skills)

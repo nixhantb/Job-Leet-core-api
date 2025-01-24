@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace JobLeet.WebApi.Migrations
+namespace JobLeet.WebApi.Migrations.BaseDB
 {
     [DbContext(typeof(BaseDBContext))]
-    partial class BaseDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250124134945_BaseDBCreate9892")]
+    partial class BaseDBCreate9892
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -570,6 +573,9 @@ namespace JobLeet.WebApi.Migrations
                     b.Property<string>("LinkedInProfile")
                         .HasColumnType("text");
 
+                    b.Property<string>("PersonNameId")
+                        .HasColumnType("text");
+
                     b.Property<string>("PhoneId")
                         .HasColumnType("text");
 
@@ -592,6 +598,8 @@ namespace JobLeet.WebApi.Migrations
                     b.HasIndex("EducationId");
 
                     b.HasIndex("ExperienceId");
+
+                    b.HasIndex("PersonNameId");
 
                     b.HasIndex("PhoneId");
 
@@ -766,6 +774,10 @@ namespace JobLeet.WebApi.Migrations
                         .WithMany()
                         .HasForeignKey("ExperienceId");
 
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.PersonName", "PersonName")
+                        .WithMany()
+                        .HasForeignKey("PersonNameId");
+
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Phone", "Phone")
                         .WithMany()
                         .HasForeignKey("PhoneId");
@@ -783,6 +795,8 @@ namespace JobLeet.WebApi.Migrations
                     b.Navigation("Education");
 
                     b.Navigation("Experience");
+
+                    b.Navigation("PersonName");
 
                     b.Navigation("Phone");
 

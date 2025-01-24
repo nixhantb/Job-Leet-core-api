@@ -9,11 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace JobLeet.WebApi.Migrations.ApplicationDb
+namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250123165553_Authentication")]
-    partial class Authentication
+    [Migration("20250124134905_AppDBCreate1571")]
+    partial class AppDBCreate1571
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
