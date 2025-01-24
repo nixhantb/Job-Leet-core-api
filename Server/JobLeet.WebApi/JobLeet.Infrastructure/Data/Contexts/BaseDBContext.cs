@@ -1,7 +1,6 @@
 ﻿using JobLeet.WebApi.JobLeet.Core.Entities.Common.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Companies.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Employers.V1;
-using JobLeet.WebApi.JobLeet.Core.Entities.Identity;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts.V1;
@@ -27,7 +26,6 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
-
         public virtual DbSet<JobEntity> Jobs { get; set; }
         public virtual DbSet<Industry> IndustryTypes { get; set; }
         public virtual DbSet<CompanyProfile> CompanyProfiles { get; set; }

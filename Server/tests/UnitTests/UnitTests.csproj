@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\..\JobLeet.WebApi\JobLeet.WebApi.csproj" />
+	  <ProjectReference Include="..\..\Server\JobLeet.WebApi\JobLeet.WebApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

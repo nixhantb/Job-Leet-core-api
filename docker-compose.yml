@@ -1,34 +1,35 @@
-version: '3.8'
-
 services:
   jobleet-database:
     image: postgres:13
     container_name: postgresql_server
     ports:
       - "5432:5432"
-    restart: always
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: leetadmin
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - Server/JobLeet.WebApi/.env
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "leetadmin", "-d", "${POSTGRES_DB}"]
-      timeout: 20s
-      retries: 10    
-    
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   jobleet-api:
-    build: .
+    build:
+      context: .
+      dockerfile: Server/JobLeet.WebApi/Dockerfile
     depends_on:
       jobleet-database:
         condition: service_healthy
-    ports: 
+    ports:
       - "8080:8080"
-    restart: always
+    env_file:
+      - Server/JobLeet.WebApi/.env
     environment:
       - DBHOST=jobleet-database
       - ASPNETCORE_ENVIRONMENT=Development
 
 volumes:
   db_data:
+
+name: jobleet-project
