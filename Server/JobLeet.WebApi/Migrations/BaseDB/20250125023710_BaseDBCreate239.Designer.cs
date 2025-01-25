@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobLeet.WebApi.Migrations.BaseDB
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20250124134945_BaseDBCreate9892")]
-    partial class BaseDBCreate9892
+    [Migration("20250125023710_BaseDBCreate239")]
+    partial class BaseDBCreate239
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -570,16 +570,10 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                     b.Property<List<string>>("Interests")
                         .HasColumnType("text[]");
 
-                    b.Property<string>("LinkedInProfile")
-                        .HasColumnType("text");
-
                     b.Property<string>("PersonNameId")
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Portfolio")
                         .HasColumnType("text");
 
                     b.Property<string>("ProfileSummary")
@@ -590,6 +584,10 @@ namespace JobLeet.WebApi.Migrations.BaseDB
 
                     b.Property<string>("SkillsId")
                         .HasColumnType("text");
+
+                    b.Property<List<string>>("SocialMedia")
+                        .IsRequired()
+                        .HasColumnType("text[]");
 
                     b.HasKey("Id");
 

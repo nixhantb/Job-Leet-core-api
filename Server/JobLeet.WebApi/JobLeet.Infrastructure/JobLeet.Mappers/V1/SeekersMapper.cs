@@ -35,8 +35,15 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                     QualificationInformation = entity.Qualifications.QualificationInformation,
                 },
                 ProfileSummary = entity.ProfileSummary,
-                LinkedInProfile = entity.LinkedInProfile,
-                Portfolio = entity.Portfolio,
+                SocialMedias = entity
+                    .SocialMedias?.Select(sm => new Core.Entities.Seekers.V1.SocialMedia
+                    {
+                        Id = sm.Id,
+                        Title = sm.Title,
+                        Url = sm.Url,
+                    })
+                    .ToList(),
+
                 Interests = entity.Interests,
                 Achievements = entity.Achievements,
             };
@@ -90,8 +97,14 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                         }
                         : null,
                 ProfileSummary = model.ProfileSummary,
-                LinkedInProfile = model.LinkedInProfile,
-                Portfolio = model.Portfolio,
+                SocialMedias = model
+                    .SocialMedias.Select(sm => new Api.Models.Seekers.V1.SocialMedia
+                    {
+                        Id = sm.Id,
+                        Title = sm.Title,
+                        Url = sm.Url,
+                    })
+                    .ToList(),
                 Interests = model.Interests,
                 Achievements = model.Achievements,
             };

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobLeet.WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250124134905_AppDBCreate1571")]
-    partial class AppDBCreate1571
+    [Migration("20250125023641_AppDBCreate2741")]
+    partial class AppDBCreate2741
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

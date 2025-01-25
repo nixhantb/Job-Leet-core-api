@@ -13,9 +13,14 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1
         public DateTime? DateOfBirth { get; set; }
         public Qualification? Qualifications { get; set; }
         public string? ProfileSummary { get; set; }
-        public string? LinkedInProfile { get; set; }
-        public string? Portfolio { get; set; }
+        public List<SocialMedia>? SocialMedias { get; set; }
         public List<string>? Interests { get; set; }
         public List<string>? Achievements { get; set; }
+    }
+
+    public class SocialMedia : BaseEntity
+    {
+        public string? Title { get; set; }
+        public string? Url { get; set; }
     }
 }

@@ -61,16 +61,6 @@ namespace JobLeet.WebApi.JobLeet.Core.Validators.Seekers
                 .MaximumLength(500)
                 .WithMessage("Profile summary cannot exceed 500 characters.");
 
-            RuleFor(seeker => seeker.LinkedInProfile)
-                .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute))
-                .WithMessage("LinkedIn profile must be a valid URL.")
-                .When(seeker => !string.IsNullOrEmpty(seeker.LinkedInProfile));
-
-            RuleFor(seeker => seeker.Portfolio)
-                .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute))
-                .WithMessage("Portfolio must be a valid URL.")
-                .When(seeker => !string.IsNullOrEmpty(seeker.Portfolio));
-
             RuleFor(seeker => seeker.Interests)
                 .NotEmpty()
                 .WithMessage("Interests cannot be empty.")

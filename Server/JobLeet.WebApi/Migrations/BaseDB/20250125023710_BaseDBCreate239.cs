@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JobLeet.WebApi.Migrations.BaseDB
 {
     /// <inheritdoc />
-    public partial class BaseDBCreate9892 : Migration
+    public partial class BaseDBCreate239 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -346,8 +346,7 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     QualificationsId = table.Column<string>(type: "text", nullable: true),
                     ProfileSummary = table.Column<string>(type: "text", nullable: true),
-                    LinkedInProfile = table.Column<string>(type: "text", nullable: true),
-                    Portfolio = table.Column<string>(type: "text", nullable: true),
+                    SocialMedia = table.Column<List<string>>(type: "text[]", nullable: false),
                     Interests = table.Column<List<string>>(type: "text[]", nullable: true),
                     Achievements = table.Column<List<string>>(type: "text[]", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
