@@ -12,6 +12,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 Id = entity.Id,
                 Company = CompanyMapper.ToCompanyDataBase(entity.Company),
                 ExperienceLevel = entity.ExperienceLevel,
+                ExperienceDateFrom = entity.ExperienceDateFrom,
             };
         }
 
@@ -22,6 +23,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                 Id = model.Id,
                 CompanyModel = CompanyMapper.ToCompanyModel(model.Company),
                 ExperienceLevel = (Api.Models.Common.V1.ExperienceLevel)model.ExperienceLevel,
+                ExperienceDateTill = model.ExperienceDateTill,
             };
         }
     }

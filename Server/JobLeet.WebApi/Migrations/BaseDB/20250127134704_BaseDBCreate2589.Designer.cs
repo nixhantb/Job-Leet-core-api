@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using JobLeet.WebApi.JobLeet.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobLeet.WebApi.Migrations.BaseDB
 {
     [DbContext(typeof(BaseDBContext))]
-    partial class BaseDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250127134704_BaseDBCreate2589")]
+    partial class BaseDBCreate2589
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

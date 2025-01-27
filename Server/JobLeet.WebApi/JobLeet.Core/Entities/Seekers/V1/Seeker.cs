@@ -16,6 +16,7 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1
         public List<SocialMedia>? SocialMedias { get; set; }
         public List<string>? Interests { get; set; }
         public List<string>? Achievements { get; set; }
+        public Project? Projects { get; set; }
     }
 
     public class SocialMedia : BaseEntity

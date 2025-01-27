@@ -18,6 +18,7 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
             {
                 Id = entity.Id,
                 CompanyName = entity.CompanyName,
+
                 Profile =
                     entity.Profile == null
                         ? null

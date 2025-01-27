@@ -9,6 +9,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Common.V1
         public ExperienceLevel ExperienceLevel { get; set; }
 
         public Company? Company { get; set; }
+        public DateTime ExperienceDateFrom { get; set; }
+        public DateTime ExperienceDateTill { get; set; }
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

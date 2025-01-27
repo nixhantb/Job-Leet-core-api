@@ -16,6 +16,7 @@ namespace JobLeet.WebApi.JobLeet.Api.Models.Seekers.V1
         public List<SocialMedia> SocialMedias { get; set; } = new List<SocialMedia>();
         public List<string>? Interests { get; set; }
         public List<string>? Achievements { get; set; }
+        public ProjectModel? Projects { get; set; }
     }
 
     public class SocialMedia : BaseModel
