@@ -46,6 +46,11 @@ namespace JobLeet.WebApi.JobLeet.Core.Services
             return await _applicationRepository.GetAllAsync();
         }
 
+        public Task<Application> GetApplicationDetailsAsync(string applicationId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ApplicationModel> GetByIdAsync(string id)
         {
             var application = await _applicationRepository.GetByIdAsync(id);

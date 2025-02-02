@@ -1,3 +1,4 @@
+using JobLeet.WebApi.JobLeet.Api.Models.Common.V1;
 using JobLeet.WebApi.JobLeet.Api.Models.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1;
 using JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1;
@@ -74,7 +75,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
 
                 var job = await _dbContext
                     .Jobs.Include(j => j.CompanyDescription)
-                    .Include(j => j.SkillsRequired) // Example if Jobs have RequiredSkills
+                    .Include(j => j.SkillsRequired)
                     .FirstOrDefaultAsync(j => j.Id == jobId);
                 if (job == null)
                 {
@@ -82,7 +83,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                 }
 
                 var existingApplication = await _dbContext.Applications.FirstOrDefaultAsync(a =>
-                    a.SeekerId == seekerId && a.JobId == jobId
+                    a.SeekerId == seekerId && a.JobsId == jobId
                 );
                 if (existingApplication != null)
                 {
@@ -92,7 +93,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                 var application = new Application
                 {
                     SeekerId = seekerId,
-                    JobId = jobId,
+                    JobsId = jobId,
                     CompanyId = companyId,
                     Seekers = null,
                     Jobs = null,
@@ -110,7 +111,7 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
                     },
                 };
 
-                _dbContext.Attach(application);
+                _dbContext.Add(application);
 
                 try
                 {
@@ -141,18 +142,67 @@ namespace JobLeet.WebApi.JobLeetInfrastructure.Repositories.Companies.V1
         {
             try
             {
-                var applications = await _dbContext.Applications.ToListAsync();
-                return applications.Select(ApplicationMapper.ToApplicationModel).ToList();
+                var entities = await _dbContext
+                    .Applications.Include(p => p.Company)
+                    .ThenInclude(p => p.Profile)
+                    .Include(p => p.Company)
+                    .ThenInclude(p => p.Profile)
+                    .ThenInclude(p => p.CompanyAddress)
+                    .Include(p => p.Company)
+                    .ThenInclude(p => p.Profile)
+                    .ThenInclude(p => p.ContactEmail)
+                    .Include(p => p.Company)
+                    .ThenInclude(p => p.Profile)
+                    .ThenInclude(p => p.ContactPhone)
+                    .Include(p => p.Company)
+                    .ThenInclude(p => p.Profile)
+                    .ThenInclude(p => p.IndustryTypes)
+                    .Include(j => j.Jobs)
+                    .ThenInclude(j => j.JobAddress)
+                    .Include(j => j.ApplicationDate)
+                    .Include(j => j.Status)
+                    .ToListAsync();
+
+                if (!entities.Any())
+                {
+                    return new List<ApplicationModel>();
+                }
+
+                return entities.Select(ApplicationMapper.ToApplicationModel).ToList();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error Retriving Application", ex);
+                throw new Exception("Error retrieving applications: " + ex.Message, ex);
             }
         }
 
-        public Task<ApplicationModel> GetByIdAsync(string id)
+        public async Task<ApplicationModel> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (string.IsNullOrEmpty(id))
+                {
+                    throw new ArgumentException("Application ID cannot be null or empty.");
+                }
+
+                var application = await _dbContext
+                    .Applications.Include(a => a.Seekers)
+                    .Include(a => a.Jobs)
+                    .Include(a => a.Company)
+                    .Include(a => a.ApplicationDate)
+                    .FirstOrDefaultAsync(a => a.Id == id);
+
+                if (application == null)
+                {
+                    throw new KeyNotFoundException($"Application with ID {id} not found.");
+                }
+
+                return ApplicationMapper.ToApplicationModel(application);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving application with ID {id}: {ex.Message}", ex);
+            }
         }
 
         public Task<Application> UpdateApplicationStatusAsync(string applicationId, Status status)

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JobLeet.WebApi.Migrations.BaseDB
 {
     /// <inheritdoc />
-    public partial class BaseDBCreate239 : Migration
+    public partial class BaseDBCreate2783 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -147,6 +147,26 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                 });
 
             migrationBuilder.CreateTable(
+                name: "Project",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Responsibilities = table.Column<List<string>>(type: "text[]", nullable: false),
+                    TechnologiesUsed = table.Column<List<string>>(type: "text[]", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: true),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    ProjectUrl = table.Column<string>(type: "text", nullable: true),
+                    GitHubUrl = table.Column<string>(type: "text", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Project", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Status",
                 columns: table => new
                 {
@@ -265,6 +285,8 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                     experienceid = table.Column<string>(name: "experience_id", type: "text", nullable: false),
                     experiencetype = table.Column<int>(name: "experience_type", type: "integer", nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: true),
+                    ExperienceDateFrom = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ExperienceDateTill = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -346,14 +368,19 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     QualificationsId = table.Column<string>(type: "text", nullable: true),
                     ProfileSummary = table.Column<string>(type: "text", nullable: true),
-                    SocialMedia = table.Column<List<string>>(type: "text[]", nullable: false),
                     Interests = table.Column<List<string>>(type: "text[]", nullable: true),
                     Achievements = table.Column<List<string>>(type: "text[]", nullable: true),
+                    ProjectsId = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_jblt_seeker", x => x.seekerid);
+                    table.ForeignKey(
+                        name: "FK_jblt_seeker_Project_ProjectsId",
+                        column: x => x.ProjectsId,
+                        principalTable: "Project",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_jblt_seeker_jblt_education_EducationId",
                         column: x => x.EducationId,
@@ -398,7 +425,7 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                     applicationid = table.Column<string>(name: "application_id", type: "text", nullable: false),
                     SeekerId = table.Column<string>(type: "text", nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
-                    JobId = table.Column<string>(type: "text", nullable: false),
+                    JobsId = table.Column<string>(type: "text", nullable: false),
                     ApplicationDateId = table.Column<string>(type: "text", nullable: true),
                     StatusId = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -423,8 +450,8 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                         principalColumn: "company_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_jblt_application_jblt_job_JobId",
-                        column: x => x.JobId,
+                        name: "FK_jblt_application_jblt_job_JobsId",
+                        column: x => x.JobsId,
                         principalTable: "jblt_job",
                         principalColumn: "job_id",
                         onDelete: ReferentialAction.Cascade);
@@ -434,6 +461,26 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                         principalTable: "jblt_seeker",
                         principalColumn: "seeker_id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SocialMedia",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: true),
+                    Url = table.Column<string>(type: "text", nullable: true),
+                    SeekerId = table.Column<string>(type: "text", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocialMedia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SocialMedia_jblt_seeker_SeekerId",
+                        column: x => x.SeekerId,
+                        principalTable: "jblt_seeker",
+                        principalColumn: "seeker_id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -447,9 +494,9 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_jblt_application_JobId",
+                name: "IX_jblt_application_JobsId",
                 table: "jblt_application",
-                column: "JobId");
+                column: "JobsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_jblt_application_SeekerId",
@@ -567,6 +614,11 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                 column: "PhoneId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_jblt_seeker_ProjectsId",
+                table: "jblt_seeker",
+                column: "ProjectsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_jblt_seeker_QualificationsId",
                 table: "jblt_seeker",
                 column: "QualificationsId");
@@ -575,6 +627,11 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                 name: "IX_jblt_seeker_SkillsId",
                 table: "jblt_seeker",
                 column: "SkillsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SocialMedia_SeekerId",
+                table: "SocialMedia",
+                column: "SeekerId");
         }
 
         /// <inheritdoc />
@@ -587,6 +644,9 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                 name: "jblt_employer");
 
             migrationBuilder.DropTable(
+                name: "SocialMedia");
+
+            migrationBuilder.DropTable(
                 name: "ApplicationDate");
 
             migrationBuilder.DropTable(
@@ -597,6 +657,9 @@ namespace JobLeet.WebApi.Migrations.BaseDB
 
             migrationBuilder.DropTable(
                 name: "jblt_seeker");
+
+            migrationBuilder.DropTable(
+                name: "Project");
 
             migrationBuilder.DropTable(
                 name: "jblt_education");

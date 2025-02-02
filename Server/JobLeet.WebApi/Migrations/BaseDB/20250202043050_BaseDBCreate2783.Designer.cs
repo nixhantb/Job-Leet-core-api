@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobLeet.WebApi.Migrations.BaseDB
 {
     [DbContext(typeof(BaseDBContext))]
-    [Migration("20250125023710_BaseDBCreate239")]
-    partial class BaseDBCreate239
+    [Migration("20250202043050_BaseDBCreate2783")]
+    partial class BaseDBCreate2783
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -132,6 +132,12 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("ExperienceDateFrom")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExperienceDateTill")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("ExperienceLevel")
                         .HasColumnType("integer")
                         .HasColumnName("experience_type");
@@ -191,6 +197,47 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                     b.HasKey("Id");
 
                     b.ToTable("jblt_phone", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Project", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateOnly?>("EndDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("GitHubUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectUrl")
+                        .HasColumnType("text");
+
+                    b.Property<List<string>>("Responsibilities")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("text");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<List<string>>("TechnologiesUsed")
+                        .IsRequired()
+                        .HasColumnType("text[]");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Project");
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Qualification", b =>
@@ -381,7 +428,7 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("JobId")
+                    b.Property<string>("JobsId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -398,7 +445,7 @@ namespace JobLeet.WebApi.Migrations.BaseDB
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("JobId");
+                    b.HasIndex("JobsId");
 
                     b.HasIndex("SeekerId");
 
@@ -579,15 +626,14 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                     b.Property<string>("ProfileSummary")
                         .HasColumnType("text");
 
+                    b.Property<string>("ProjectsId")
+                        .HasColumnType("text");
+
                     b.Property<string>("QualificationsId")
                         .HasColumnType("text");
 
                     b.Property<string>("SkillsId")
                         .HasColumnType("text");
-
-                    b.Property<List<string>>("SocialMedia")
-                        .IsRequired()
-                        .HasColumnType("text[]");
 
                     b.HasKey("Id");
 
@@ -601,11 +647,38 @@ namespace JobLeet.WebApi.Migrations.BaseDB
 
                     b.HasIndex("PhoneId");
 
+                    b.HasIndex("ProjectsId");
+
                     b.HasIndex("QualificationsId");
 
                     b.HasIndex("SkillsId");
 
                     b.ToTable("jblt_seeker", (string)null);
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.SocialMedia", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("SeekerId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SeekerId");
+
+                    b.ToTable("SocialMedia");
                 });
 
             modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Experience", b =>
@@ -700,7 +773,7 @@ namespace JobLeet.WebApi.Migrations.BaseDB
 
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", "Jobs")
                         .WithMany()
-                        .HasForeignKey("JobId")
+                        .HasForeignKey("JobsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -780,6 +853,10 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                         .WithMany()
                         .HasForeignKey("PhoneId");
 
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Project", "Projects")
+                        .WithMany()
+                        .HasForeignKey("ProjectsId");
+
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Common.V1.Qualification", "Qualifications")
                         .WithMany()
                         .HasForeignKey("QualificationsId");
@@ -798,9 +875,23 @@ namespace JobLeet.WebApi.Migrations.BaseDB
 
                     b.Navigation("Phone");
 
+                    b.Navigation("Projects");
+
                     b.Navigation("Qualifications");
 
                     b.Navigation("Skills");
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.SocialMedia", b =>
+                {
+                    b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.Seeker", null)
+                        .WithMany("SocialMedias")
+                        .HasForeignKey("SeekerId");
+                });
+
+            modelBuilder.Entity("JobLeet.WebApi.JobLeet.Core.Entities.Seekers.V1.Seeker", b =>
+                {
+                    b.Navigation("SocialMedias");
                 });
 #pragma warning restore 612, 618
         }

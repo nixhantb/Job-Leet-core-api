@@ -7,5 +7,6 @@ namespace JobLeet.WebApi.JobLeet.Core.Interfaces.Jobs.V1
     {
         Task<Application> ApplyForJobAsync(string seekerId, string jobId, string companyId);
         Task<Application> UpdateApplicationStatusAsync(string applicationId, Status status);
+        Task<Application> GetApplicationDetailsAsync(string applicationId);
     }
 }

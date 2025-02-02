@@ -84,14 +84,14 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                                     {
                                         Id = entity.Profile.IndustryTypes.Id,
                                         IndustryType =
-                                            entity.Profile.IndustryTypes.IndustryType != null
+                                            entity?.Profile.IndustryTypes.IndustryType != null
                                                 ? (Api.Models.Companies.V1.IndustryCategory)(
                                                     entity.Profile.IndustryTypes.IndustryType
                                                 )
                                                 : default(Api.Models.Companies.V1.IndustryCategory),
                                     }
                                     : null,
-                            Website = entity.Profile.Website,
+                            Website = entity?.Profile.Website,
                         },
             };
         }

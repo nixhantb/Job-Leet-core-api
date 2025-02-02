@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobLeet.WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class AppDBCreate2741 : Migration
+    public partial class AppDBCreate3015 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -425,7 +425,7 @@ namespace JobLeet.WebApi.Migrations.BaseDB
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("JobId")
+                    b.Property<string>("JobsId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -442,7 +442,7 @@ namespace JobLeet.WebApi.Migrations.BaseDB
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("JobId");
+                    b.HasIndex("JobsId");
 
                     b.HasIndex("SeekerId");
 
@@ -770,7 +770,7 @@ namespace JobLeet.WebApi.Migrations.BaseDB
 
                     b.HasOne("JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1.JobEntity", "Jobs")
                         .WithMany()
-                        .HasForeignKey("JobId")
+                        .HasForeignKey("JobsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

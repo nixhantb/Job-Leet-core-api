@@ -12,9 +12,8 @@ namespace JobLeet.WebApi.JobLeet.Core.Entities.Jobs.V1
         public string CompanyId { get; set; }
         public Company? Company { get; set; }
 
-        public string JobId { get; set; }
+        public string JobsId { get; set; }
 
-        [ForeignKey(nameof(JobId))]
         public JobEntity? Jobs { get; set; }
         public ApplicationDate? ApplicationDate { get; set; }
         public Status? Status { get; set; }

@@ -5,6 +5,6 @@
         public DateTime SubmitDate { get; set; }
         public DateTime ReviewDate { get; set; }
         public DateTime DecisionDate { get; set; }
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
     }
 }

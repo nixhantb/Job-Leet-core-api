@@ -107,6 +107,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
             }
         }
 
+        //b4dc5b8a-a78b-4a8c-8308-20c7e5ad73a4
         public async Task DeleteAsync(string id)
         {
             throw new NotImplementedException();
