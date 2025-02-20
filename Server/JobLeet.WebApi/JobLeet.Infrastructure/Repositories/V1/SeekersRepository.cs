@@ -70,8 +70,7 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
             try
             {
                 var seeker = await _dbContext
-                    .Seekers.Where(c => c.Id.Equals(id))
-                    .Include(p => p.PersonName)
+                    .Seekers.Include(p => p.PersonName)
                     .Include(c => c.Phone)
                     .Include(c => c.Address)
                     .Include(c => c.Skills)
@@ -93,7 +92,9 @@ namespace JobLeet.WebApi.JobLeet.Infrastructure.Repositories.Seekers.V1
                     .ThenInclude(c => c.Company)
                     .ThenInclude(p => p.Profile)
                     .ThenInclude(it => it.IndustryTypes)
-                    .FirstOrDefaultAsync();
+                    .Include(p => p.Projects)
+                    .Include(s => s.SocialMedias)
+                    .FirstOrDefaultAsync(j => j.Id == id);
 
                 var seekerModel = SeekersMapper.ToSeekerModel(seeker);
                 return seekerModel;

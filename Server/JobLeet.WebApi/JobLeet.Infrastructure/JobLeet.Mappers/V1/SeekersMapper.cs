@@ -101,14 +101,18 @@ namespace JobLeet.WebApi.JobLeet.Mappers.V1
                         }
                         : null,
                 ProfileSummary = model.ProfileSummary,
-                SocialMedias = model
-                    .SocialMedias.Select(sm => new Api.Models.Seekers.V1.SocialMedia
-                    {
-                        Id = sm.Id,
-                        Title = sm.Title,
-                        Url = sm.Url,
-                    })
-                    .ToList(),
+                SocialMedias =
+                    model?.SocialMedias != null
+                        ? model
+                            .SocialMedias.Select(sm => new Api.Models.Seekers.V1.SocialMedia
+                            {
+                                Id = sm.Id,
+                                Title = sm.Title,
+                                Url = sm.Url,
+                            })
+                            .ToList()
+                        : new List<Api.Models.Seekers.V1.SocialMedia>(),
+
                 Interests = model.Interests,
                 Achievements = model.Achievements,
             };
